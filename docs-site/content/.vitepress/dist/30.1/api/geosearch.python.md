@@ -1,0 +1,232 @@
+> **AI agents and LLMs:** before exploring further, fetch the full index of Typesense documentation with descriptions at https://typesense.org/docs/llms.txt.
+
+---
+description: "Search and filter documents by latitude and longitude using geopoint fields. Supports radius, polygon, and bounding-box queries with distance-based sorting."
+sidebarDepth: 2
+sitemap:
+  priority: 0.3
+---
+
+# Geosearch
+
+Typesense supports geo search on fields containing latitude and longitude values, specified as the `geopoint` or `geopoint[]` [field types](./collections.md#field-types).
+
+Let's create a collection called `places` with a field called `location` of type `geopoint`.
+
+
+
+
+```py
+schema = {
+  'name': 'places',
+  'fields': [
+    {
+      'name'  :  'title',
+      'type'  :  'string'
+    },
+    {
+      'name'  :  'points',
+      'type'  :  'int32'
+    },
+    {
+      'name'  :  'location',
+      'type'  :  'geopoint'
+    }
+  ],
+  'default_sorting_field': 'points'
+}
+
+client.collections.create(schema)
+```
+
+
+
+Let's now index a document.
+
+
+
+
+```py
+document = {
+  'title': 'Louvre Museuem',
+  'points': 1,
+  'location': [48.86093481609114, 2.33698396872901]
+}
+
+client.collections['places'].documents.create(document)
+```
+
+
+
+
+
+
+:::warning NOTE
+Make sure to set the coordinates in the correct order: `[Latitude, Longitude]`. GeoJSON often uses `[Longitude, Latitude]` which is invalid!
+:::
+
+## Searching within a Radius
+
+We can now search for places within a given radius of a given latlong
+(use `mi` for miles and `km` for kilometers) using the `filter_by` search parameter.
+
+In addition, let's also sort the records that are closest to a given
+location (this location can be the same or different from the latlong used for filtering).
+
+
+
+
+```py
+search_parameters = {
+  'q'         : '*',
+  'query_by'  : 'title',
+  'filter_by' : 'location:(48.90615915923891, 2.3435897727061175, 5.1 km)',
+  'sort_by'   : 'location(48.853, 2.344):asc'
+}
+
+client.collections['companies'].documents.search(search_parameters)
+```
+
+
+
+**Sample Response**
+
+
+```json
+{
+  "facet_counts": [],
+  "found": 1,
+  "hits": [
+    {
+      "document": {
+        "id": 0,
+        "location": [48.86093481609114, 2.33698396872901],
+        "points": 1,
+        "title": "Louvre Museuem"
+      },
+      "geo_distance_meters": {"location": 1020},
+      "highlights": [],
+      "text_match": 16737280
+    }
+  ],
+  "out_of": 1,
+  "page": 1,
+  "request_params": {"collection_name": "places", "per_page": 10, "q": "*"},
+  "search_time_ms": 0
+}
+```
+
+
+The above example uses "5.1 km" as the radius, but you can also use miles, e.g.
+`location:(48.90615915923891, 2.3435897727061175, 2 mi)`.
+
+## Searching Within a Geo Polygon
+
+You can also filter for documents within any arbitrary shaped polygon.
+
+You want to specify the geo-points of the polygon as lat, lng pairs.
+
+```shell
+'filter_by' : 'location:(48.8662, 2.3255, 48.8581, 2.3209, 48.8561, 2.3448, 48.8641, 2.3469)'
+```
+
+## Geographic Polygons
+
+You can also store polygonal geographic areas using the `geopolygon` field type and then check if points fall within these areas.
+
+### Creating a Collection with Geopolygons
+
+Let's create a collection with a field to store polygon areas:
+
+
+```bash
+curl -H "X-TYPESENSE-API-KEY: ${TYPESENSE_API_KEY}" \
+     -H "Content-Type: application/json" \
+     "http://localhost:8108/collections" -X POST \
+     -d '{
+       "name": "territories",
+       "fields": [
+         {"name": "name", "type": "string"},
+         {"name": "area", "type": "geopolygon"}
+       ]
+     }'
+```
+
+
+### Adding Polygon Areas
+
+Add documents containing polygon areas by specifying the coordinates in counter-clockwise (CCW) or clockwise (CW) order:
+
+
+```bash
+curl "http://localhost:8108/collections/territories/documents" -X POST \
+     -H "Content-Type: application/json" \
+     -H "X-TYPESENSE-API-KEY: ${TYPESENSE_API_KEY}" \
+     -d '{
+       "name": "square",
+       "area": [0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0]
+     }'
+```
+
+
+:::warning NOTE
+Coordinates must be specified in proper CCW or CW order to form a valid polygon. Incorrect ordering will result in an error.
+:::
+
+### Searching Points in Polygons
+
+You can search for documents whose polygon areas contain a specific point:
+
+
+```bash
+curl -H "X-TYPESENSE-API-KEY: ${TYPESENSE_API_KEY}" \
+     "http://localhost:8108/collections/territories/documents/search\
+      ?q=*&filter_by=area:(0.5, 0.5)"
+```
+
+
+This will return all polygons that contain the point (0.5, 0.5).
+
+**Sample Response**
+
+
+```json
+{
+  "found": 1,
+  "hits": [
+    {
+      "document": {
+        "area": [0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0],
+        "id": "0",
+        "name": "square"
+      }
+    }
+  ]
+}
+```
+
+
+## Sorting by Additional Attributes within a Radius
+
+### exclude_radius
+
+Sometimes, it's useful to sort nearby places within a radius based on another attribute like `popularity`, and then sort by distance outside this radius.
+You can use the `exclude_radius` option for that.
+
+```shell
+'sort_by' : 'location(48.853, 2.344, exclude_radius: 2mi):asc, popularity:desc'
+```
+
+This makes all documents within a 2 mile radius to "tie" with the same value for distance.
+To break the tie, these records will be sorted by the next field in the list `popularity:desc`.
+Records outside the 2 mile radius are sorted first on their distance and then on `popularity:desc` as usual.
+
+### precision
+
+Similarly, you can bucket all geo points into "groups" using the `precision` parameter, so that all results within this group will have the same "geo distance score".
+
+```shell
+'sort_by' : 'location(48.853, 2.344, precision: 2mi):asc, popularity:desc'
+```
+
+This will bucket the results into 2-mile groups and force records within each bucket into a tie for "geo score", so that the popularity metric can be used to tie-break and sort results within each bucket.

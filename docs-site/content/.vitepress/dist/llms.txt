@@ -1,0 +1,154 @@
+# Typesense Documentation
+
+> Open-source typo-tolerant search engine. Latest version: 30.2.
+
+## Overview
+
+- [/overview/](/docs/overview/README.md)
+- [Typesense Benchmarks](/docs/overview/benchmarks.md): Typesense benchmarks across 2M recipe, 28M book, and 3M product datasets covering RAM use, index time, throughput, and average query latency on small clusters.
+- [Comparison with Alternatives](/docs/overview/comparison-with-alternatives.md): How Typesense compares to Elasticsearch, Algolia, and Meilisearch on operability, cost, and developer experience, with a side-by-side feature matrix.
+- [Live Demos](/docs/overview/demos.md): Live demo sites showcasing Typesense across recipes, books, geo, vector, semantic, conversational, natural-language, and image search.
+- [Features](/docs/overview/features.md): Complete list of Typesense features: typo tolerance, faceting, ranking, geo search, vector search, semantic search, RAG, JOINs, synonyms, clustering, and more.
+- [Typesense Use Cases](/docs/overview/use-cases.md): What Typesense is good at: search-as-you-type, faceted browsing, geo search, multi-tenant search, federated search, semantic search, recommendations, and RAG.
+- [What is Typesense?](/docs/overview/what-is-typesense.md): Typesense is an open-source, typo-tolerant search engine optimized for sub-50ms instant search and developer productivity, positioned between Algolia and Elasticsearch.
+- [Why Typesense?](/docs/overview/why-typesense.md): Typesense design philosophy: batteries-included defaults, simple operability, and a focus on shrinking time-to-market for a great instant-search experience.
+
+## API Reference (30.2)
+
+- [Typesense API Reference for v{{ $page.typesenseVersion }}](/docs/30.2/api/README.md)
+- [Analytics](/docs/30.2/api/analytics-query-suggestions.md): Aggregate search queries and track user interaction events (clicks, conversions, visits) for query suggestions, popularity scoring, and personalization.
+- [API Clients](/docs/30.2/api/api-clients.md): Official and community-maintained Typesense client libraries for JavaScript, PHP, Python, Ruby, Dart, Java, Go, Swift, and more, with install links.
+- [API errors](/docs/30.2/api/api-errors.md): HTTP response codes returned by the Typesense API and what each 4xx and 5xx status means.
+- [API Keys](/docs/30.2/api/api-keys.md): Create, list, and delete Typesense API keys with fine-grained access control scoped per collection, action, record, or field, including scoped search keys.
+- [Authentication](/docs/30.2/api/authentication.md): Configure hostnames and API keys to authenticate requests against a Typesense cluster from each official client library.
+- [Cluster Operations](/docs/30.2/api/cluster-operations.md): Operate a running Typesense cluster: snapshots, node compaction, vote leadership, health and stats endpoints, slow-request logging, and leader re-election.
+- [Collection Alias](/docs/30.2/api/collection-alias.md): Create a virtual alias pointing to a real collection so you can swap underlying collections without changing client code, useful for zero-downtime reindexing.
+- [Collections](/docs/30.2/api/collections.md): Create, list, retrieve, update, and drop Typesense collections. Includes the schema definition format, supported field types, and per-field index options.
+- [Conversational Search (RAG)](/docs/30.2/api/conversational-search-rag.md): Build ChatGPT-style conversational Q&A over your indexed data using Typesense built-in RAG pipeline backed by the vector store and pluggable LLM models.
+- [Curation](/docs/30.2/api/curation.md): Curation sets let you pin, hide, or replace documents for specific queries to promote, demote, or substitute results without touching the underlying index.
+- [Documents](/docs/30.2/api/documents.md): Index, retrieve, update, upsert, delete, import, and export documents in a Typesense collection, including bulk JSONL imports and partial updates.
+- [Federated / Multi Search](/docs/30.2/api/federated-multi-search.md): Run multiple search requests in a single HTTP call. Federated mode returns each result independently; union mode merges them into one ranked list.
+- [Geosearch](/docs/30.2/api/geosearch.md): Search and filter documents by latitude and longitude using geopoint fields. Supports radius, polygon, and bounding-box queries with distance-based sorting.
+- [Image Search](/docs/30.2/api/image-search.md): Index and search images using Typesense built-in CLIP model. Search by text description or find visually similar images via embedding-based KNN.
+- [JOINs](/docs/30.2/api/joins.md): Define reference fields between collections and run joined queries with one-to-one, one-to-many, and many-to-many relations across Typesense collections.
+- [Natural Language Search](/docs/30.2/api/natural-language-search.md): Translate free-form user sentences into structured Typesense search parameters (filters, sort, query terms) using an LLM, so users can search in plain English.
+- [Search](/docs/30.2/api/search.md): Query a Typesense collection with full-text search, filters, facets, sorting, grouping, typo tolerance, and pagination. Includes the full parameter reference.
+- [Server Configuration](/docs/30.2/api/server-configuration.md): Reference for every Typesense server flag, config-file option, and runtime parameter covering networking, storage, peering, TLS, logging, and resource limits.
+- [Stemming](/docs/30.2/api/stemming.md): Enable language-aware stemming so a search for one form of a word also matches its grammatical variations (run/running/ran, company/companies).
+- [Stopwords](/docs/30.2/api/stopwords.md): Configure stopword sets, words that Typesense strips from search queries but not from indexed data, scoped per locale and attached to searches.
+- [Synonym Sets](/docs/30.2/api/synonyms.md): Define one-way and multi-way synonym sets so queries match documents containing equivalent words (e.g. sneaker matches shoe), attached at search time.
+- [Vector Search](/docs/30.2/api/vector-search.md): Index embeddings from any ML model and run nearest-neighbor (KNN) queries for semantic search, recommendations, hybrid search, visual search, and RAG.
+- [Voice Query](/docs/30.2/api/voice-search-query.md): Send a base64-encoded audio clip to Typesense for transcription via a configured voice-query model (Whisper), then run the resulting text as a query.
+
+## Guides
+
+- [Typesense Guide](/docs/guide/README.md)
+- [A/B Testing](/docs/guide/ab-testing.md): Run A/B tests against Typesense search parameters using third-party platforms like Flagsmith, Growthbook, or Optimizely to tune relevance and measure conversion lift.
+- [AI Agents: Why You Should Use Typesense for Knowledge Retrieval](/docs/guide/ai-agents-typesense.md): Why AI agents and LLM-driven knowledge retrieval should pick Typesense over vector-only stores or grep, with unified keyword, semantic, and structured search in one binary.
+- [Building a Search Bar in Angular](/docs/guide/angular-search-bar.md): Build an Angular search UI with Typesense using standalone components, instantsearch.js connectors, and the typesense-instantsearch-adapter, end to end.
+- [Building a Search Bar in Astro](/docs/guide/astro-search-bar.md): Build a typo-tolerant book search interface in an Astro site using Typesense and the typesense-instantsearch-adapter, from project setup to a working UI.
+- [Backing Up and Restoring Typesense Data](/docs/guide/backups.md): Safely back up and restore a self-hosted Typesense node by taking a snapshot via the cluster-operations API and archiving the snapshot directory.
+- [Boolean Search with Tags](/docs/guide/boolean-tag-search.md): Implement boolean (AND/OR) search across full-text fields in Typesense via a tag-search pattern, keeping typo tolerance and ranking benefits intact.
+- [Build A Search Application](/docs/guide/building-a-search-application.md): First-steps walk-through: create a Typesense collection, index a sample books dataset, and run your first searches via a client library.
+- [Configure Typesense](/docs/guide/configure-typesense.md): Redirect page to the latest version of the Typesense server configuration reference.
+- [Managing Access to Data](/docs/guide/data-access-control.md): Manage who can read and write to a Typesense cluster: bootstrap key handling, scoped API keys per collection, action, record or field, and key rotation.
+- [Deploy a Typesense cluster to Docker Swarm](/docs/guide/docker-swarm-high-availability.md): Deploy a Typesense high-availability cluster across multiple hosts using Docker Swarm services, including init, peer config, and node-join steps.
+- [Search for Documentation Sites](/docs/guide/docsearch.md): Index a documentation site with typesense-docsearch-scraper and drop in typesense-docsearch.js to add a fast search bar (same setup powering Typesense docs).
+- [Full-text Fuzzy Search with DynamoDB and Typesense](/docs/guide/dynamodb-full-text-search.md): Stream DynamoDB changes into Typesense via a Lambda plus DynamoDB Streams pipeline so a DynamoDB table gets full-text, typo-tolerant search via Typesense.
+- [Frequently Asked Questions](/docs/guide/faqs.md): Frequently asked questions on Typesense covering keyword search, prefix matching, indexing, ranking, deployment, and operational behavior.
+- [Full-text Search for Firebase with Typesense](/docs/guide/firebase-full-text-search.md): Add full-text search to a Firebase / Firestore app by syncing documents into Typesense using the official Firebase Extension or your own trigger.
+- [Building a Search API with Go Gin and Typesense](/docs/guide/gin-search-api.md): Build a Go (Gin) REST API backed by PostgreSQL as source of truth, kept in sync with Typesense for fast typo-tolerant search served via a proxy endpoint.
+- [Running E2E Tests with the Typesense in GitHub Action](/docs/guide/github-actions.md): Run end-to-end tests against a real Typesense instance from inside a GitHub Actions workflow, either via a community action or a manual service step.
+- [High Availability](/docs/guide/high-availability.md): Run a Raft-backed Typesense cluster for high availability and automatic replication, with quorum sizing guidance and Typesense Cloud managed HA.
+- [Install Typesense](/docs/guide/install-typesense.md): Install Typesense via Typesense Cloud, prebuilt DEB/RPM packages, downloadable binaries for Linux/macOS, or the official Docker image.
+- [Installing a client](/docs/guide/installing-a-client.md): Pick and install a Typesense client library: official builds for JavaScript, PHP, Python, Ruby, and community libraries for Go, Java, Rust, Dart, Swift, and more.
+- [Building a Search Bar in Kotlin for Android](/docs/guide/kotlin-search-bar.md)
+- [Building an AI-Powered Movie Search Engine with LangChain and Typesense](/docs/guide/langchain-ai-search.md)
+- [Laravel Full-Text Search](/docs/guide/laravel-full-text-search.md): Add typo-tolerant full-text search to a Laravel app by wiring Laravel Scout to the Typesense driver, indexing Eloquent models with a few config changes.
+- [Tips for Locale-Specific Search](/docs/guide/locale.md): Index and search non-English text in Typesense: configure the locale field option, supported languages, tokenization tradeoffs, and best practices.
+- [Search for Magento2 Sites](/docs/guide/magento2-search.md): Replace Magento 2 default database-backed search with Typesense using the community-built Magento Extension to deliver instant, scaleable product search.
+- [Migrating from Algolia](/docs/guide/migrating-from-algolia.md): Migration guide for moving from Algolia to Typesense: timeline, document mapping, synonyms and rules export-import, and using the InstantSearch adapter.
+- [Full-text Fuzzy Search with MongoDB and Typesense](/docs/guide/mongodb-full-text-search.md): Stream MongoDB documents into Typesense via Change Streams (or the official Node.js CLI) to get typo-tolerant full-text search backed by a MongoDB source.
+- [Natural Language Search](/docs/guide/natural-language-search.md): Use an LLM (e.g. Google Gemini) alongside Typesense to translate plain-English search queries into structured filter, sort, and query parameters at runtime.
+- [Building a Search Bar in Next.JS](/docs/guide/next-js-search-bar.md): Build a search interface in a Next.js (React) app using Typesense via instantsearch.js and the typesense-instantsearch-adapter, from setup to deployed UI.
+- [Building a Search API with Node.js, Express, Drizzle ORM, and Typesense](/docs/guide/node-drizzle-search-api.md)
+- [Building a Search API with Node.js, Express, Prisma, and Typesense](/docs/guide/node-prisma-search-api.md)
+- [Building a Search API with Node.js, Express, Sequelize, and Typesense](/docs/guide/node-sequelize-search-api.md)
+- [Building a Search Bar in Nuxt.js](/docs/guide/nuxt-js-search-bar.md): Build a search interface in a Nuxt.js (Vue) app using Typesense via instantsearch.js and the typesense-instantsearch-adapter, from setup to deployed UI.
+- [Organizing Collections](/docs/guide/organizing-collections.md): How to model Typesense data into collections: one-per-entity vs combined, tradeoffs for joins, multi-tenancy, and rebuild or reindex strategies.
+- [Personalizing Search Results](/docs/guide/personalization.md): Personalize search rankings per user or user-group in Typesense using popularity ranking, scoped overrides, and ML-based recommendations via vector search.
+- [Personalizing Search Results with JOINs](/docs/guide/personalized-search-join.md)
+- [Query Suggestions](/docs/guide/query-suggestions.md): Build Google/Amazon-style search-as-you-type query suggestions in Typesense using either the analytics aggregation rule or a dedicated suggestions collection.
+- [Building a Search Bar in Qwik](/docs/guide/qwik-js-search-bar.md): Build a search interface in a Qwik app using Typesense via instantsearch.js and the typesense-instantsearch-adapter, from setup to deployed UI.
+- [Ranking and Relevance](/docs/guide/ranking-and-relevance.md): How Typesense ranks results: text-match scoring (frequency, edit distance, proximity), query_by ordering and weights, field weighting, and tie-breakers.
+- [Building a Search Bar in React Native](/docs/guide/react-native-search-bar.md): Build a cross-platform iOS/Android search interface in React Native (Expo) using Typesense for instant, typo-tolerant in-app search.
+- [Recommendations](/docs/guide/recommendations.md): Generate item recommendations in Typesense by training a model (e.g. Starspace), storing embeddings, and using vector search for nearest-neighbor lookup.
+- [Reference Implementations](/docs/guide/reference-implementations/README.md)
+- [Address autocomplete](/docs/guide/reference-implementations/address-autocomplete.md)
+- [AI Image Search](/docs/guide/reference-implementations/ai-image-search.md)
+- [Airports Geo Search](/docs/guide/reference-implementations/airports-geo-search.md)
+- [Books Search](/docs/guide/reference-implementations/books-search.md)
+- [Boolean Search](/docs/guide/reference-implementations/boolean-search.md)
+- [E-Commerce Storefront with Next.js & Typesense](/docs/guide/reference-implementations/ecommerce-storefront-with-next-js-and-typesense.md)
+- [E-Commerce Storefront](/docs/guide/reference-implementations/ecommerce-storefront.md)
+- [Federated Search](/docs/guide/reference-implementations/federated-search.md)
+- [Geo Search](/docs/guide/reference-implementations/geo-search.md)
+- [Good Reads Books Search](/docs/guide/reference-implementations/good-reads-books-search-with-vue.md)
+- [Good Reads Books Search (without NPM or Yarn)](/docs/guide/reference-implementations/good-reads-books-search-without-npm.md)
+- [Guitar Chords Search in different JS frameworks](/docs/guide/reference-implementations/guitar-chords-search-in-different-js-frameworks.md)
+- [Semantic + Hybrid Search on HackerNews Comments](/docs/guide/reference-implementations/hn-comments-semantic-hybrid-search.md)
+- [Using JOINs with Typesense and Django](/docs/guide/reference-implementations/joins.md)
+- [Using Search with Kotlin Compose and Typesense](/docs/guide/reference-implementations/kotlin-soccer-search.md)
+- [Laravel Scout Integration](/docs/guide/reference-implementations/laravel-scout-integration.md)
+- [Linux Commits Search](/docs/guide/reference-implementations/linux-commits-search.md)
+- [Next.js App Router SSR on Steam Games](/docs/guide/reference-implementations/nextjs-app-router-ssr.md)
+- [Natural Language Search restaurants](/docs/guide/reference-implementations/nl-search-restaurants.md)
+- [Paul Graham essays conversational search](/docs/guide/reference-implementations/pg-essays-conversational-search.md)
+- [Recipe Search](/docs/guide/reference-implementations/recipe-search.md)
+- [Songs Search](/docs/guide/reference-implementations/songs-search.md)
+- [Typeahead Spellchecker](/docs/guide/reference-implementations/typeahead-spellchecker.md)
+- [Using Autocomplete.js with Typesense](/docs/guide/reference-implementations/typesense-autocomplete-js.md)
+- [xkcd Search](/docs/guide/reference-implementations/xkcd-search.md)
+- [Running Typesense in Production](/docs/guide/running-in-production.md): Best practices for running Typesense in production: capacity planning, HA setup, deployment via Docker or systemd, monitoring, and operational tips.
+- [Search Analytics](/docs/guide/search-analytics.md): Capture search analytics for Typesense, either server-side via aggregated analytics rules or client-side by piping search events into your existing analytics tool.
+- [/guide/search-delivery-network.html](/docs/guide/search-delivery-network.md): Redirect page to the latest Search Delivery Network documentation URL.
+- [Building Search UIs](/docs/guide/search-ui-components.md): Build a search UI with Algolia InstantSearch.js (and its React/Vue/Angular variants) on top of Typesense via the typesense-instantsearch-adapter.
+- [Semantic Search](/docs/guide/semantic-search.md): Add semantic search to a Typesense collection using built-in embedding models or external ones (OpenAI, PaLM, Vertex AI) with auto-embedded fields.
+- [Building a Search Bar in Solid.js](/docs/guide/solid-js-search-bar.md): Build a search interface in a Solid.js app using Typesense via instantsearch.js and the typesense-instantsearch-adapter, from setup to deployed UI.
+- [Building a Search API with Spring Boot and Typesense](/docs/guide/spring-boot-search-api.md)
+- [Syncing Supabase with Typesense](/docs/guide/supabase-full-text-search.md): Sync data from Supabase (Postgres) into Typesense to add fast, typo-tolerant full-text search to a Supabase-backed app via triggers or edge functions.
+- [Building a Search Bar in Swift for iOS](/docs/guide/swift-search-bar.md)
+- [Syncing Data into Typesense](/docs/guide/syncing-data-into-typesense.md): Strategies for keeping Typesense in sync with a primary database: bulk polling, change-data-capture, queue-based pipelines, and import API patterns.
+- [System Requirements](/docs/guide/system-requirements.md): Choose RAM, CPU, and disk for a self-hosted Typesense cluster based on dataset size, query patterns, search type (keyword/vector), and concurrency.
+- [Running Integration Tests with Testcontainers](/docs/guide/testcontainers.md): Run a real Typesense instance from integration tests using Testcontainers (Java, Node, Python, Go, .NET) for isolated, reproducible test environments.
+- [Tips for Filtering Data in Typesense](/docs/guide/tips-for-filtering.md): Filter Typesense search results by exact, range, multi-value, geo, nested, and joined-collection conditions using filter_by, with syntax tips and examples.
+- [Tips for Searching Common Types of Data](/docs/guide/tips-for-searching-common-types-of-data.md): How to index and search tricky data types in Typesense: SKUs, part numbers, emails, URLs, hashtags, code identifiers, and other punctuation-heavy strings.
+- [Role-Based Access Control (RBAC) for Admin Dashboard in Typesense Cloud](/docs/guide/typesense-cloud/role-based-access-control-admin-dashboard.md)
+- [Search Delivery Network](/docs/guide/typesense-cloud/search-delivery-network.md)
+- [Single-Sign On (SSO) in Typesense Cloud](/docs/guide/typesense-cloud/single-sign-on.md)
+- [Team Accounts in Typesense Cloud](/docs/guide/typesense-cloud/team-accounts.md)
+- [Typesense JS Client Tuning](/docs/guide/typesense-js-client-tuning.md): Configure timeouts, retries, and connection settings for the Typesense JavaScript client in browser and server contexts, optimized for fast UX failure modes.
+- [Updating Typesense](/docs/guide/updating-typesense.md): Upgrade a Typesense Cloud or self-hosted cluster between versions, including pre-update checks, release-notes review, and rolling-upgrade procedure.
+- [Building a Search Bar in Vanilla JavaScript](/docs/guide/vanilla-js-search-bar.md): Build a typo-tolerant book search interface using plain JavaScript (no framework) and the Typesense ecosystem, from project setup to a working UI.
+- [Search for WordPress Sites](/docs/guide/wordpress-search.md): Add an instant search-as-you-type experience to a WordPress site via the community-built Search With Typesense WordPress plugin or the SwiftSearch for Typesense plugin, indexing posts, products, pages and any custom post types.
+
+## Cloud Management API
+
+- [Cloud Cluster Management API <Badge type="tip" text="Advanced" vertical="middle" />](/docs/cloud-management-api/v1/README.md)
+- [Authentication](/docs/cloud-management-api/v1/authentication.md)
+- [Cluster Cloning API](/docs/cloud-management-api/v1/cluster-cloning.md)
+- [Cluster Configuration Changes API](/docs/cloud-management-api/v1/cluster-configuration-changes.md)
+- [Cluster Management API](/docs/cloud-management-api/v1/cluster-management.md)
+- [Invoices API](/docs/cloud-management-api/v1/invoices.md)
+- [Rate Limits](/docs/cloud-management-api/v1/rate-limits.md)
+- [Response Codes](/docs/cloud-management-api/v1/response-codes.md)
+- [Terraform Module](/docs/cloud-management-api/v1/terraform-module.md)
+- [Typesense Server Configuration Parameters API](/docs/cloud-management-api/v1/typesense-server-configuration-parameters.md)
+
+## Per-language variants
+
+Append `.{lang}.md` to any page that has tabbed code samples to retrieve a single-language slice (e.g. `search.javascript.md`, `building-a-search-application.python.md`). Available languages: javascript, python, php, ruby, dart, java, go, swift, shell. Languages are only emitted when the page documents that language. API pages older than the latest two versions ship the base `.md` only, no language variants.
+
+## OpenAPI spec
+
+- https://raw.githubusercontent.com/typesense/typesense-api-spec/master/openapi.yml

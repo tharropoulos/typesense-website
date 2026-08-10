@@ -1,0 +1,313 @@
+/* Source Sans Pro — the site's brand font (ported from index.styl). */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * shadcn-vue's default border layer. Without it, a bare `border` utility (e.g.
+ * on PopoverContent) falls back to Tailwind Preflight's fixed light default,
+ * which never tracks dark mode — so panel borders read as near-invisible on the
+ * dark surface. Point every default border at the theme's --border token.
+ */
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
+/*
+ * Brand scale — one seed (`--brand`, v3 org's lime) expanded into a Radix-style
+ * 1–12 ramp via CSS relative-color + color-mix. Everything brand-colored derives
+ * from these steps: light fills at 3–5, borders at 6/8, the solid brand at 9/10,
+ * and accessible text at 11/12. The `.dark` block re-derives the same steps.
+ */
+:root {
+  --brand: #c0ff58;
+  --brand-contrast: #000; /* text on a solid brand fill */
+  --brand-3-raw: hsl(from var(--brand) h s 96%);
+  --brand-4-raw: hsl(from var(--brand) h s 94%);
+  --brand-5-raw: hsl(from var(--brand) h s 92%);
+  --brand-6-raw: hsl(from var(--brand) h s 82%);
+  --brand-8-raw: hsl(from var(--brand) h 40% 50%);
+  --brand-9-raw: var(--brand);
+  --brand-10-raw: color-mix(in srgb, var(--brand), black 5%);
+  --brand-11-raw: hsl(from var(--brand) h 100% 25%); /* accessible text on light */
+  --brand-12-raw: hsl(from var(--brand) h s 10%);
+}
+.dark {
+  --brand-3-raw: hsl(from var(--brand) h s 10%);
+  --brand-4-raw: hsl(from var(--brand) h s 18%);
+  --brand-5-raw: hsl(from var(--brand) h s 20%);
+  --brand-6-raw: hsl(from var(--brand) h s 30%);
+  --brand-8-raw: hsl(from var(--brand) h s 50%);
+  --brand-10-raw: color-mix(in srgb, var(--brand), white 5%);
+  --brand-11-raw: hsl(from var(--brand) h 100% 75%);
+  --brand-12-raw: hsl(from var(--brand) h s 90%);
+}
+
+/*
+ * Neutral ink/line/surface tokens. The Tailwind `ink`/`line`/`surface` scales
+ * read these, so every `text-ink`/`border-line`/`bg-surface-*` utility flips
+ * automatically. Light = the original hex; dark = white-alpha ramps + near-black
+ * panels that sit on the pure-black background below.
+ */
+:root {
+  --ink: #313132;
+  --ink-muted: #6f6f71;
+  --ink-light: #89898b;
+  --ink-lighter: #909092;
+  --ink-lightest: #a2a2a4;
+  --line: #eee8ee;
+  --line-dark: #cfbecf;
+  --surface-gray: #f7f7f7;
+  --surface-gray-hover: #ebebeb;
+}
+.dark {
+  --ink: rgba(255, 255, 255, 0.92);
+  --ink-muted: rgba(255, 255, 255, 0.64);
+  --ink-light: rgba(255, 255, 255, 0.5);
+  --ink-lighter: rgba(255, 255, 255, 0.44);
+  --ink-lightest: rgba(255, 255, 255, 0.38);
+  --line: rgba(255, 255, 255, 0.16);
+  --line-dark: rgba(255, 255, 255, 0.28);
+  --surface-gray: #1a1a1a;
+  --surface-gray-hover: #262626;
+}
+
+/*
+ * shadcn-vue design tokens. --primary is the solid brand (step 9) with black
+ * text; kept as an HSL triple so Tailwind's alpha utilities (bg-primary/90) work.
+ */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 1% 19%; /* #313132 */
+  --muted: 300 19% 96%;
+  --muted-foreground: 240 1% 44%; /* ~lighten(text, 25%) */
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 1% 19%;
+  --border: 300 19% 92%; /* #eee8ee */
+  --input: 300 19% 92%;
+  --primary: 83 100% 67%; /* brand step 9 (#c0ff58) */
+  --primary-foreground: 0 0% 0%; /* --brand-contrast */
+  --ring: 83 40% 50%; /* brand step 8 */
+  --radius: 0.5rem;
+}
+/* Dark theme: neutrals on a near-black (not pure black) base. --primary/--ring
+ * stay brand (readable as a lime fill/focus ring on dark), so they are not
+ * re-declared here. */
+.dark {
+  --background: 0 0% 6%; /* #0f0f0f — lifted off pure black */
+  --foreground: 0 0% 92%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 64%;
+  --popover: 0 0% 12%; /* lifted above the page so overlays read as panels */
+  --popover-foreground: 0 0% 92%;
+  --border: 0 0% 22%; /* clearly visible against the panel/page */
+  --input: 0 0% 22%;
+}
+
+/*
+ * VitePress default-theme variables wired to the brand scale: "brand text"
+ * (links, active sidebar, loader ring) uses the accessible step 11; solid brand
+ * buttons use step 9/10 with black text; soft fills use the light steps.
+ */
+:root {
+  --vp-c-brand-1: var(--brand-11-raw);
+  --vp-c-brand-2: var(--brand-12-raw); /* darker, hover */
+  --vp-c-brand-3: var(--brand-9-raw); /* solid brand */
+  --vp-c-brand-soft: var(--brand-5-raw); /* light lime fill */
+
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-text: var(--brand-contrast);
+  --vp-button-brand-hover-text: var(--brand-contrast);
+  --vp-button-brand-active-text: var(--brand-contrast);
+  --vp-button-brand-bg: var(--brand-9-raw);
+  --vp-button-brand-hover-bg: var(--brand-10-raw);
+  --vp-button-brand-active-bg: var(--brand-10-raw);
+
+  --vp-c-text-1: #313132; /* $textColor */
+  --vp-c-text-2: #6f6f71;
+
+  --vp-font-family-base: 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+
+  --vp-sidebar-width: 20rem; /* $sidebarWidth 320px */
+  --vp-layout-max-width: 1440px;
+
+  /* White sidebar (not the default gray --vp-c-bg-alt); the vertical divider
+   * against the content is added on .VPSidebar below. */
+  --vp-sidebar-bg-color: var(--vp-c-bg);
+}
+
+/*
+ * Dark theme. The `:root` block above hardwires --vp-c-text-1/2 (and the bg via
+ * --vp-sidebar-bg-color), overriding VitePress's own dark values — so the dark
+ * neutrals must be re-declared here or text stays gray on a non-black bg. Nav
+ * and sidebar inherit the pure-black --vp-c-bg; alt/soft/elv stay barely lifted
+ * for code groups and other elevated surfaces.
+ */
+.dark {
+  --vp-c-bg: #0f0f0f;
+  --vp-c-bg-alt: #0f0f0f;
+  --vp-c-bg-soft: #1a1a1a;
+  --vp-c-bg-elv: #1a1a1a;
+  --vp-c-gutter: rgba(255, 255, 255, 0.14);
+  --vp-c-divider: rgba(255, 255, 255, 0.12);
+  --vp-c-text-1: var(--ink);
+  --vp-c-text-2: var(--ink-muted);
+}
+
+/*
+ * Anchor scroll offset. In-page clicks are handled by VitePress's JS with an
+ * offset, but a direct load of a `#anchor` URL uses the browser's native jump,
+ * which otherwise hides the heading under the fixed navbar. scroll-padding-top
+ * on the scroll root fixes native jumps; scroll-margin-top covers the targets.
+ */
+html {
+  scroll-padding-top: var(--vp-nav-height, 64px);
+}
+.vp-doc :is(h1, h2, h3, h4, h5, h6)[id],
+.vp-doc [id] {
+  scroll-margin-top: var(--vp-nav-height, 64px);
+}
+
+/* Drop the divider line under the logo in the sidebar column (! beats the
+ * component-scoped, attribute-boosted default rule). */
+.VPNavBarTitle.has-sidebar .title {
+  @apply !border-b-transparent;
+}
+
+/* Hide the left sidebar scrollbar (still scrollable via wheel/trackpad). */
+.VPSidebar {
+  scrollbar-width: none; /* Firefox */
+  /* Vertical divider matching the navbar bottom border (1px solid gutter). */
+  border-right: 1px solid var(--vp-c-gutter);
+}
+.VPSidebar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge */
+}
+
+/* Inline `<code>` accent underline on links. */
+.vp-doc a code {
+  text-decoration-color: var(--brand-6-raw);
+}
+.vp-doc a:hover code {
+  text-decoration-color: var(--brand-11-raw);
+}
+
+/*
+ * Indent a section's direct children. VitePress only indents deeper nesting
+ * (.level-1 .items and below), so a top-level group's children otherwise sit
+ * flush with the group title. Indent the label itself (link, or bare text for
+ * non-link group headers) rather than the .items container, so the row's box
+ * stays full-width and the active pill below can span it symmetrically.
+ */
+.VPSidebarItem.level-1 > .item > .link,
+.VPSidebarItem.level-1 > .item > .text {
+  @apply pl-3;
+}
+
+/*
+ * Active left-sidebar item: a light-lime pill (accent.selected = brand step 5) in
+ * place of the default 2px indicator bar. The pill matches the item's bounding
+ * box exactly — no negative-margin bleed — so its left edge lines up with the
+ * sidebar content edge (and the section title) rather than protruding past it.
+ */
+.VPSidebarItem.is-active > .item > .indicator {
+  @apply hidden;
+}
+.VPSidebarItem.is-active > .item {
+  @apply rounded-lg bg-accent-selected;
+}
+.VPSidebarItem.is-active > .item .link > .text {
+  @apply font-semibold;
+}
+
+/* Clamp every sidebar label to one line so wrapping can't change row height
+ * (min-w-0 lets the flex child shrink enough for the ellipsis to kick in). */
+.VPSidebarItem .text {
+  @apply min-w-0 line-clamp-1;
+}
+
+/* Right-sidebar "On this page": shrink the nested outline indent (16px -> 12px). */
+.VPDocOutlineItem.nested {
+  @apply pl-3;
+}
+
+/*
+ * Keep the version dropdown and the "On this page" header pinned while the
+ * outline headings scroll under them. `.aside-container` is the scroll container
+ * (position: fixed; overflow-y: auto), so both blocks are sticky-positioned
+ * against it — the heading list is deliberately NOT given its own scroll box,
+ * which would break the JS-positioned `.outline-marker` (it measures link
+ * offsets against `.VPDocAsideOutline .content`).
+ *
+ * `.aside-container` is `position: fixed` with a `padding-top` that already
+ * clears the navbar, so sticky `top` here is measured from that padded edge —
+ * `top: 0` pins the version block at the aside's content top (NOT relative to
+ * the window like VitePress's VPLocalNav, which would double-count the navbar).
+ * The title stacks flush below it using `--aside-pinned-top` (the version
+ * block's measured height, set from Layout.vue), collapsing to 0 when the
+ * dropdown is absent (non-API pages). z-index must beat the outline list's own
+ * `position: relative; z-index: 1` (VPDocOutlineItem) so the pinned blocks paint
+ * over the headings scrolling under them.
+ */
+.VPDocAside {
+  --aside-pinned-top: 0px;
+}
+.aside-pinned-version {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background-color: var(--vp-c-bg);
+}
+/* Mask headings scrolling up through the aside's top padding gap (the `+48px`
+ * breathing room in .aside-container's padding-top, above the pinned block). The
+ * bg extends upward from the version block's top; the navbar hides the rest. */
+.aside-pinned-version::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 100% 0;
+  height: 100vh;
+  background-color: var(--vp-c-bg);
+}
+.VPDocAsideOutline .outline-title {
+  position: sticky;
+  top: var(--aside-pinned-top);
+  z-index: 2;
+  padding-bottom: 4px;
+  background-color: var(--vp-c-bg);
+}
+/* Mirror of `.aside-curtain` (the bottom fade): a short gradient hanging off the
+ * pinned title so headings softly dissolve as they autoscroll up under it. Kept
+ * small (10px) so at rest it barely grazes the first heading — it only reads as
+ * a fade once the outline scrolls content beneath the title. */
+.VPDocAsideOutline .outline-title::after {
+  content: '';
+  position: absolute;
+  inset: 100% 0 auto 0;
+  height: 28px;
+  pointer-events: none;
+  background: linear-gradient(var(--vp-c-bg), transparent 50%);
+}
+
+
+/* The pinned version warning (VersionWarning.vue) is a solid box that masks the
+ * outline scrolling under it, so the default theme's bottom fade is redundant —
+ * and, being a separate fixed stacking context (z-index 10), it would paint over
+ * the box. `.aside` wraps both the curtain and the warning, so `:has()` drops the
+ * curtain only on asides that render the warning; every other page keeps its fade. */
+.aside:has(.version-warning) .aside-curtain {
+  @apply hidden;
+}
+
+/* `::: tip` callouts: soft-lime fill (step 4) + a step-11 brand left-bar. */
+.vp-doc .custom-block.tip {
+  @apply border-l-4 border-l-accent rounded-l-none;
+  --vp-custom-block-tip-bg: var(--brand-4-raw);
+  --vp-custom-block-tip-code-bg: var(--brand-5-raw);
+}
