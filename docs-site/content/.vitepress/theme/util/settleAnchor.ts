@@ -13,9 +13,9 @@ export function settleAnchorWith(fn = offsetDrift) {
   drift = fn
 }
 
-// tab groups only render client side and the web font swaps in late, both
-// after vitepress has jumped to the #hash. ios safari has no scroll anchoring,
-// so without this the heading ends up screens below the fold
+// a saved tab language and the web font both land after vitepress has jumped
+// to the #hash. ios safari has no scroll anchoring. Without this the heading
+// ends up screens below the fold
 export function settleAnchor(smooth = false) {
   release?.()
   let id: string

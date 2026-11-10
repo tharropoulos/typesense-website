@@ -29,6 +29,8 @@ const config = {
       text: '.vp-doc p, .vp-doc ul li, .vp-doc table tbody tr',
     },
   },
+  // code tabs render on the server. Inside a list item their labels and code would join the item's text
+  selectors_exclude: ['[role=tablist]', '[role=tabpanel]'],
   scrape_start_urls: false,
   // The .md/.{lang}.md artifacts emitted next to each page yield no records, skip crawling them
   stop_urls: ['\\.md$'],

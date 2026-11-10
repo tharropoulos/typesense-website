@@ -1,54 +1,55 @@
 <template>
   <div class="my-4">
-    <ClientOnly>
+    <div
+      class="relative overflow-hidden rounded-t-lg max-mobile:-mx-6 max-mobile:rounded-none before:pointer-events-none before:absolute before:z-[1] before:left-0 before:top-0 before:bottom-px before:w-6 before:bg-[linear-gradient(to_right,var(--vp-code-block-bg),transparent)] after:pointer-events-none after:absolute after:right-0 after:top-0 after:bottom-px after:w-6 after:bg-[linear-gradient(to_left,var(--vp-code-block-bg),transparent)]"
+    >
       <div
-        class="relative overflow-hidden rounded-t-lg max-mobile:-mx-6 max-mobile:rounded-none before:pointer-events-none before:absolute before:z-[1] before:left-0 before:top-0 before:bottom-px before:w-6 before:bg-[linear-gradient(to_right,var(--vp-code-block-bg),transparent)] after:pointer-events-none after:absolute after:right-0 after:top-0 after:bottom-px after:w-6 after:bg-[linear-gradient(to_left,var(--vp-code-block-bg),transparent)]"
+        ref="list"
+        role="tablist"
+        :data-copy-tabs="JSON.stringify(tabs)"
+        :data-copy-active-tab="activeTab"
+        class="group relative flex justify-start items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-6 py-2.5 border-b border-[var(--vp-c-divider)] bg-[var(--vp-code-block-bg)] text-[var(--vp-c-text-2)] text-xs"
+        @keydown="onKeydown"
+        @focusin="onFocusin"
       >
         <div
-          ref="list"
-          role="tablist"
-          :data-copy-tabs="JSON.stringify(tabs)"
-          :data-copy-active-tab="activeTab"
-          class="group relative flex justify-start items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-6 py-2.5 border-b border-[var(--vp-c-divider)] bg-[var(--vp-code-block-bg)] text-[var(--vp-c-text-2)] text-xs"
-          @keydown="onKeydown"
-          @focusin="onFocusin"
-        >
-          <div
-            v-if="pill && augmentedTabs.length > 1"
-            aria-hidden="true"
-            class="pointer-events-none absolute left-0 top-0 rounded-lg border border-border bg-muted shadow-sm transition-[transform,width] duration-300 ease-out-expo group-has-[:focus-visible]:transition-none motion-reduce:transition-none"
-            :style="{
-              transform: `translate(${pill.left}px, ${pill.top}px)`,
-              width: `${pill.width}px`,
-              height: `${pill.height}px`,
-            }"
-          />
-          <button
-            v-for="(tab, index) in augmentedTabs"
-            :id="`${id}-tab-${index}`"
-            :key="tab"
-            type="button"
-            role="tab"
-            :aria-selected="tab === activeTab"
-            :aria-controls="`${id}-panel-${index}`"
-            :tabindex="tab === activeTab && augmentedTabs.length > 1 ? 0 : -1"
-            class="relative shrink-0 rounded-lg px-2 py-1.5 leading-none whitespace-nowrap transition-colors after:absolute after:inset-x-0 after:-inset-y-2.5 hover:text-[var(--vp-c-text-1)] aria-selected:text-[var(--vp-c-text-1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
-            @click="setActiveTab(tab)"
-          >
-            {{ tab }}
-          </button>
-        </div>
-      </div>
-      <div class="content-container">
-        <div
+          v-if="pill && augmentedTabs.length > 1"
+          aria-hidden="true"
+          class="pointer-events-none absolute left-0 top-0 rounded-lg border border-border bg-muted shadow-sm transition-[transform,width] duration-300 ease-out-expo group-has-[:focus-visible]:transition-none motion-reduce:transition-none"
+          :style="{
+            transform: `translate(${pill.left}px, ${pill.top}px)`,
+            width: `${pill.width}px`,
+            height: `${pill.height}px`,
+          }"
+        />
+        <button
           v-for="(tab, index) in augmentedTabs"
-          v-show="tab === activeTab"
-          :id="`${id}-panel-${index}`"
+          :id="`${id}-tab-${index}`"
           :key="tab"
-          role="tabpanel"
-          :aria-labelledby="`${id}-tab-${index}`"
-          class="tab-content"
+          type="button"
+          role="tab"
+          :aria-selected="tab === activeTab"
+          :aria-controls="`${id}-panel-${index}`"
+          :tabindex="tab === activeTab && augmentedTabs.length > 1 ? 0 : -1"
+          class="relative shrink-0 rounded-lg px-2 py-1.5 leading-none whitespace-nowrap transition-colors after:absolute after:inset-x-0 after:-inset-y-2.5 hover:text-[var(--vp-c-text-1)] aria-selected:text-[var(--vp-c-text-1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
+          @click="setActiveTab(tab)"
         >
+          {{ tab }}
+        </button>
+      </div>
+    </div>
+    <div class="content-container">
+      <div
+        v-for="(tab, index) in augmentedTabs"
+        v-show="tab === activeTab"
+        :id="`${id}-panel-${index}`"
+        :key="tab"
+        role="tabpanel"
+        :aria-labelledby="`${id}-tab-${index}`"
+        class="tab-content"
+      >
+        <!-- the server fills only the shown panel. The rest would add hundreds of kB of hidden code to the html -->
+        <template v-if="mounted || tab === activeTab">
           <template v-if="tab === 'Other Languages'">
             <div class="language-bash">
               <pre class="language-bash" tabindex="0"><code
@@ -60,14 +61,14 @@ Have a look at the "Shell" tab for guidance on HTTP headers, method and paramete
             </div>
           </template>
           <slot v-else :name="tab" />
-        </div>
+        </template>
       </div>
-    </ClientOnly>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useResizeObserver } from '@vueuse/core'
+import { useMounted, useResizeObserver } from '@vueuse/core'
 import { computed, nextTick, ref, useId, watch } from 'vue'
 import { docsStore } from '../store'
 
@@ -82,7 +83,11 @@ const augmentedTabs = computed(() =>
   props.tabs.includes('Ruby') && props.tabs.includes('Python') ? [...props.tabs, 'Other Languages'] : props.tabs,
 )
 
+const mounted = useMounted()
+
 const activeTab = computed(() => {
+  // the server renders the first tab. A saved choice waits for mount so hydration matches
+  if (!mounted.value) return cmpActiveTab.value
   const preferred = augmentedTabs.value.find(tab => tab === docsStore.state.defaultTab)
   if (preferred) return preferred
   const singleLanguage = docsStore.singlePreferredCopyLanguage.value
@@ -126,7 +131,6 @@ const list = ref<HTMLElement | null>(null)
 const activeItem = ref<HTMLElement | null>(null)
 const pill = ref<{ left: number; top: number; width: number; height: number } | null>(null)
 
-// the list only exists once ClientOnly mounts
 watch(
   [list, activeTab],
   () => (activeItem.value = list.value?.querySelector<HTMLElement>('[aria-selected="true"]') ?? null),
