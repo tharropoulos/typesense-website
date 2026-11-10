@@ -11,6 +11,7 @@
           :data-copy-active-tab="activeTab"
           class="group relative flex justify-start items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-6 py-2.5 border-b border-[var(--vp-c-divider)] bg-[var(--vp-code-block-bg)] text-[var(--vp-c-text-2)] text-xs"
           @keydown="onKeydown"
+          @focusin="onFocusin"
         >
           <div
             v-if="pill"
@@ -116,7 +117,7 @@ function onKeydown(event: KeyboardEvent) {
   event.preventDefault()
   const count = augmentedTabs.value.length
   const next = (augmentedTabs.value.indexOf(activeTab.value) + step + count) % count
-  // focus before switching so the strip watcher sees a keyboard pick and skips the glide
+  // focus first so setActiveTab measures the strip after the focus scroll brings it back
   list.value!.querySelectorAll<HTMLElement>('[role="tab"]')[next].focus()
   setActiveTab(augmentedTabs.value[next])
 }
@@ -133,9 +134,16 @@ watch(
 )
 
 // every strip on the page follows the chosen tab, not just the clicked one
-watch(activeItem, (item, previous) => {
-  const strip = item?.parentElement
-  if (!strip) return
+watch(activeItem, (item, previous) => item && reveal(item, !!previous))
+
+// chrome's focus scroll leaves a tab that is only partly past the edge where it is
+function onFocusin(event: FocusEvent) {
+  const tab = event.target as HTMLElement
+  if (tab.matches(':focus-visible')) reveal(tab, false)
+}
+
+function reveal(item: HTMLElement, glide: boolean) {
+  const strip = item.parentElement!
   // the strip's own padding sits under its edge fades
   const inset = parseFloat(getComputedStyle(strip).paddingLeft)
   const shown =
@@ -143,10 +151,9 @@ watch(activeItem, (item, previous) => {
     item.offsetLeft + item.offsetWidth <= strip.scrollLeft + strip.clientWidth - inset
   // an instant scroll in place stops a glide toward an earlier pick, which can carry this one out of view
   const left = shown ? strip.scrollLeft : item.offsetLeft - (strip.clientWidth - item.offsetWidth) / 2
-  const smooth =
-    !shown && previous && !item.matches(':focus-visible') && !matchMedia('(prefers-reduced-motion: reduce)').matches
+  const smooth = glide && !shown && !matchMedia('(prefers-reduced-motion: reduce)').matches
   strip.scrollTo({ left, behavior: smooth ? 'smooth' : 'instant' })
-})
+}
 
 // also catches the font swapping in and tabs that mount hidden
 useResizeObserver(activeItem, () => {
