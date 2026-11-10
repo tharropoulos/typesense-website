@@ -9,7 +9,6 @@
         :data-copy-tabs="JSON.stringify(tabs)"
         :data-copy-active-tab="activeTab"
         class="group relative flex justify-start items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-6 py-2.5 border-b border-[var(--vp-c-divider)] bg-[var(--vp-code-block-bg)] text-[var(--vp-c-text-2)] text-xs"
-        @keydown="onKeydown"
         @focusin="onFocusin"
       >
         <div
@@ -33,6 +32,7 @@
           :tabindex="tab === activeTab && augmentedTabs.length > 1 ? 0 : -1"
           class="relative shrink-0 rounded-lg px-2 py-1.5 leading-none whitespace-nowrap transition-colors after:absolute after:inset-x-0 after:-inset-y-2.5 hover:text-[var(--vp-c-text-1)] aria-selected:text-[var(--vp-c-text-1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
           @click="setActiveTab(tab)"
+          @keydown="onKeydown($event, index)"
         >
           {{ tab }}
         </button>
@@ -115,13 +115,13 @@ async function setActiveTab(tab: string) {
   window.scrollBy(0, list.value!.getBoundingClientRect().top - top)
 }
 
-function onKeydown(event: KeyboardEvent) {
+function onKeydown(event: KeyboardEvent, index: number) {
   const steps: Record<string, number> = { ArrowLeft: -1, ArrowRight: 1 }
   const step = steps[event.key]
   if (!step || event.altKey || event.ctrlKey || event.metaKey) return
   event.preventDefault()
   const count = augmentedTabs.value.length
-  const next = (augmentedTabs.value.indexOf(activeTab.value) + step + count) % count
+  const next = (index + step + count) % count
   // focus first so setActiveTab measures the strip after the focus scroll brings it back
   list.value!.querySelectorAll<HTMLElement>('[role="tab"]')[next].focus()
   setActiveTab(augmentedTabs.value[next])
