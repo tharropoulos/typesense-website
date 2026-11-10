@@ -14,7 +14,7 @@
           @focusin="onFocusin"
         >
           <div
-            v-if="pill"
+            v-if="pill && augmentedTabs.length > 1"
             aria-hidden="true"
             class="pointer-events-none absolute left-0 top-0 rounded-lg border border-border bg-muted shadow-sm transition-[transform,width] duration-300 ease-out-expo group-has-[:focus-visible]:transition-none motion-reduce:transition-none"
             :style="{
