@@ -183,7 +183,7 @@ useResizeObserver(activeItem, () => {
 }
 
 /* duplicate language label */
-.tab-content :deep(div[class*='language-']::before) {
+.tab-content :deep(div[class*='language-'] > span.lang) {
   display: none;
 }
 
