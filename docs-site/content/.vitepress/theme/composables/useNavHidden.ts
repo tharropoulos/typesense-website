@@ -10,7 +10,7 @@ export const useNavHidden = createSharedComposable(() => {
   // tab groups holding their place) leave the nav as it was
   useEventListener(['click', 'popstate'], () => (byUser = false), { capture: true })
   useEventListener(['touchmove', 'wheel'], () => (byUser = true), { passive: true })
-  useEventListener('keydown', e => (byUser = e.key !== 'Enter'))
+  useEventListener('keydown', e => (byUser = e.key !== 'Enter' && !e.defaultPrevented))
 
   // a small nudge back up while reading shouldn't pull the nav over the text
   let deepest = 0
