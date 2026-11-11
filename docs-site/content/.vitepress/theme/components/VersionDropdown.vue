@@ -10,7 +10,7 @@
       @update:model-value="version => goToVersion(String(version))"
     >
       <SelectTrigger
-        class="h-8 w-auto gap-2 border-line bg-surface-gray px-3 py-0 text-sm font-medium leading-none text-ink hover:bg-surface-gray-hover data-[placeholder]:text-ink focus:ring-0 focus:ring-offset-0 focus-visible:ring-2 focus-visible:ring-offset-2 [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:opacity-60 [&>svg]:transition-transform [&[data-state=open]>svg]:rotate-180"
+        class="h-8 w-auto gap-2 border-line bg-surface-gray px-3 py-0 text-sm font-medium leading-none text-ink hover:bg-surface-gray-hover data-[placeholder]:text-ink [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:opacity-60 [&>svg]:transition-transform [&[data-state=open]>svg]:rotate-180"
       >
         <!-- an unlisted version has no item to take its label from -->
         <SelectValue>v{{ currentVersion ?? pageVersion }}</SelectValue>

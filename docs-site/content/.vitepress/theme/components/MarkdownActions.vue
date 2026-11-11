@@ -1,13 +1,13 @@
 <template>
   <TooltipProvider :delay-duration="200">
-    <ButtonGroup class="markdown-actions shrink-0 overflow-hidden rounded-md border border-line bg-surface-gray">
+    <ButtonGroup class="markdown-actions shrink-0 rounded-md border border-line bg-surface-gray">
       <!-- copy markdown -->
       <Tooltip>
         <TooltipTrigger as-child>
           <Button
             variant="ghost"
             size="sm"
-            class="h-8 gap-1.5 rounded-none border-r border-solid border-line px-2.5 text-xs text-ink hover:bg-surface-gray-hover hover:text-ink"
+            class="h-8 gap-1.5 border-r border-solid border-line px-2.5 text-ink hover:bg-surface-gray-hover hover:text-ink"
             :class="isCopied ? 'bg-accent-selected text-accent hover:bg-accent-selected hover:text-accent' : ''"
             @click="copyMarkdown"
           >
@@ -51,7 +51,7 @@
                 <Button
                   variant="ghost"
                   size="sm"
-                  class="h-8 gap-1 rounded-none border-r border-solid border-line px-2 text-xs text-ink hover:bg-surface-gray-hover hover:text-ink aria-expanded:bg-surface-gray-hover"
+                  class="h-8 gap-1 border-r border-solid border-line px-2 text-ink hover:bg-surface-gray-hover hover:text-ink aria-expanded:bg-surface-gray-hover"
                   aria-label="Choose copied languages"
                 >
                   <Braces class="h-3.5 w-3.5 shrink-0" :stroke-width="1.8" />
@@ -118,7 +118,7 @@
             as="a"
             variant="ghost"
             size="sm"
-            class="h-8 rounded-none px-2.5 !text-ink hover:bg-surface-gray-hover hover:!text-ink"
+            class="h-8 px-2.5 !text-ink hover:bg-surface-gray-hover hover:!text-ink"
             :href="markdownUrl"
             target="_blank"
             aria-label="View raw markdown"
