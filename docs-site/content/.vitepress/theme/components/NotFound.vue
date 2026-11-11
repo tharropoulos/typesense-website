@@ -30,7 +30,7 @@
           <li v-for="suggestion in suggestions" :key="suggestion.href">
             <VPLink
               :href="suggestion.href"
-              class="flex flex-col gap-0.5 px-4 py-3 transition-colors hover:bg-[var(--vp-c-bg-soft)]"
+              class="flex flex-col gap-0.5 px-4 py-3 transition-colors hover:bg-[var(--vp-c-bg-soft)] focus-visible:-outline-offset-2"
             >
               <span class="text-sm font-medium text-[var(--vp-c-text-1)]">{{ suggestion.title }}</span>
               <span class="truncate font-mono text-xs text-[var(--vp-c-text-3)]">{{ withBase(suggestion.href) }}</span>
