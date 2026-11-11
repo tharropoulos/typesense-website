@@ -92,6 +92,10 @@ function attachZoom() {
 }
 watch(() => route.path, attachZoom, { flush: 'post' })
 
+function returnZoomFocus(image: HTMLElement) {
+  if (document.activeElement === document.body) image.focus({ preventScroll: true })
+}
+
 // while zoomed, focus sits on the clone. until the open animation ends it is on
 // <body> or the hidden original
 function onZoomKeydown(event: KeyboardEvent) {
@@ -102,9 +106,7 @@ function onZoomKeydown(event: KeyboardEvent) {
     if (!target.matches('body, .medium-zoom-image') || !['Tab', 'Enter', ' ', 'Escape'].includes(event.key)) return
     event.preventDefault()
     if (event.repeat) return
-    zoom.close().then(() => {
-      if (document.activeElement === document.body) zoomed.focus({ preventScroll: true })
-    })
+    zoom.close().then(() => returnZoomFocus(zoomed))
   } else if (['Enter', ' '].includes(event.key) && zoom.getImages().includes(target)) {
     event.preventDefault()
     if (!event.repeat) zoom.open({ target })
@@ -171,9 +173,16 @@ let resize: ResizeObserver | undefined
 onMounted(() => {
   document.documentElement.dataset.theme = isDark.value ? 'dark' : 'light'
   zoom = mediumZoom({ background: 'var(--vp-c-bg)' })
-  zoom.on('opened', () => {
-    if (!document.activeElement?.matches('body, .medium-zoom-image')) return
-    document.querySelector<HTMLElement>('.medium-zoom-image--opened')?.focus({ preventScroll: true })
+  zoom.on('opened', event => {
+    const original = event.target as HTMLElement
+    const clone = document.querySelector<HTMLElement>('.medium-zoom-image--opened')
+    if (!clone) return
+    // screen readers close it with a click. overlay, wheel and resize closes
+    // leave focus alone, which keeps Space paging down after them
+    clone.addEventListener('click', () =>
+      original.addEventListener('medium-zoom:closed', () => returnZoomFocus(original), { once: true }),
+    )
+    if (document.activeElement?.matches('body, .medium-zoom-image')) clone.focus({ preventScroll: true })
   })
   attachZoom()
   document.addEventListener('keydown', onZoomKeydown)
