@@ -123,6 +123,7 @@
         <TooltipContent>View raw markdown</TooltipContent>
       </Tooltip>
     </ButtonGroup>
+    <span role="status" class="sr-only">{{ isCopied ? 'Markdown copied' : '' }}</span>
   </TooltipProvider>
 </template>
 
@@ -189,8 +190,6 @@ function toggleAllAvailableLanguages() {
 }
 
 async function copyMarkdown() {
-  clearTimeout(copyTimeout)
-  isCopied.value = true
   try {
     if (!pageMarkdown.value) throw new Error('Markdown content not available')
     const markdown = filterMarkdownByCopyLanguages(
@@ -201,6 +200,8 @@ async function copyMarkdown() {
       getVisibleCopyTabs(tabGroups.value, docsStore.state.defaultTab),
     )
     await navigator.clipboard.writeText(markdown)
+    isCopied.value = true
+    clearTimeout(copyTimeout)
     copyTimeout = setTimeout(() => (isCopied.value = false), 2000)
   } catch (error) {
     console.error('Failed to copy markdown:', error)

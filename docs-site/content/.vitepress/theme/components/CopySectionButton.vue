@@ -23,6 +23,7 @@
         />
       </span>
     </button>
+    <span v-if="pageMarkdown" role="status" class="sr-only">{{ isCopied ? 'Section copied' : '' }}</span>
   </ClientOnly>
 </template>
 

@@ -1,4 +1,5 @@
 <template>
+  <span role="status" class="sr-only">{{ isCopied ? 'Code copied' : '' }}</span>
   <button
     type="button"
     :title="isCopied ? 'Copied!' : 'Copy code'"
