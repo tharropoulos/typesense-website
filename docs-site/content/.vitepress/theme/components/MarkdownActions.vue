@@ -85,28 +85,23 @@
               {{ allAvailableLanguagesSelected ? 'Use current tab' : 'Select all' }}
             </button>
           </div>
-          <button
+          <label
             v-for="language in languageOptions"
             :key="language"
-            type="button"
-            class="flex w-full items-center justify-between gap-2 rounded px-2 py-[0.45rem] text-left leading-tight transition-colors enabled:hover:bg-surface-gray disabled:cursor-not-allowed text-sm"
-            :class="isLanguagePresent(language) ? 'text-ink' : 'text-ink-lighter'"
-            :disabled="!isLanguagePresent(language)"
-            @click="handleLanguageClick(language)"
+            class="flex cursor-pointer select-none items-center justify-between gap-2 rounded px-2 py-[0.45rem] text-sm leading-tight text-ink transition-colors has-[:enabled]:hover:bg-surface-gray has-[:disabled]:cursor-not-allowed has-[:disabled]:text-ink-lighter"
           >
             <span class="inline-flex min-w-0 items-center gap-2">
               <Checkbox
                 :model-value="isLanguagePresent(language) && isLanguageSelected(language)"
                 :disabled="!isLanguagePresent(language)"
-                class="pointer-events-none"
-                tabindex="-1"
+                @update:model-value="toggleLanguage(language)"
               />
               <span>{{ language }}</span>
             </span>
             <span v-if="!isLanguagePresent(language)" class="ml-auto text-xs font-semibold text-ink-lightest">
               Unavailable
             </span>
-          </button>
+          </label>
         </PopoverContent>
       </Popover>
 
@@ -180,8 +175,7 @@ function isLanguageSelected(language: string) {
 function isLanguagePresent(language: string) {
   return presentLanguages.value.includes(language)
 }
-function handleLanguageClick(language: string) {
-  if (!isLanguagePresent(language)) return
+function toggleLanguage(language: string) {
   const next = isLanguageSelected(language)
     ? selectedLanguages.value.filter(l => l !== language)
     : selectedLanguages.value.concat(language)
