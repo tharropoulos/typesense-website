@@ -30,7 +30,7 @@
           :aria-selected="tab === activeTab"
           :aria-controls="`${id}-panel-${index}`"
           :tabindex="tab === activeTab && augmentedTabs.length > 1 ? 0 : -1"
-          class="relative shrink-0 rounded-lg px-2 py-1.5 leading-none whitespace-nowrap transition-colors after:absolute after:inset-x-0 after:-inset-y-2.5 hover:text-[var(--vp-c-text-1)] aria-selected:text-[var(--vp-c-text-1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
+          class="relative shrink-0 rounded-lg px-2 py-1.5 leading-none whitespace-nowrap transition-colors only:pointer-events-none after:absolute after:inset-x-0 after:-inset-y-2.5 hover:text-[var(--vp-c-text-1)] aria-selected:text-[var(--vp-c-text-1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
           @click="setActiveTab(tab)"
           @keydown="onKeydown($event, index)"
         >
