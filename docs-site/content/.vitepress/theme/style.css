@@ -369,6 +369,11 @@ html {
 .medium-zoom-image--opened {
   @apply z-[calc(var(--vp-z-index-backdrop)+1)];
 }
+/* img outranks medium-zoom's own !important rule. the zoom only settles on
+ * transitionend, which a 0s transition never fires */
+img.medium-zoom-image {
+  @apply motion-reduce:![transition-duration:1ms];
+}
 
 .vp-doc tr {
   @apply bg-transparent;
