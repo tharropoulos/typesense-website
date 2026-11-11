@@ -92,8 +92,8 @@ function attachZoom() {
 }
 watch(() => route.path, attachZoom, { flush: 'post' })
 
-// while zoomed, focus sits on <body>, the hidden original, or the clone after a
-// right-click
+// while zoomed, focus sits on the clone. until the open animation ends it is on
+// <body> or the hidden original
 function onZoomKeydown(event: KeyboardEvent) {
   if (!zoom) return
   const target = event.target as HTMLElement
@@ -171,6 +171,10 @@ let resize: ResizeObserver | undefined
 onMounted(() => {
   document.documentElement.dataset.theme = isDark.value ? 'dark' : 'light'
   zoom = mediumZoom({ background: 'var(--vp-c-bg)' })
+  zoom.on('opened', () => {
+    if (!document.activeElement?.matches('body, .medium-zoom-image')) return
+    document.querySelector<HTMLElement>('.medium-zoom-image--opened')?.focus({ preventScroll: true })
+  })
   attachZoom()
   document.addEventListener('keydown', onZoomKeydown)
 
