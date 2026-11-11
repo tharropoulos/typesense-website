@@ -1,14 +1,14 @@
 <template>
   <div class="my-4">
     <div
-      class="relative overflow-hidden rounded-t-lg max-mobile:-mx-6 max-mobile:rounded-none before:pointer-events-none before:absolute before:z-[1] before:left-0 before:top-0 before:bottom-px before:w-6 before:bg-[linear-gradient(to_right,var(--vp-code-block-bg),transparent)] after:pointer-events-none after:absolute after:right-0 after:top-0 after:bottom-px after:w-6 after:bg-[linear-gradient(to_left,var(--vp-code-block-bg),transparent)]"
+      class="relative overflow-hidden rounded-t-lg max-mobile:-mx-6 max-mobile:rounded-none before:pointer-events-none before:absolute before:z-[1] before:left-0 before:top-0 before:bottom-px before:w-4 before:bg-[linear-gradient(to_right,var(--vp-code-block-bg),transparent)] after:pointer-events-none after:absolute after:right-0 after:top-0 after:bottom-px after:w-4 after:bg-[linear-gradient(to_left,var(--vp-code-block-bg),transparent)]"
     >
       <div
         ref="list"
         role="tablist"
         :data-copy-tabs="JSON.stringify(tabs)"
         :data-copy-active-tab="activeTab"
-        class="group relative flex justify-start items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-6 py-2.5 border-b border-[var(--vp-c-divider)] bg-[var(--vp-code-block-bg)] text-[var(--vp-c-text-2)] text-xs"
+        class="group relative flex justify-start items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-4 py-2.5 border-b border-[var(--vp-c-divider)] bg-[var(--vp-code-block-bg)] text-[var(--vp-c-text-2)] text-xs"
         @focusin="onFocusin"
       >
         <div
