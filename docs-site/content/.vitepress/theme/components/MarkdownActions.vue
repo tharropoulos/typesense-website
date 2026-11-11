@@ -99,7 +99,6 @@
                 :model-value="isLanguagePresent(language) && isLanguageSelected(language)"
                 :disabled="!isLanguagePresent(language)"
                 class="pointer-events-none"
-                :class="isLanguagePresent(language) ? 'outline outline-1 outline-line' : ''"
                 tabindex="-1"
               />
               <span>{{ language }}</span>
