@@ -81,14 +81,34 @@ watch(
 // images inside a link keep following the link
 const ZOOMABLE = '.vp-doc :not(a) > img'
 let zoom: Zoom | undefined
-watch(
-  () => route.path,
-  () => {
-    zoom?.detach()
-    zoom?.attach(ZOOMABLE)
-  },
-  { flush: 'post' },
-)
+
+function attachZoom() {
+  zoom?.detach()
+  zoom?.attach(ZOOMABLE)
+  zoom?.getImages().forEach(image => {
+    image.tabIndex = 0
+    image.setAttribute('role', 'button')
+  })
+}
+watch(() => route.path, attachZoom, { flush: 'post' })
+
+// while zoomed, focus sits on <body> or on the hidden original
+function onZoomKeydown(event: KeyboardEvent) {
+  if (!zoom) return
+  const target = event.target as HTMLElement
+  const zoomed = zoom.getZoomedImage()
+  if (zoomed) {
+    if (![document.body, zoomed].includes(target) || !['Tab', 'Enter', ' ', 'Escape'].includes(event.key)) return
+    event.preventDefault()
+    if (event.repeat) return
+    zoom.close().then(() => {
+      if (document.activeElement === document.body) zoomed.focus({ preventScroll: true })
+    })
+  } else if (['Enter', ' '].includes(event.key) && zoom.getImages().includes(target)) {
+    event.preventDefault()
+    if (!event.repeat) zoom.open({ target })
+  }
+}
 
 // vitepress runs useActiveAnchor for the desktop aside only, and short-circuits
 // it on isAsideEnabled, which is false at every width where the local nav
@@ -149,7 +169,9 @@ let resize: ResizeObserver | undefined
 
 onMounted(() => {
   document.documentElement.dataset.theme = isDark.value ? 'dark' : 'light'
-  zoom = mediumZoom(ZOOMABLE, { background: 'var(--vp-c-bg)' })
+  zoom = mediumZoom({ background: 'var(--vp-c-bg)' })
+  attachZoom()
+  document.addEventListener('keydown', onZoomKeydown)
 
   const outline = document.querySelector('.VPDocAsideOutline')
   if (outline) {
@@ -183,6 +205,7 @@ onUnmounted(() => {
   resize?.disconnect()
   localNav?.disconnect()
   zoom?.detach()
+  document.removeEventListener('keydown', onZoomKeydown)
   window.removeEventListener('scroll', onLocalNavScroll)
   cancelAnimationFrame(localNavFrame)
 })
