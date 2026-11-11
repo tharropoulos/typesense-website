@@ -92,13 +92,14 @@ function attachZoom() {
 }
 watch(() => route.path, attachZoom, { flush: 'post' })
 
-// while zoomed, focus sits on <body> or on the hidden original
+// while zoomed, focus sits on <body>, the hidden original, or the clone after a
+// right-click
 function onZoomKeydown(event: KeyboardEvent) {
   if (!zoom) return
   const target = event.target as HTMLElement
   const zoomed = zoom.getZoomedImage()
   if (zoomed) {
-    if (![document.body, zoomed].includes(target) || !['Tab', 'Enter', ' ', 'Escape'].includes(event.key)) return
+    if (!target.matches('body, .medium-zoom-image') || !['Tab', 'Enter', ' ', 'Escape'].includes(event.key)) return
     event.preventDefault()
     if (event.repeat) return
     zoom.close().then(() => {
