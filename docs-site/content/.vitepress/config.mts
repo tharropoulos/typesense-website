@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { createCssVariablesTheme } from 'shiki/core'
 import { fileURLToPath, URL } from 'node:url'
 import { existsSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
@@ -190,6 +191,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   },
 
   markdown: {
+    // token colours are the --shiki-* properties in theme/style.css
+    theme: createCssVariablesTheme(),
     lineNumbers: false,
     // vuepress numbered repeated headings x, x-2, x-3, and old links still use those ids
     anchor: { uniqueSlugStartIndex: 2 },
