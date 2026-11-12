@@ -20,6 +20,7 @@
           v-for="version in versions"
           :key="version"
           :value="version"
+          :text-value="version"
           :disabled="!versionHasPage(version)"
           :aria-describedby="versionHasPage(version) ? undefined : greyedNoteId"
           class="cursor-pointer text-ink focus:bg-surface-gray focus:text-ink data-[disabled]:text-ink-lighter data-[disabled]:opacity-100 data-[state=checked]:bg-accent-selected data-[state=checked]:font-semibold data-[state=checked]:text-accent"
