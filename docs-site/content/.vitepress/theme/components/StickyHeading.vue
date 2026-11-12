@@ -68,6 +68,7 @@ const docked = ref(false)
 const floor = ref(0)
 const cleared = ref(false)
 let frame = 0
+let scrollPadding = ''
 
 function inset(el: HTMLElement) {
   return el.clientTop + parseFloat(getComputedStyle(el).paddingTop)
@@ -113,6 +114,14 @@ function place() {
       ? h2Bottom + subsection.value.shift + h3Bar.value.offsetHeight
       : 0
   floor.value = Math.max(0, h2Bottom, h3Bottom)
+
+  // keeps keyboard focus clear of the bars. a custom property would restyle the whole page.
+  // from 960 a page with no outline has no local nav for the bars to sit under.
+  // mid-slide it clears both where the bars are and where the slide leaves them
+  const slide = anchor.value.getAnimations()[0]?.effect as KeyframeEffect | undefined
+  const end = slide ? parseFloat(`${slide.getKeyframes().at(-1)?.top}`) : 0
+  const padding = headers.value.length || !wide.value ? `${Math.max(top, end) + floor.value}px` : ''
+  if (padding !== scrollPadding) document.documentElement.style.scrollPaddingTop = scrollPadding = padding
 }
 
 function update() {
@@ -187,7 +196,10 @@ onUnmounted(() => {
   window.removeEventListener('resize', onScroll)
   cancelAnimationFrame(frame)
   settleAnchorWith()
+  document.documentElement.style.removeProperty('scroll-padding-top')
 })
 
 watch(headers, () => nextTick(update))
+// the scroll that flips the nav has already placed the bars from the old top
+watch(navHidden, onScroll)
 </script>

@@ -7,10 +7,18 @@ export const useNavHidden = createSharedComposable(() => {
   let byUser = false
 
   // jumps the page makes on its own (anchor links, search results, back/forward,
-  // tab groups holding their place) leave the nav as it was
+  // tab groups holding their place, keyboard focus) leave the nav as it was
   useEventListener(['click', 'popstate'], () => (byUser = false), { capture: true })
   useEventListener(['touchmove', 'wheel'], () => (byUser = true), { passive: true })
-  useEventListener('keydown', e => (byUser = e.key !== 'Enter' && !e.defaultPrevented))
+  useEventListener('keydown', e => (byUser = !['Enter', 'Tab'].includes(e.key) && !e.defaultPrevented))
+  // focus inside the hidden nav would sit off screen. webkit scrolls to it a frame after focusin
+  useEventListener('focusin', e =>
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        if (scrollY && (e.target as Element).matches('.VPNav :focus-visible')) hidden.value = false
+      }),
+    ),
+  )
 
   // a small nudge back up while reading shouldn't pull the nav over the text
   let deepest = 0

@@ -206,6 +206,15 @@ html {
 .vp-doc [id] {
   scroll-margin-top: var(--vp-nav-height, 64px);
 }
+/* StickyHeading pads past the local nav, and below 960 the nav. both are sticky
+ * there. focus inside them would scroll the page to clear them, which they
+ * follow. the child path keeps :has from costing every restyle */
+html:has(> body > #app > .Layout > .VPLocalNav:focus-within) {
+  @apply !scroll-pt-0;
+}
+html:has(> body > #app > .Layout > .VPNav:focus-within) {
+  @apply max-narrow:!scroll-pt-0;
+}
 
 /* vitepress's 24px default reads small next to the desktop nav */
 @media (min-width: 960px) {
