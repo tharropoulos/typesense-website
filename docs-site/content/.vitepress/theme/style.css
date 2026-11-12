@@ -91,6 +91,7 @@
   --muted-foreground: 240 6% 41%; /* gray 11 */
   --popover: 0 0% 100%;
   --popover-foreground: 240 13% 14%;
+  --popover-highlight: 240 20% 95%; /* gray 3, focused and hovered rows */
   --border: 240 20% 92%; /* gray 4 */
   --input: 240 17% 90%; /* gray 5 */
   --primary: 83 100% 67%; /* brand step 9 (#c0ff58) */
@@ -104,8 +105,9 @@
   --foreground: 240 16% 94%; /* gray 12 */
   --muted: 240 9% 15%; /* gray 3 */
   --muted-foreground: 240 12% 73%; /* gray 11 */
-  --popover: 240 9% 11%; /* gray 2, lifted above the page */
+  --popover: 240 9% 15%; /* gray 3, lifted above the page */
   --popover-foreground: 240 16% 94%;
+  --popover-highlight: 245 10% 21%; /* gray 5 */
   --border: 246 11% 18%; /* gray 4 */
   --input: 245 10% 21%; /* gray 5 */
   --ring: 83 40% 50%; /* light brand step 8 */

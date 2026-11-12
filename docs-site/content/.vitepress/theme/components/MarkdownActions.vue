@@ -88,7 +88,7 @@
           <label
             v-for="language in languageOptions"
             :key="language"
-            class="flex cursor-pointer select-none items-center justify-between gap-2 rounded px-2 py-[0.45rem] text-sm leading-tight text-ink transition-colors has-[:enabled]:hover:bg-surface-gray has-[:disabled]:cursor-not-allowed has-[:disabled]:text-ink-lighter"
+            class="flex cursor-pointer select-none items-center justify-between gap-2 rounded px-2 py-[0.45rem] text-sm leading-tight text-ink transition-colors has-[:enabled]:hover:bg-popover-highlight has-[:disabled]:cursor-not-allowed has-[:disabled]:text-ink-lighter"
           >
             <span class="inline-flex min-w-0 items-center gap-2">
               <Checkbox

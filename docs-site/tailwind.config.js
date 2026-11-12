@@ -23,8 +23,9 @@ module.exports = {
         accent: {
           // Wired to the brand scale (defined in theme/style.css). DEFAULT is the
           // accessible step 11 because it is used mostly as text. shadcn components
-          // expect a neutral `accent`. Swap their `bg-accent` for a `surface-gray`
-          // fill and `text-accent-foreground` for `text-ink` when adding one.
+          // expect a neutral `accent`. Swap their `bg-accent` for `popover-highlight`
+          // on rows inside a popover and `surface-gray-hover` elsewhere. Swap
+          // `text-accent-foreground` for `text-ink`.
           DEFAULT: 'var(--brand-11-raw)',
           hover: 'var(--brand-12-raw)',
           light: 'var(--brand-6-raw)',
@@ -63,6 +64,7 @@ module.exports = {
         popover: {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
+          highlight: 'hsl(var(--popover-highlight))',
         },
       },
       borderRadius: {
