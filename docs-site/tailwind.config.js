@@ -10,10 +10,9 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   theme: {
-    // Breakpoints ported 1:1 from palette.styl (desktop-first max-width queries
+    // Breakpoints ported from palette.styl (desktop-first max-width queries
     // in the original; expressed here as min-width tokens where possible).
     screens: {
-      'mobile-narrow': '420px', // $MQMobileNarrow 419px
       mobile: '720px', // $MQMobile 719px
       narrow: '960px', // $MQNarrow 959px
       wide: '1280px', // vitepress's desktop breakpoint, where the nav bar gets its extras
@@ -84,14 +83,6 @@ module.exports = {
           '"Noto Sans"',
           'sans-serif',
         ],
-      },
-      spacing: {
-        navbar: '4rem', // $navbarHeight 64px
-        sidebar: '20rem', // $sidebarWidth 320px
-      },
-      maxWidth: {
-        content: '740px', // $contentWidth
-        home: '960px', // $homePageWidth
       },
       transitionTimingFunction: {
         // ease-out-expo. fast start, long settle, no overshoot
