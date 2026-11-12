@@ -4,6 +4,8 @@ module.exports = {
     './content/**/*.md',
     './content/.vitepress/**/*.{js,ts,vue}',
   ],
+  // vitepress toggles .dark on <html>, which can disagree with the os setting
+  darkMode: 'selector',
   future: {
     hoverOnlyWhenSupported: true,
   },
