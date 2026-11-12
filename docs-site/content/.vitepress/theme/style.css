@@ -226,11 +226,15 @@ html {
   display: none; /* chrome/safari/edge */
 }
 
-/* light 5 washes out on white, dark 6 glares behind the text */
+/* light 5 washes out on white. dark 3 keeps selected code readable. tips are
+ * brand 3 already and keep 5. code keeps 3 there because chips fill with 5 */
 ::selection {
   background-color: var(--brand-6-raw);
 }
 .dark ::selection {
+  background-color: var(--brand-3-raw);
+}
+.dark .vp-doc .custom-block.tip :not(pre *, code)::selection {
   background-color: var(--brand-5-raw);
 }
 
