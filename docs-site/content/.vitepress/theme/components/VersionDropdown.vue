@@ -21,6 +21,7 @@
           :key="version"
           :value="version"
           :disabled="!versionHasPage(version)"
+          :aria-describedby="versionHasPage(version) ? undefined : greyedNoteId"
           class="cursor-pointer text-ink focus:bg-surface-gray focus:text-ink data-[disabled]:text-ink-lighter data-[disabled]:opacity-100 data-[state=checked]:bg-accent-selected data-[state=checked]:font-semibold data-[state=checked]:text-accent"
         >
           v{{ version }}
@@ -37,7 +38,7 @@
           </RouterLink>
         </SelectItem>
         <template v-if="versions.some(version => !versionHasPage(version))" #footer>
-          <p class="border-t border-line px-3 py-2 text-xs leading-snug text-ink-muted">
+          <p :id="greyedNoteId" class="border-t border-line px-3 py-2 text-xs leading-snug text-ink-muted">
             Greyed out versions don't have this page.
           </p>
         </template>
@@ -47,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useId } from 'vue'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import RouterLink from './RouterLink.vue'
 import { useVersionSwitch } from '../composables/useVersionSwitch'
@@ -61,6 +62,7 @@ withDefaults(defineProps<{ showOnMobileOnly?: boolean; showOnDesktopOnly?: boole
 const { versions, currentVersion, pageVersion, getVersionedPath, versionHasPage, goToVersion } = useVersionSwitch()
 
 const open = ref(false)
+const greyedNoteId = useId()
 
 // a click inside the list never dismisses it, and the aside copy outlives the route change
 function openVersionHome(version: string) {
