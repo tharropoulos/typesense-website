@@ -237,6 +237,11 @@ html:has(> body > #app > .Layout > .VPNav:focus-within) {
 .VPSidebar::-webkit-scrollbar {
   display: none; /* chrome/safari/edge */
 }
+/* vitepress only fades and slides the closed drawer away, which leaves its links
+ * in the tab order. visibility flips once the slide-out ends */
+.VPSidebar:not(.open) {
+  @apply max-narrow:invisible max-narrow:[transition:opacity_.5s,transform_.25s_ease,visibility_.25s];
+}
 
 /* light 5 washes out on white. dark 3 keeps selected code readable. tips are
  * brand 3 already and keep 5. code keeps 3 there because chips fill with 5 */
