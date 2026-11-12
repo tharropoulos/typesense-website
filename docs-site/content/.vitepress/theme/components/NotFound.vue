@@ -23,7 +23,7 @@
 
     <Transition enter-from-class="opacity-0" enter-active-class="transition-opacity duration-200 ease-out">
       <section v-if="suggestions.length" class="mt-14 w-full text-left">
-        <h2 class="text-xs font-semibold uppercase tracking-wider text-[var(--vp-c-text-3)]">Were you looking for?</h2>
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-[var(--vp-c-text-2)]">Were you looking for?</h2>
         <ul
           class="mt-3 divide-y divide-[var(--vp-c-divider)] overflow-hidden rounded-lg ring-1 ring-inset ring-[var(--vp-c-divider)]"
         >
@@ -33,7 +33,7 @@
               class="flex flex-col gap-0.5 px-4 py-3 transition-colors hover:bg-[var(--vp-c-bg-soft)] focus-visible:-outline-offset-2"
             >
               <span class="text-sm font-medium text-[var(--vp-c-text-1)]">{{ suggestion.title }}</span>
-              <span class="truncate font-mono text-xs text-[var(--vp-c-text-3)]">{{ withBase(suggestion.href) }}</span>
+              <span class="truncate font-mono text-xs text-[var(--vp-c-text-2)]">{{ withBase(suggestion.href) }}</span>
             </VPLink>
           </li>
         </ul>
