@@ -23,7 +23,7 @@
           :text-value="version"
           :disabled="!versionHasPage(version)"
           :aria-describedby="versionHasPage(version) ? undefined : greyedNoteId"
-          class="cursor-pointer text-ink focus:bg-surface-gray focus:text-ink data-[disabled]:text-ink-lighter data-[disabled]:opacity-100 data-[state=checked]:bg-accent-selected data-[state=checked]:font-semibold data-[state=checked]:text-accent"
+          class="cursor-pointer text-ink data-[disabled]:text-ink-lighter data-[disabled]:opacity-100 data-[state=checked]:bg-accent-selected data-[state=checked]:font-semibold data-[state=checked]:text-accent"
         >
           v{{ version }}
           <!-- the disabled row swallows pointer events, touchend and contextmenu, so the link opts back into each -->

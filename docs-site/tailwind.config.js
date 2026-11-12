@@ -21,11 +21,11 @@ module.exports = {
     extend: {
       colors: {
         accent: {
-          // Wired to the brand scale (defined in theme/style.css). Used mostly as
-          // text (text-accent), so DEFAULT is the accessible step 11; `foreground`
-          // is white for the rare dark-green `bg-accent` surfaces.
+          // Wired to the brand scale (defined in theme/style.css). DEFAULT is the
+          // accessible step 11 because it is used mostly as text. shadcn components
+          // expect a neutral `accent`. Swap their `bg-accent` for a `surface-gray`
+          // fill and `text-accent-foreground` for `text-ink` when adding one.
           DEFAULT: 'var(--brand-11-raw)',
-          foreground: 'hsl(0 0% 100%)',
           hover: 'var(--brand-12-raw)',
           light: 'var(--brand-6-raw)',
           selected: 'var(--brand-5-raw)',
