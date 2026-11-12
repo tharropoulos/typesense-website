@@ -40,8 +40,9 @@ useResizeObserver(viewportEl, measure)
       "
     >
       <div class="relative flex min-h-0 flex-1 flex-col">
+        <!-- v-if lets Vue move the list when both fades flip in one render, which drops focus -->
         <div
-          v-if="!arrivedState.top"
+          v-show="!arrivedState.top"
           aria-hidden="true"
           class="pointer-events-none absolute inset-x-0 top-0 z-10 h-12 bg-gradient-to-b from-popover from-25% animate-in fade-in-0"
         />
@@ -59,7 +60,7 @@ useResizeObserver(viewportEl, measure)
           <slot />
         </SelectViewport>
         <div
-          v-if="!arrivedState.bottom"
+          v-show="!arrivedState.bottom"
           aria-hidden="true"
           class="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-12 bg-gradient-to-t from-popover from-25% animate-in fade-in-0"
         />
