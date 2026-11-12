@@ -157,8 +157,8 @@
   --vp-sidebar-bg-color: var(--vp-c-bg);
 }
 
-/* code block tokens. the three hues share one lightness so none outshouts the
- * others, and each clears AA on highlighted lines too */
+/* code block tokens. the three hues also step down in lightness, which keeps
+ * them apart for colour-blind readers. each clears AA on highlighted lines */
 :root {
   --shiki-foreground: var(--gray-12);
   --shiki-token-function: var(--gray-12);
@@ -167,14 +167,14 @@
   --shiki-token-punctuation: var(--gray-11);
   --shiki-token-link: var(--brand-11-raw);
   --shiki-token-keyword: oklch(0.5 0.118 128);
-  --shiki-token-string: oklch(0.5 0.101 64.5);
+  --shiki-token-string: oklch(0.43 0.087 64.5);
   --shiki-token-string-expression: var(--shiki-token-string);
-  --shiki-token-constant: oklch(0.5 0.166 33);
+  --shiki-token-constant: oklch(0.36 0.12 33);
 }
 .dark {
-  --shiki-token-keyword: oklch(0.8 0.188 128);
-  --shiki-token-string: oklch(0.8 0.134 64.5);
-  --shiki-token-constant: oklch(0.8 0.104 33);
+  --shiki-token-keyword: oklch(0.9 0.212 128);
+  --shiki-token-string: oklch(0.82 0.119 64.5);
+  --shiki-token-constant: oklch(0.74 0.144 33);
 }
 
 /* wider than the 1440px default so large screens spend the spare width on
