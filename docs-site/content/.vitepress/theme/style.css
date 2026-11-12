@@ -24,7 +24,7 @@
   --brand-8-raw: hsl(from var(--brand) h 40% 50%);
   --brand-9-raw: var(--brand);
   --brand-10-raw: color-mix(in srgb, var(--brand), black 5%);
-  --brand-11-raw: hsl(from var(--brand) h 100% 25%); /* accessible text on light */
+  --brand-11-raw: hsl(from var(--brand) h 100% 23%); /* accessible text on light */
   --brand-12-raw: hsl(from var(--brand) h s 10%);
 }
 .dark {
@@ -95,7 +95,7 @@
   --input: 240 17% 90%; /* gray 5 */
   --primary: 83 100% 67%; /* brand step 9 (#c0ff58) */
   --primary-foreground: 0 0% 0%; /* --brand-contrast */
-  --ring: 83 100% 25%; /* brand step 11 */
+  --ring: 83 100% 23%; /* brand step 11 */
   --radius: 0.5rem;
 }
 /* --primary stays brand, a lime fill reads fine on dark */
