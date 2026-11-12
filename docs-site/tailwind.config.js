@@ -27,10 +27,8 @@ module.exports = {
           DEFAULT: 'var(--brand-11-raw)',
           foreground: 'hsl(0 0% 100%)',
           hover: 'var(--brand-12-raw)',
-          'hover-border': 'var(--brand-8-raw)',
           light: 'var(--brand-6-raw)',
           selected: 'var(--brand-5-raw)',
-          secondary: 'var(--brand-9-raw)', // solid brand lime — fills only
         },
         // Neutral ink/line/surface scales, wired to the gray scale (defined in
         // theme/style.css) so every `text-ink`/`border-line`/`bg-surface-*`
@@ -40,27 +38,14 @@ module.exports = {
           muted: 'var(--gray-11)',
           light: 'var(--gray-10)',
           lighter: 'var(--gray-9)',
-          lightest: 'var(--gray-8)',
         },
         line: {
           DEFAULT: 'var(--gray-5)',
-          dark: 'var(--gray-7)',
         },
         surface: {
           gray: 'var(--gray-3)',
           'gray-hover': 'var(--gray-4)',
         },
-        code: {
-          bg: '#181218', // $codeBgColor
-          inline: '#655267', // $inlineCodeColor
-        },
-        badge: {
-          tip: '#42b983', // $badgeTipColor
-          warning: '#b39500', // $badgeWarningColor
-          error: '#DA5961', // $badgeErrorColor
-        },
-        'warning-bg': '#fef5dd', // lighten($badgeWarningColor, 70%)
-
         // shadcn-vue design tokens (HSL CSS variables, defined in theme/style.css).
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -105,9 +90,6 @@ module.exports = {
       maxWidth: {
         content: '740px', // $contentWidth
         home: '960px', // $homePageWidth
-      },
-      boxShadow: {
-        popover: '0 12px 28px rgba(49, 49, 50, 0.12)',
       },
       transitionTimingFunction: {
         // ease-out-expo. fast start, long settle, no overshoot
