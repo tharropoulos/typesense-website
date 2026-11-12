@@ -194,7 +194,7 @@
 /* light keeps vitepress's white page and popovers */
 .dark {
   --vp-c-bg: var(--gray-1);
-  --vp-c-bg-elv: var(--gray-2);
+  --vp-c-bg-elv: var(--gray-3);
 }
 
 /* vitepress's js offsets in-page clicks, but a direct load of a #anchor url
