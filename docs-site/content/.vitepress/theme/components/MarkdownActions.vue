@@ -98,7 +98,7 @@
               />
               <span>{{ language }}</span>
             </span>
-            <span v-if="!isLanguagePresent(language)" class="ml-auto text-xs font-semibold text-ink-lightest">
+            <span v-if="!isLanguagePresent(language)" class="ml-auto text-xs font-semibold">
               Unavailable
             </span>
           </label>
