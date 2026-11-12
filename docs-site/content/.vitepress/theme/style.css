@@ -413,7 +413,7 @@ img.medium-zoom-image {
   @apply border-0 px-4 py-4 align-top;
 }
 .vp-doc th {
-  @apply bg-transparent py-3 text-sm font-semibold tracking-wider text-[var(--vp-c-text-2)];
+  @apply bg-transparent py-3 text-sm font-semibold text-[var(--vp-c-text-2)];
 }
 .vp-doc td {
   @apply text-base leading-relaxed text-[var(--vp-c-text-1)];
@@ -447,7 +447,7 @@ img.medium-zoom-image {
     @apply mt-3;
   }
   .vp-doc td + td:where([data-label]) {
-    @apply before:mb-1 before:block before:text-sm before:font-semibold before:tracking-wider before:text-[var(--vp-c-text-2)] before:content-[attr(data-label)];
+    @apply before:mb-1 before:block before:text-sm before:font-semibold before:text-[var(--vp-c-text-2)] before:content-[attr(data-label)];
   }
 
   /* rows with a description read as a property list. the type and a required
@@ -470,7 +470,7 @@ img.medium-zoom-image {
   }
   /* the cell's own "yes" is shrunk to 0px and ::before draws the chip text */
   .vp-doc td[data-required='true'] {
-    @apply bg-[var(--tomato-2)] font-sans text-[0px] leading-none ring-1 ring-inset ring-[var(--tomato-5)] before:m-0 before:block before:text-xs before:font-normal before:tracking-normal before:text-[var(--tomato-12)] before:content-['required'];
+    @apply bg-[var(--tomato-2)] font-sans text-[0px] leading-none ring-1 ring-inset ring-[var(--tomato-5)] before:m-0 before:block before:text-xs before:font-normal before:text-[var(--tomato-12)] before:content-['required'];
   }
   .vp-doc td[data-label='Description'] {
     @apply order-1 mt-2 before:hidden;
