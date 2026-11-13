@@ -5,7 +5,8 @@
     enter-from-class="opacity-0 [&>div]:-translate-y-2"
     leave-to-class="opacity-0 [&>div]:-translate-y-2"
     @enter="isLocked = true"
-    @after-leave="isLocked = false"
+    @after-enter="cover(true)"
+    @after-leave="cover(false)"
   >
     <div
       v-if="open"
@@ -71,6 +72,15 @@ defineProps<{ open: boolean }>()
 const { page, theme } = useData<DefaultTheme.Config>()
 const closeScreen = inject('close-screen') as () => void
 const isLocked = useScrollLock(inBrowser ? document.body : null)
+
+// listed by hand because vitepress focuses VPSkipLink's bare span on route change.
+// inert restyles the whole page, which is why it waits for the fades
+function cover(covered: boolean) {
+  isLocked.value = covered
+  document
+    .querySelectorAll('.VPSkipLink, .VPLocalNav, .VPSidebar, .VPContent')
+    .forEach(el => el.toggleAttribute('inert', covered))
+}
 
 const links = useNavLinks()
 const internal = computed(() => links.value.filter(item => !EXTERNAL_URL_RE.test(item.link)))

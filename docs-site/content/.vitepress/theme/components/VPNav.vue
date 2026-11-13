@@ -15,11 +15,12 @@
 </template>
 
 <script setup lang="ts">
+import { onKeyStroke, useMediaQuery } from '@vueuse/core'
 import { inBrowser, useData } from 'vitepress'
 // @ts-expect-error vitepress ships no types for its internals
 import { useNav } from 'vitepress/dist/client/theme-default/composables/nav.js'
 import VPNavBar from 'vitepress/dist/client/theme-default/components/VPNavBar.vue'
-import { computed, provide, watchEffect } from 'vue'
+import { computed, provide, watch, watchEffect } from 'vue'
 import { useNavHidden } from '../composables/useNavHidden'
 import VPNavScreen from './VPNavScreen.vue'
 
@@ -30,6 +31,17 @@ const hidden = useNavHidden()
 const hasNavbar = computed(() => frontmatter.value.navbar !== false)
 
 provide('close-screen', closeScreen)
+
+// escape in a popup portalled out of the nav, like the version list, closes only that.
+// webkit leaves focus on body after a tap
+onKeyStroke('Escape', e => {
+  if (!isScreenOpen.value || !(e.target as Element).matches('body, .VPNav *')) return
+  closeScreen()
+  document.querySelector<HTMLElement>('.VPNavBarHamburger')?.focus()
+})
+
+// vitepress closes the menu by outerWidth, which page zoom leaves alone
+watch(useMediaQuery('(min-width: 768px)'), closeScreen)
 
 watchEffect(() => {
   if (inBrowser) {
