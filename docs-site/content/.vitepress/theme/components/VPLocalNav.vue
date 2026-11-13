@@ -59,7 +59,7 @@ import { useLocalNav, useSidebar, type DefaultTheme } from 'vitepress/theme'
 import { isActive } from 'vitepress/dist/client/shared.js'
 // @ts-expect-error vitepress ships no types for its internals
 import { getFlatSideBarLinks } from 'vitepress/dist/client/theme-default/support/sidebar.js'
-import VPLocalNavOutlineDropdown from 'vitepress/dist/client/theme-default/components/VPLocalNavOutlineDropdown.vue'
+import VPLocalNavOutlineDropdown from './VPLocalNavOutlineDropdown.vue'
 import { computed, onMounted, ref } from 'vue'
 import {
   Breadcrumb,
