@@ -8,7 +8,7 @@ This walk-through will show you how to ingest data from MongoDB into Typesense, 
 
 At a high-level we'll be setting up a trigger using MongoDB's Change Streams and pushing the data into Typesense on each change event.
 
-![Typesense MongoDB Integration Chart](@images/typesense-mongodb/mongodb.svg)
+![Typesense MongoDB Integration Chart](@images/typesense-mongodb/mongodb.svg){width=1852 height=484}
 
 :::tip UPDATE
 
