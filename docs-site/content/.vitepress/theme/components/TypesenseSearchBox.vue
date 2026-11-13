@@ -1,11 +1,37 @@
 <template>
-  <div ref="container" class="typesense-search-wrapper" @click="navHidden = false" />
+  <div class="typesense-search-wrapper" @click="navHidden = false">
+    <div ref="container" class="contents" />
+    <!-- docsearch's own button markup, swapped for the real one once the library loads -->
+    <button
+      v-if="!loaded"
+      ref="staticButton"
+      type="button"
+      :aria-label="`Search (${shortcut})`"
+      :aria-keyshortcuts="shortcut"
+      class="DocSearch DocSearch-Button"
+      @pointerenter="load"
+      @focus="load"
+      @click="open"
+    >
+      <span class="DocSearch-Button-Container">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" class="DocSearch-Search-Icon">
+          <circle cx="11" cy="11" r="8" stroke="currentColor" fill="none" stroke-width="1.4" />
+          <path d="m21 21-4.3-4.3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="DocSearch-Button-Placeholder">Search</span>
+      </span>
+      <span class="DocSearch-Button-Keys">
+        <kbd v-if="isApple" class="DocSearch-Button-Key">⌘</kbd>
+        <kbd v-else class="DocSearch-Button-Key DocSearch-Button-Key--ctrl">Ctrl</kbd>
+        <kbd class="DocSearch-Button-Key">K</kbd>
+      </span>
+    </button>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useData, useRouter } from 'vitepress'
-import docsearch from 'typesense-docsearch.js'
 import type { DocSearchInstance } from 'typesense-docsearch.js'
 import type { TypesensePageData, TypesenseThemeConfig } from '../types'
 import { useNavHidden } from '../composables/useNavHidden'
@@ -16,6 +42,13 @@ const router = useRouter()
 const navHidden = useNavHidden()
 
 const container = ref<HTMLElement | null>(null)
+const staticButton = ref<HTMLElement | null>(null)
+const loaded = ref(false)
+// the server can't know the platform. docsearch picks the keys the same way
+const isApple = ref(true)
+const shortcut = computed(() => (isApple.value ? 'Meta+k' : 'Control+k'))
+let docsearch: typeof import('typesense-docsearch.js').default | undefined
+let loading: Promise<void> | undefined
 let instance: DocSearchInstance | undefined
 let searchEventTimer: ReturnType<typeof setTimeout> | undefined
 
@@ -23,9 +56,37 @@ function currentVersion(): string | null {
   return (page.value as TypesensePageData).typesenseVersion ?? null
 }
 
+function load() {
+  loading ??= import('typesense-docsearch.js').then(module => {
+    docsearch = module.default
+    window.removeEventListener('keydown', onShortcut)
+    const hadFocus = document.activeElement === staticButton.value
+    initialize()
+    loaded.value = true
+    if (hadFocus) container.value?.querySelector('button')?.focus()
+  })
+  return loading
+}
+
+async function open() {
+  await load()
+  instance?.open()
+}
+
+// docsearch's own shortcuts, until it loads and takes them over
+function onShortcut(event: KeyboardEvent) {
+  const target = event.composedPath()[0] as HTMLElement
+  const editing = target.isContentEditable || ['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(target.tagName)
+  // autofill fires keydown events with no key
+  const isCmdK = event.key?.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)
+  if (!isCmdK && (event.key !== '/' || editing)) return
+  event.preventDefault()
+  open()
+}
+
 function initialize() {
   const userOptions = theme.value.typesenseDocsearch
-  if (!userOptions || !container.value) return
+  if (!userOptions || !container.value || !docsearch) return
 
   const { typesenseSearchParameters = {} } = userOptions
   const latest = theme.value.typesenseLatestVersion
@@ -73,8 +134,14 @@ function teardown() {
   instance = undefined
 }
 
-onMounted(initialize)
-onBeforeUnmount(teardown)
+onMounted(() => {
+  isApple.value = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)
+  window.addEventListener('keydown', onShortcut)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onShortcut)
+  teardown()
+})
 function onHitClick(event: MouseEvent) {
   if (event.defaultPrevented || event.button !== 0) return
   if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
