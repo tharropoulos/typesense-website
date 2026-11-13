@@ -188,7 +188,6 @@ function toggleAllAvailableLanguages() {
 
 async function copyMarkdown() {
   try {
-    if (!markdownUrl.value) throw new Error('Markdown content not available')
     await copyPageMarkdown(page.value as TypesensePageData)
     isCopied.value = true
     clearTimeout(copyTimeout)
