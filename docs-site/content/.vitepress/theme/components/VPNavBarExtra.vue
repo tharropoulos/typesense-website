@@ -1,5 +1,5 @@
 <template>
-  <Popover>
+  <Popover v-model:open="open">
     <PopoverTrigger as-child>
       <button
         type="button"
@@ -42,10 +42,15 @@ import VPMenu from 'vitepress/dist/client/theme-default/components/VPMenu.vue'
 import VPMenuLink from 'vitepress/dist/client/theme-default/components/VPMenuLink.vue'
 import VPSocialLinks from 'vitepress/dist/client/theme-default/components/VPSocialLinks.vue'
 import VPSwitchAppearance from 'vitepress/dist/client/theme-default/components/VPSwitchAppearance.vue'
-import { computed } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
+import { computed, ref, watch } from 'vue'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 
 const { theme } = useData<DefaultTheme.Config>()
+const open = ref(false)
+
+// the menu is portalled, so it would stay behind when its trigger hides
+watch(useMediaQuery('(min-width: 768px) and (max-width: 1279.98px)'), () => (open.value = false))
 
 const external = computed(
   () =>
