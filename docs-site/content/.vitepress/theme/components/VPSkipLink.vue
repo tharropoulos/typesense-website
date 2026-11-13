@@ -26,8 +26,9 @@ function focusTarget(el: HTMLElement) {
   el.focus({ preventScroll: true })
 }
 
-function focusOnTargetAnchor({ target }: Event) {
-  const el = document.getElementById(decodeURIComponent((target as HTMLAnchorElement).hash).slice(1))
+// #VPContent also holds the aside, whose version picker and outline come first
+function focusOnTargetAnchor() {
+  const el = document.querySelector<HTMLElement>('.VPDoc main') ?? document.getElementById('VPContent')
   if (el) {
     focusTarget(el)
     window.scrollTo(0, 0)
