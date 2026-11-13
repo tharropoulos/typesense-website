@@ -200,6 +200,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     component: { inlineTags: ['RouterLink'] },
     // loads markdown-it-mathjax3 and marks its <mjx-*> output as custom elements
     math: true,
+    // page data carries the outline, so the server knows whether a page has one
+    headers: true,
     config(md) {
       typesenseMarkdown(md)
     },

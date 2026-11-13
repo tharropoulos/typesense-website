@@ -5,7 +5,7 @@
     :style="{ '--vp-vh': vh + 'px' }"
   >
     <button
-      v-if="headers.length > 0 || !mounted"
+      v-if="headers.length > 0"
       ref="toggleButton"
       :class="[BUTTON, open ? 'open text-[var(--vp-c-text-1)]' : 'text-[var(--vp-c-text-2)]']"
       :aria-expanded="open"
@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { onKeyStroke, useMounted } from '@vueuse/core'
+import { onKeyStroke } from '@vueuse/core'
 import { onContentUpdated, useData } from 'vitepress'
 import type { DefaultTheme } from 'vitepress/theme'
 // @ts-expect-error vitepress ships no types for its internals
@@ -69,8 +69,6 @@ const vh = ref(0)
 const main = ref<HTMLDivElement>()
 const items = ref<HTMLDivElement>()
 const toggleButton = ref<HTMLButtonElement>()
-// headers fill in only once mounted, which made the server render "Return to top"
-const mounted = useMounted()
 
 function closeOnClickOutside(e: Event) {
   if (!main.value?.contains(e.target as Node)) {

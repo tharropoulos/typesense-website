@@ -42,7 +42,7 @@
       <!-- the dropdown sizes itself as if the nav had scrolled away -->
       <VPLocalNavOutlineDropdown
         class="shrink-0"
-        :headers="headers"
+        :headers="outline"
         :nav-height="navHidden && !wide ? navHeight : y + navHeight"
       />
     </div>
@@ -92,9 +92,10 @@ onMounted(() => {
   navHeight.value = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--vp-nav-height'))
 })
 
-// headers fill in only once mounted. until then the page is assumed to have some
+// headers fill in only once mounted. the build's own list stands in on the server
 const mounted = useMounted()
-const empty = computed(() => mounted.value && headers.value.length === 0)
+const outline = computed(() => (mounted.value ? headers.value : page.value.headers))
+const empty = computed(() => outline.value.length === 0)
 const emptyAndNoSidebar = computed(() => empty.value && !hasSidebar.value)
 
 const section = computed(
