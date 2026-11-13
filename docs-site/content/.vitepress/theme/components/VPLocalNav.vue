@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { useMediaQuery, useWindowScroll } from '@vueuse/core'
+import { useMediaQuery, useMounted, useWindowScroll } from '@vueuse/core'
 import { useData } from 'vitepress'
 import { useLocalNav, useSidebar, type DefaultTheme } from 'vitepress/theme'
 // TODO: upgrade to vitepress 2 and vite 8 once v2 is out of alpha. it types these internals, so both
@@ -92,7 +92,9 @@ onMounted(() => {
   navHeight.value = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--vp-nav-height'))
 })
 
-const empty = computed(() => headers.value.length === 0)
+// headers fill in only once mounted. until then the page is assumed to have some
+const mounted = useMounted()
+const empty = computed(() => mounted.value && headers.value.length === 0)
 const emptyAndNoSidebar = computed(() => empty.value && !hasSidebar.value)
 
 const section = computed(
