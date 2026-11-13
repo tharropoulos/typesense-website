@@ -60,7 +60,10 @@
 </template>
 
 <script setup lang="ts">
+import { useData } from 'vitepress'
 import type { DefaultTheme } from 'vitepress/theme'
+// @ts-expect-error vitepress ships no types for its internals
+import { isActive } from 'vitepress/dist/client/shared.js'
 // @ts-expect-error vitepress ships no types for its internals
 import { useSidebarControl } from 'vitepress/dist/client/theme-default/composables/sidebar.js'
 import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue'
@@ -73,9 +76,13 @@ const props = defineProps<{
   depth: number
 }>()
 
-const { collapsed, collapsible, isLink, isActiveLink, hasActiveLink, hasChildren, toggle } = useSidebarControl(
+const { collapsed, collapsible, isLink, hasActiveLink, hasChildren, toggle } = useSidebarControl(
   computed(() => props.item),
 )
+
+// vitepress marks the current page only once mounted, which leaves it unmarked before hydration
+const { page } = useData()
+const isActiveLink = computed(() => isActive(page.value.relativePath, props.item.link))
 
 const sectionTag = computed(() => (hasChildren.value ? 'section' : `div`))
 
