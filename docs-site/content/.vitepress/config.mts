@@ -268,6 +268,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           find: /^.*\/VPLocalNav\.vue$/,
           replacement: fileURLToPath(new URL('./theme/components/VPLocalNav.vue', import.meta.url)),
         },
+        {
+          find: /^.*\/VPSkipLink\.vue$/,
+          replacement: fileURLToPath(new URL('./theme/components/VPSkipLink.vue', import.meta.url)),
+        },
       ],
     },
   },
