@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <button
-      v-if="pageMarkdown"
+      v-if="encodedMarkdown"
       ref="button"
       type="button"
       class="copy-section-button inline-flex ml-2 px-1 border-0 bg-transparent align-middle cursor-pointer opacity-0 transition-opacity duration-150 focus-visible:opacity-100"
@@ -23,7 +23,7 @@
         />
       </span>
     </button>
-    <span v-if="pageMarkdown" role="status" class="sr-only">{{ isCopied ? 'Section copied' : '' }}</span>
+    <span v-if="encodedMarkdown" role="status" class="sr-only">{{ isCopied ? 'Section copied' : '' }}</span>
   </ClientOnly>
 </template>
 
@@ -50,7 +50,7 @@ const nearTop = useElementVisibility(button, { rootMargin: '0px 0px -50% 0px' })
 const isCopied = ref(false)
 let copyTimeout: ReturnType<typeof setTimeout> | undefined
 
-const pageMarkdown = computed<string | undefined>(() => decodeMarkdown((page.value as TypesensePageData).markdown))
+const encodedMarkdown = computed(() => (page.value as TypesensePageData).markdown)
 const tabGroups = computed(() => (page.value as TypesensePageData).markdownCopyTabGroups || [])
 
 // runs to the next heading of the same or higher level, ignoring the # inside
@@ -100,9 +100,10 @@ function extractSection(markdown: string): string {
 }
 
 async function copySection() {
-  if (!pageMarkdown.value) return
+  const pageMarkdown = decodeMarkdown(encodedMarkdown.value)
+  if (!pageMarkdown) return
   const filteredMarkdown = filterMarkdownByCopyLanguages(
-    pageMarkdown.value,
+    pageMarkdown,
     tabGroups.value,
     docsStore.state.copyLanguages,
     false,
