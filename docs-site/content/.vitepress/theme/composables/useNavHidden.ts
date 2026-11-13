@@ -31,7 +31,8 @@ export const useNavHidden = createSharedComposable(() => {
     const [to, from] = [next, prev].map(v => Math.min(Math.max(v, 0), max))
     if (!byUser || to > from) deepest = to
     if (!byUser || to < from) highest = to
-    if (!byUser || to === from) return
+    // the open outline panel hangs from the local nav, which a reveal would push off the screen
+    if (!byUser || to === from || document.getElementById('VPLocalNavOutline')) return
     if (to - highest >= 8) hidden.value = true
     else if (deepest - to >= 20) hidden.value = false
   })
