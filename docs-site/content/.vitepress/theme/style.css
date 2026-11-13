@@ -226,6 +226,10 @@ html:has(> body > #app > .Layout > .VPNav:focus-within) {
     --vp-nav-logo-height: 32px;
   }
 }
+/* both logo files are 275x56. without a width the nav jumps when the svg loads */
+.VPNavBarTitle .logo {
+  @apply aspect-[275/56];
+}
 
 /* ! beats the component-scoped, attribute-boosted default rule */
 .VPNavBarTitle.has-sidebar .title {
