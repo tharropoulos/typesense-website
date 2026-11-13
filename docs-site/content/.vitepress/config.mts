@@ -202,6 +202,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     math: true,
     // page data carries the outline, so the server knows whether a page has one
     headers: true,
+    image: { lazyLoading: true },
     config(md) {
       typesenseMarkdown(md)
     },
