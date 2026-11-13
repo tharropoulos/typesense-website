@@ -232,14 +232,9 @@ html:has(> body > #app > .Layout > .VPNav:focus-within) {
   @apply !border-b-transparent;
 }
 
-/* scrollbar hidden, still scrollable via wheel/trackpad */
+/* matches the navbar bottom border */
 .VPSidebar {
-  scrollbar-width: none; /* firefox */
-  /* matches the navbar bottom border */
   border-right: 1px solid var(--vp-c-gutter);
-}
-.VPSidebar::-webkit-scrollbar {
-  display: none; /* chrome/safari/edge */
 }
 /* vitepress only fades and slides the closed drawer away, which leaves its links
  * in the tab order. visibility flips once the slide-out ends */
