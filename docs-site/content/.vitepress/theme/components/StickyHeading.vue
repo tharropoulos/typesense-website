@@ -32,7 +32,7 @@
       </div>
       <div
         ref="h2Bar"
-        class="relative border-b border-[var(--vp-c-divider)] bg-[var(--vp-c-bg)] px-6 py-2 text-2xl font-semibold leading-8 tracking-[-0.02em] text-[var(--vp-c-text-1)] min-[640px]:px-0"
+        class="relative truncate border-b border-[var(--vp-c-divider)] bg-[var(--vp-c-bg)] px-6 py-2 text-2xl font-semibold leading-8 tracking-[-0.02em] text-[var(--vp-c-text-1)] min-[640px]:px-0"
         :class="{ invisible: !section?.header }"
       >
         {{ section?.header?.title }}
