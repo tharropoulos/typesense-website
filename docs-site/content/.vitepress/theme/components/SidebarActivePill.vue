@@ -34,6 +34,7 @@ let mutations: MutationObserver | undefined
 let resize: ResizeObserver | undefined
 let frame = 0
 let revealed: HTMLElement | null = null
+let picked: string | null | undefined
 
 // vitepress leaves the sidebar at the top, however far down the current page is
 function reveal(item: HTMLElement) {
@@ -50,8 +51,6 @@ function update() {
   // an active item inside a collapsed group has no box
   if (!nav || !active || !active.offsetParent) {
     rect.value = null
-    // snap back into place when it reappears instead of sliding in from the top
-    animate.value = false
     return
   }
   if (active !== revealed) {
@@ -60,8 +59,14 @@ function update() {
   }
   const from = nav.getBoundingClientRect()
   const to = active.getBoundingClientRect()
-  rect.value = { top: to.top - from.top, left: to.left - from.left, width: to.width, height: to.height }
-  if (!animate.value) requestAnimationFrame(() => (animate.value = true))
+  const next = { top: to.top - from.top, left: to.left - from.left, width: to.width, height: to.height }
+  // a new pick in the same list glides. a collapse, a resize or a swapped sidebar snaps.
+  // vitepress re-renders every item on each page, so the last pick is found by its link
+  const link = active.querySelector('a')?.getAttribute('href')
+  if (link !== picked) animate.value = !!picked && !!nav.querySelector(`a[href="${picked}"]`)
+  else if (JSON.stringify(next) !== JSON.stringify(rect.value)) animate.value = false
+  picked = link
+  rect.value = next
 }
 
 function schedule() {
