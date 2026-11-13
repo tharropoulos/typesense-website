@@ -206,6 +206,10 @@ html {
 .vp-doc [id] {
   scroll-margin-top: var(--vp-nav-height, 64px);
 }
+/* a link from another page focuses its parameter anchor. headings already drop the ring */
+.vp-doc span[id] {
+  @apply outline-none;
+}
 /* StickyHeading pads past the local nav, and below 960 the nav. both are sticky
  * there. focus inside them would scroll the page to clear them, which they
  * follow. the child path keeps :has from costing every restyle */
