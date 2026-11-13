@@ -272,6 +272,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           find: /^.*\/VPSkipLink\.vue$/,
           replacement: fileURLToPath(new URL('./theme/components/VPSkipLink.vue', import.meta.url)),
         },
+        {
+          find: /^.*\/VPSidebarItem\.vue$/,
+          replacement: fileURLToPath(new URL('./theme/components/VPSidebarItem.vue', import.meta.url)),
+        },
       ],
     },
   },
