@@ -20,16 +20,19 @@ export const useNavHidden = createSharedComposable(() => {
     ),
   )
 
-  // a small nudge back up while reading shouldn't pull the nav over the text
+  // a small nudge back up while reading shouldn't pull the nav over the text, and a
+  // finger drifting down after a reveal shouldn't hide it again
   let deepest = 0
+  let highest = 0
 
   watch(y, (next, prev) => {
     // ios reports its rubber-band bounce, which reads as a reversal at either end
     const max = document.documentElement.scrollHeight - window.innerHeight - 1
     const [to, from] = [next, prev].map(v => Math.min(Math.max(v, 0), max))
     if (!byUser || to > from) deepest = to
+    if (!byUser || to < from) highest = to
     if (!byUser || to === from) return
-    if (to > from) hidden.value = true
+    if (to - highest >= 8) hidden.value = true
     else if (deepest - to >= 20) hidden.value = false
   })
 
