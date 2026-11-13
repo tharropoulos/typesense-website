@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <button
-      v-if="encodedMarkdown"
+      v-if="markdownUrl"
       ref="button"
       type="button"
       class="copy-section-button inline-flex ml-2 px-1 border-0 bg-transparent align-middle cursor-pointer opacity-0 transition-opacity duration-150 focus-visible:opacity-100"
@@ -23,7 +23,7 @@
         />
       </span>
     </button>
-    <span v-if="encodedMarkdown" role="status" class="sr-only">{{ isCopied ? 'Section copied' : '' }}</span>
+    <span v-if="markdownUrl" role="status" class="sr-only">{{ isCopied ? 'Section copied' : '' }}</span>
   </ClientOnly>
 </template>
 
@@ -32,9 +32,7 @@ import { ref, computed, onBeforeUnmount } from 'vue'
 import { useElementVisibility } from '@vueuse/core'
 import { useData } from 'vitepress'
 import { Copy, Check } from 'lucide-vue-next'
-import { docsStore } from '../store'
-import { filterMarkdownByCopyLanguages, getVisibleCopyTabs } from '../util/markdownCopyFilter'
-import { decodeMarkdown } from '../util/decodeMarkdown'
+import { copyPageMarkdown } from '../util/copyPageMarkdown'
 import type { TypesensePageData } from '../types'
 
 // rendered after every h2-h6 by the markdown pipeline
@@ -50,8 +48,7 @@ const nearTop = useElementVisibility(button, { rootMargin: '0px 0px -50% 0px' })
 const isCopied = ref(false)
 let copyTimeout: ReturnType<typeof setTimeout> | undefined
 
-const encodedMarkdown = computed(() => (page.value as TypesensePageData).markdown)
-const tabGroups = computed(() => (page.value as TypesensePageData).markdownCopyTabGroups || [])
+const markdownUrl = computed(() => (page.value as TypesensePageData).markdownUrl)
 
 // runs to the next heading of the same or higher level, ignoring the # inside
 // fenced code blocks
@@ -100,19 +97,12 @@ function extractSection(markdown: string): string {
 }
 
 async function copySection() {
-  const pageMarkdown = decodeMarkdown(encodedMarkdown.value)
-  if (!pageMarkdown) return
-  const filteredMarkdown = filterMarkdownByCopyLanguages(
-    pageMarkdown,
-    tabGroups.value,
-    docsStore.state.copyLanguages,
-    false,
-    getVisibleCopyTabs(tabGroups.value, docsStore.state.defaultTab),
-  )
-  const section = extractSection(filteredMarkdown)
-  if (!section) return
   try {
-    await navigator.clipboard.writeText(section)
+    await copyPageMarkdown(page.value as TypesensePageData, markdown => {
+      const section = extractSection(markdown)
+      if (!section) throw new Error(`no "${props.headingText}" section in the page markdown`)
+      return section
+    })
     isCopied.value = true
     clearTimeout(copyTimeout)
     copyTimeout = setTimeout(() => (isCopied.value = false), 2000)

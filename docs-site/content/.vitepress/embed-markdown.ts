@@ -92,8 +92,6 @@ export function injectPageMarkdown(pageData: TypesensePageData, srcDir: string):
     const ctx = routerCtxFor(urlPath)
     const data = analyzeMarkdownForCopy(transformRouterLinks(raw, ctx))
 
-    // base64 keeps a literal </script> from ending the inline __pageData block
-    pageData.markdown = Buffer.from(prependAgentIndex(data.markdown), 'utf-8').toString('base64')
     pageData.markdownCopyTabGroups = data.copyTabGroups.map(group => ({
       ...group,
       slots: group.slots.map(slot => ({
@@ -131,9 +129,10 @@ export function mdDevMiddleware(srcDir: string): Connect.NextHandleFunction {
     if (!rawUrl.endsWith('.md')) return next()
 
     // vitepress loads each page by importing its .md as a module over http.
-    // hijacking anything but a direct navigation 404s every page in dev
+    // hijacking anything but a direct navigation or a copy button's fetch 404s
+    // every page in dev
     const dest = req.headers['sec-fetch-dest']
-    if (dest && dest !== 'document') return next()
+    if (dest && dest !== 'document' && dest !== 'empty') return next()
 
     let requestPath = decodeURIComponent(rawUrl)
     const basePath = '/docs'

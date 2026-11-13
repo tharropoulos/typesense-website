@@ -12,7 +12,6 @@ export interface TypesenseThemeConfig extends DefaultTheme.Config {
 export interface TypesensePageData extends PageData {
   typesenseVersion?: string | null
   typesenseVersionsWithoutPage?: string[]
-  markdown?: string
   markdownUrl?: string
   markdownCopyTabGroups?: CopyTabGroup[]
   markdownCopyLanguages?: string[]

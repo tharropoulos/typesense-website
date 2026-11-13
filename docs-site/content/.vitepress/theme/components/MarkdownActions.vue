@@ -138,8 +138,7 @@ import { ButtonGroup } from '@/components/ui/button-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { docsStore } from '@/store'
 import { COPY_LANGUAGE_OPTIONS } from '@/util/copyLanguages'
-import { filterMarkdownByCopyLanguages, getVisibleCopyTabs } from '@/util/markdownCopyFilter'
-import { decodeMarkdown } from '@/util/decodeMarkdown'
+import { copyPageMarkdown } from '@/util/copyPageMarkdown'
 import type { TypesensePageData } from '@/types'
 
 const { page } = useData()
@@ -152,12 +151,10 @@ let copyTimeout: ReturnType<typeof setTimeout> | undefined
 const buttonTitle = computed(() =>
   isCopied.value ? 'Markdown copied to clipboard' : 'Copy markdown source to clipboard',
 )
-const pageMarkdown = computed(() => decodeMarkdown((page.value as TypesensePageData).markdown))
 const markdownUrl = computed(() => {
   const url = (page.value as TypesensePageData).markdownUrl
   return url ? withBase(url) : null
 })
-const tabGroups = computed(() => (page.value as TypesensePageData).markdownCopyTabGroups || [])
 const presentLanguages = computed<string[]>(() => {
   const langs = (page.value as TypesensePageData).markdownCopyLanguages
   return Array.isArray(langs) ? langs : []
@@ -191,15 +188,8 @@ function toggleAllAvailableLanguages() {
 
 async function copyMarkdown() {
   try {
-    if (!pageMarkdown.value) throw new Error('Markdown content not available')
-    const markdown = filterMarkdownByCopyLanguages(
-      pageMarkdown.value,
-      tabGroups.value,
-      selectedLanguages.value,
-      false,
-      getVisibleCopyTabs(tabGroups.value, docsStore.state.defaultTab),
-    )
-    await navigator.clipboard.writeText(markdown)
+    if (!markdownUrl.value) throw new Error('Markdown content not available')
+    await copyPageMarkdown(page.value as TypesensePageData)
     isCopied.value = true
     clearTimeout(copyTimeout)
     copyTimeout = setTimeout(() => (isCopied.value = false), 2000)
