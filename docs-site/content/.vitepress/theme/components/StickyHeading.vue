@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
-import { useLocalNav } from 'vitepress/theme'
+import { useLocalNav } from 'vitepress/theme-without-fonts'
 import { useNavHidden } from '../composables/useNavHidden'
 import { settleAnchorWith } from '../util/settleAnchor'
 

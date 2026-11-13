@@ -52,7 +52,7 @@
 <script setup lang="ts">
 import { useMediaQuery, useMounted, useWindowScroll } from '@vueuse/core'
 import { useData } from 'vitepress'
-import { useLocalNav, useSidebar, type DefaultTheme } from 'vitepress/theme'
+import { useLocalNav, useSidebar, type DefaultTheme } from 'vitepress/theme-without-fonts'
 // TODO: upgrade to vitepress 2 and vite 8 once v2 is out of alpha. it types these internals, so both
 // ts-expect-errors can go (its isActive also takes the current hash as a new second argument)
 // @ts-expect-error vitepress ships no types for its internals

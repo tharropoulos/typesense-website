@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
-import DefaultTheme from 'vitepress/theme'
+import DefaultTheme from 'vitepress/theme-without-fonts'
 import { getScrollOffset, useData, useRoute } from 'vitepress'
 import mediumZoom, { type Zoom } from 'medium-zoom'
 import VersionDropdown from './components/VersionDropdown.vue'

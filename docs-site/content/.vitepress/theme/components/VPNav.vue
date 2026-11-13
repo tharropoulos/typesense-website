@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { onKeyStroke, useMediaQuery } from '@vueuse/core'
 import { inBrowser, useData } from 'vitepress'
-import { useSidebar } from 'vitepress/theme'
+import { useSidebar } from 'vitepress/theme-without-fonts'
 // @ts-expect-error vitepress ships no types for its internals
 import { useNav } from 'vitepress/dist/client/theme-default/composables/nav.js'
 import VPNavBar from 'vitepress/dist/client/theme-default/components/VPNavBar.vue'
