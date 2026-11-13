@@ -299,9 +299,6 @@ html:has(> body > #app > .Layout > .VPNav:focus-within) {
 .VPSidebar .nav[data-active-pill] .VPSidebarItem.is-active > .item {
   @apply bg-transparent;
 }
-.VPSidebarItem.is-active > .item .link > .text {
-  @apply font-semibold;
-}
 
 /* long titles wrap. a single line keeps the default 32px row */
 .VPSidebarItem .text {
