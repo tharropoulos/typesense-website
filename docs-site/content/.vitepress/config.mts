@@ -287,6 +287,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     generateMarkdownArtifacts(siteConfig)
   },
 
+  // the font's hashed file name only exists at build time
+  transformHead({ assets }) {
+    const font = assets.find(file => /source-sans-3-latin\.[\w-]+\.woff2$/.test(file))
+    if (font) return [['link', { rel: 'preload', href: font, as: 'font', type: 'font/woff2', crossorigin: '' }]]
+  },
+
   // port of typesense-enhancements extendPageData
   async transformPageData(pageData) {
     const version = pageData.relativePath.split('/')[0]

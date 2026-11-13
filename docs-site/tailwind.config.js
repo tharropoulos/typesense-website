@@ -74,6 +74,7 @@ module.exports = {
       fontFamily: {
         sans: [
           '"Source Sans 3"',
+          '"Source Sans 3 Fallback"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
