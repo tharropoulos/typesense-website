@@ -25,8 +25,8 @@ const convertItem = (item: VuePressItem): DefaultTheme.SidebarItem => {
 
   const group: DefaultTheme.SidebarItem = {
     text: item.title,
-    // vuepress `collapsable: false` means always-open
-    collapsed: item.collapsable === false ? false : undefined,
+    // vitepress reads false as open but collapsible. only a missing key keeps a group fixed
+    collapsed: item.collapsable,
     items: item.children.map(convertItem),
   }
   if (item.path) group.link = normalizeLink(item.path)

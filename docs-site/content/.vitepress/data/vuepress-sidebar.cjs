@@ -69,7 +69,7 @@ module.exports = {
     },
     {
       title: 'Cookbooks', // required
-      collapsable: false, // optional, defaults to true
+      collapsable: true,
       children: [
         ['/guide/search-analytics', 'Search Analytics'],
         ['/guide/semantic-search', 'Semantic Search'],
@@ -91,7 +91,7 @@ module.exports = {
 
     {
       title: 'Walk-Throughs',
-      collapsable: false, // optional, defaults to true
+      collapsable: true,
       children: [
         ['/guide/firebase-full-text-search', 'Firebase Full Text Search'],
         ['/guide/dynamodb-full-text-search', 'AWS DynamoDB Full Text Search'],
@@ -137,7 +137,7 @@ module.exports = {
     {
       title: 'Reference Implementations',
       path: '/guide/reference-implementations/',
-      collapsable: false, // optional, defaults to true
+      collapsable: true,
       children: [
         ['/guide/reference-implementations/recipe-search', 'Recipe Search'],
         ['/guide/reference-implementations/linux-commits-search', 'Linux Commits Search'],
