@@ -482,11 +482,19 @@ img.medium-zoom-image {
 .vp-doc tr:has(> td[data-label='Description']) > td:first-child {
   @apply font-semibold;
 }
-.vp-doc td[data-label='Parameter'] > a {
-  @apply text-inherit no-underline [font-weight:inherit] hover:underline;
+/* the hit area grows up and down only. sideways it would cover the name */
+.vp-doc .parameter-anchor {
+  @apply relative -ml-4 inline-block w-4 select-none text-center font-medium no-underline opacity-0 before:content-[var(--vp-header-anchor-symbol)] after:absolute after:inset-x-0 after:-inset-y-[9px] focus-visible:opacity-100;
 }
-.vp-doc td[data-label='Parameter'] > a > code {
-  @apply text-[var(--vp-code-color)];
+@media (hover: hover) and (pointer: fine) {
+  .vp-doc tr:hover .parameter-anchor {
+    @apply opacity-100;
+  }
+}
+@media (hover: none) {
+  .vp-doc .parameter-anchor {
+    @apply text-[var(--vp-c-text-3)] opacity-100;
+  }
 }
 
 /* phones stack each row so the long cells get the whole width. the labels
@@ -509,6 +517,9 @@ img.medium-zoom-image {
   }
   .vp-doc td:first-child {
     @apply font-medium text-[var(--vp-c-text-1)];
+  }
+  .vp-doc .parameter-anchor {
+    @apply ml-0 w-5 text-left;
   }
   .vp-doc td + td {
     @apply mt-3;

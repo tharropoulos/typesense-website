@@ -72,22 +72,25 @@ export function typesenseMarkdown(md: MarkdownRenderer): void {
 
     // 77 search parameters already carry a <span id>, and old links point at it
     const linkParameter = (cell: Token, inline: Token) => {
+      const name = inline
+        .children!.filter(child => child.type === 'text' || child.type === 'code_inline')
+        .map(child => child.content)
+        .join('')
+        .trim()
+      if (!name) return
       let id = inline.content.match(/\bid="([^"]+)"/)?.[1]
       if (!id) {
-        const name = inline
-          .children!.filter(child => child.type === 'text' || child.type === 'code_inline')
-          .map(child => child.content)
-          .join('')
-          .trim()
-        if (!name) return
         id = name
         for (let n = 2; ids.has(id); n++) id = `${name}-${n}`
         ids.add(id)
         cell.attrSet('id', id)
       }
+      // a link around the name would stop it being selected and copied
       const open = new state.Token('link_open', 'a', 1)
+      open.attrSet('class', 'parameter-anchor')
       open.attrSet('href', `#${id}`)
-      inline.children = [open, ...inline.children!, new state.Token('link_close', 'a', -1)]
+      open.attrSet('aria-label', `Permalink to "${name}"`)
+      inline.children = [open, new state.Token('link_close', 'a', -1), ...inline.children!]
     }
 
     state.tokens.forEach((token, i) => {
