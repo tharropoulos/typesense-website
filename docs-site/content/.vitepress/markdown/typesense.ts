@@ -36,6 +36,15 @@ export function typesenseMarkdown(md: MarkdownRenderer): void {
       )
   })
 
+  // they repeat under every endpoint. vitepress's outline skips headings with this class
+  const outlineSkipped = ['Sample Response', 'Definition']
+  md.core.ruler.push('outline-skipped-labels', state => {
+    state.tokens.forEach((token, i) => {
+      if (token.type === 'heading_open' && outlineSkipped.includes(state.tokens[i + 1].content))
+        token.attrJoin('class', 'ignore-header')
+    })
+  })
+
   // safari drops table semantics once the mobile styles make table parts block or flex
   const tableRoles: Record<string, string> = {
     thead_open: 'rowgroup',
