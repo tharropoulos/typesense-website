@@ -6,6 +6,8 @@ description: "Typesense documentation explains how to install, configure, and us
 
 👋 Welcome! Let's get you up and searching. 
 
+New to Typesense? Start with the [**Quick Start**](/guide/#quick-start) in the Guide.
+
 The documentation is divided into the following sections, that you'll find links for on the **top navigation bar** as well.
 
 | Section                                                                                                           | Purpose                                                                                                                                                                                                                                       |
@@ -32,7 +34,7 @@ On any API Reference page, you can use the version dropdown to switch between ve
 
 But here are direct clickable links as well:
 
-<ul>
+<ul class="!pl-0 !list-none flex flex-wrap gap-x-5 gap-y-2 [&>li]:!mt-0">
   <li v-for="version in $site.themeConfig.typesenseVersions">
     <RouterLink :to="version.startsWith('0.') && Number(version.split('.')[1]) < 20 ? `/${version}/` : `/${version}/api/`"> {{version}} </RouterLink>
   </li>
