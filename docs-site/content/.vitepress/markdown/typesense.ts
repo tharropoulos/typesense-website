@@ -1,5 +1,7 @@
 import type { MarkdownRenderer } from 'vitepress'
 
+type Token = ReturnType<MarkdownRenderer['parse']>[number]
+
 // the old site aliased @images to .vuepress/public/images through webpack.
 // left alone, vite tries to resolve those refs as module imports
 const IMAGE_ALIAS_RE = /(~?@images)\//g
@@ -57,6 +59,37 @@ export function typesenseMarkdown(md: MarkdownRenderer): void {
   md.core.ruler.push('table-cell-labels', state => {
     let labels: string[] = []
     let column = 0
+
+    const ids = new Set<string>()
+    const collectIds = (tokens: Token[]) =>
+      tokens.forEach(token => {
+        const id = token.attrGet('id')
+        if (id) ids.add(id)
+        if (token.type.startsWith('html')) token.content.match(/\bid="[^"]+"/g)?.forEach(attr => ids.add(attr.slice(4, -1)))
+        if (token.children) collectIds(token.children)
+      })
+    collectIds(state.tokens)
+
+    // 77 search parameters already carry a <span id>, and old links point at it
+    const linkParameter = (cell: Token, inline: Token) => {
+      let id = inline.content.match(/\bid="([^"]+)"/)?.[1]
+      if (!id) {
+        const name = inline
+          .children!.filter(child => child.type === 'text' || child.type === 'code_inline')
+          .map(child => child.content)
+          .join('')
+          .trim()
+        if (!name) return
+        id = name
+        for (let n = 2; ids.has(id); n++) id = `${name}-${n}`
+        ids.add(id)
+        cell.attrSet('id', id)
+      }
+      const open = new state.Token('link_open', 'a', 1)
+      open.attrSet('href', `#${id}`)
+      inline.children = [open, ...inline.children!, new state.Token('link_close', 'a', -1)]
+    }
+
     state.tokens.forEach((token, i) => {
       if (tableRoles[token.type]) token.attrSet('role', tableRoles[token.type])
       if (token.type === 'thead_open') labels = []
@@ -68,6 +101,7 @@ export function typesenseMarkdown(md: MarkdownRenderer): void {
         if (label) token.attrSet('data-label', label)
         if (label === 'Required' && /^(yes|no|true|false)$/.test(value))
           token.attrSet('data-required', String(/^(yes|true)$/.test(value)))
+        if (label === 'Parameter' && state.tokens[i - 1].type === 'tr_open') linkParameter(token, state.tokens[i + 1])
       }
     })
   })

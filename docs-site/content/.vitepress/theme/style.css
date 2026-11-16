@@ -233,7 +233,7 @@ html {
   scroll-margin-top: var(--vp-nav-height, 64px);
 }
 /* a link from another page focuses its parameter anchor. headings already drop the ring */
-.vp-doc span[id] {
+.vp-doc :is(span, td)[id] {
   @apply outline-none;
 }
 /* StickyHeading pads past the local nav, and below 960 the nav. both are sticky
@@ -473,6 +473,12 @@ img.medium-zoom-image {
 }
 .vp-doc tr:has(> td[data-label='Description']) > td:first-child {
   @apply font-semibold;
+}
+.vp-doc td[data-label='Parameter'] > a {
+  @apply text-inherit no-underline [font-weight:inherit] hover:underline;
+}
+.vp-doc td[data-label='Parameter'] > a > code {
+  @apply text-[var(--vp-code-color)];
 }
 
 /* phones stack each row so the long cells get the whole width. the labels
