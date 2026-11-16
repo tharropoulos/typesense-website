@@ -97,7 +97,6 @@ async function suggest() {
     q: query,
     query_by: 'hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,embedding',
     query_by_weights: '4,2,1,1',
-    // the search box's 1.0 also matches gibberish slugs
     vector_query: 'embedding:([], k: 5, distance_threshold: 0.7, alpha: 0.2)',
     prioritize_token_position: 'true',
     filter_by: `version:=[${version},unversioned]`,
