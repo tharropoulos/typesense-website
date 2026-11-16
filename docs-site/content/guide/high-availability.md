@@ -141,7 +141,7 @@ typesense-server \
   </template>
 </Tabs>
 
-:::warning IMPORTANT
+:::warning Important
 
 - `--peering-address` should be a **Private IP address**, since it is only meant for internal cluster operations and contains unencrypted Raft data that is exchanged between nodes.
 

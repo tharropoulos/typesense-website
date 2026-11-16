@@ -15,7 +15,7 @@ A document to be indexed in a given collection must conform to the [schema of th
 If the document contains an `id` field of type `string`, Typesense will use that field as the identifier for the document. 
 Otherwise, Typesense will assign an auto-generated identifier to the document. 
 
-:::warning NOTE
+:::warning Note
 The `id` should not include spaces or any other characters that require [encoding in urls](https://www.w3schools.com/tags/ref_urlencode.asp).
 :::
 
@@ -527,7 +527,7 @@ If there is a failure, the response line will include a corresponding error mess
   </template>
 </Tabs>
 
-:::warning NOTE
+:::warning Note
 The import endpoint will always return a `HTTP 200 OK` code, regardless of the import results of the individual documents.
 
 We do this because there might be some documents which succeeded on import and others that failed, and we don't want to return an HTTP error code in those partial scenarios.
@@ -1662,7 +1662,7 @@ curl "http://localhost:8108/collections/places/documents" -X POST \
   </template>
 </Tabs>
 
-:::warning NOTE
+:::warning Note
 Make sure to set the coordinates in the correct order: `[Latitude, Longitude]`. GeoJSON often uses `[Longitude, Latitude]` which is invalid!
 :::
 

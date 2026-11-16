@@ -231,7 +231,7 @@ curl 'http://localhost:8108/multi_search?q=can+you+suggest+an+action+series&conv
             }'
 ```
 
-:::warning IMPORTANT
+:::warning Important
 It's important to specify `"exclude_fields": "embedding"` in the search request, so that the raw floating point numbers aren't being sent to the LLM unnecessarily, which will end up consuming most of the context window.
 
 You also want to remove any other fields that might not be relevant to generating a conversational response by specifying them in `exclude_fields`.

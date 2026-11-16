@@ -7,7 +7,7 @@ description: "Typesense Cloud rolling restart endpoints restart Typesense on eve
 A rolling restart restarts Typesense on each node of your cluster in turn, waiting for each node to reload its data before moving to the next one.
 You can use it to apply [Typesense server parameters](./typesense-server-configuration-parameters.md) you've saved, or to restart a cluster on a schedule.
 
-:::warning IMPORTANT
+:::warning Important
 A single-node cluster can't serve searches or writes until its node has restarted and reloaded its data.
 For zero-downtime restarts, you want to enable [High Availability](https://cloud-help.typesense.org/article/high-availability).
 On a highly available cluster, the other nodes keep serving while each node restarts, as long as your client is [configured with all of the cluster's nodes](../../guide/high-availability.md#when-using-typesense-cloud-or-a-load-balancer).

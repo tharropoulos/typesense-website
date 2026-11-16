@@ -127,7 +127,7 @@ You'll get an HTTP `201` with the new key, including its value:
 }
 ```
 
-:::warning IMPORTANT
+:::warning Important
 This is the only time you'll see the key's `value`, so store it right away.
 If you lose it, you want to revoke the key and create a new one.
 :::

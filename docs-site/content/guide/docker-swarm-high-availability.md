@@ -179,7 +179,7 @@ To Deploy a Typesense cluster on multiple hosts which run in [Docker Swarm](http
 
   #### Content for `docker-stack.yml` file
 
-  :::warning IMPORTANT 
+  :::warning Important
   In the `Docker swarm` setup `--peering-subnet` flag should be the same `subnet` defined in the default or user-defined `overlay` network. `--peering-subnet` was introduced in [`typesense/typesense:0.23.0`](https://hub.docker.com/layers/typesense/typesense/0.23.0/images/sha256-d0fd1b142b10600cb8518cc5f313683324d53f3791c0dad509033445c2c3bfdf?context=explore). For more information on `Overlay` networks, read the official Docker documentation [here](https://docs.docker.com/network/overlay/).
   :::
 

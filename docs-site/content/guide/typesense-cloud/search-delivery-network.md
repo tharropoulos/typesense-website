@@ -234,7 +234,7 @@ export TYPESENSE_HOST='https://xxx.a1.typesense.net'
   </template>
 </Tabs>
 
-::: warning NOTE
+::: warning Note
 
 For Typesense Cloud SDN clusters provisioned **after Jun 16, 2022**,
 if a particular region has infrastructure issues, or a node is in accessible for any reason,

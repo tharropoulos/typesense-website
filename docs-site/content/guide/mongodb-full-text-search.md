@@ -10,7 +10,7 @@ At a high-level we'll be setting up a trigger using MongoDB's Change Streams and
 
 ![Typesense MongoDB Integration Chart](@images/typesense-mongodb/mongodb.svg){width=1852 height=484}
 
-:::tip UPDATE
+:::tip Update
 
 We've published a **Node.js CLI** that you can install to automatically sync MongoDB documents into Typesense.
 

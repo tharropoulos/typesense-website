@@ -313,7 +313,7 @@ curl "http://localhost:8108/collections/places/documents" -X POST \
   </template>
 </Tabs>
 
-:::warning NOTE
+:::warning Note
 Make sure to set the coordinates in the correct order: `[Latitude, Longitude]`. GeoJSON often uses `[Longitude, Latitude]` which is invalid!
 :::
 
@@ -531,7 +531,7 @@ curl "http://localhost:8108/collections/territories/documents" -X POST \
   </template>
 </Tabs>
 
-:::warning NOTE
+:::warning Note
 Coordinates must be specified in proper CCW or CW order to form a valid polygon. Incorrect ordering will result in an error.
 :::
 

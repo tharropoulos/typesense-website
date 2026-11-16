@@ -4,7 +4,7 @@ description: "Configure Typesense Cloud dashboard roles and permissions to contr
 
 # Role-Based Access Control (RBAC) for Admin Dashboard in Typesense Cloud
 
-:::warning NOTE
+:::warning Note
 This article only applies to Typesense Cloud's Admin Dashboard.
 
 If you're looking to implement Role-Based Access Control (RBAC) for documents stored in Typesense, 

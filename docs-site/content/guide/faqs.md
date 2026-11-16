@@ -69,7 +69,7 @@ You can enable stemming by setting the <RouterLink :to="`/${$site.themeConfig.ty
 
 #### 2. Using Custom Stemming Dictionaries
 
-:::warning NOTE
+:::warning Note
 Custom stemming dictionaries are only available in `v28.0` and above.
 :::
 

@@ -15,7 +15,7 @@ Once the rate limit is reached, requests to the API will return a `HTTP 429`:
 {"success": false, "message": "Rate Limit Exceeded. Please try again later."}
 ```
 
-:::warning NOTE
+:::warning Note
 This section talks about the rate limits that apply to the [Typesense Cloud **Cluster Management API**](README.md) which is what you'd use to create new clusters, change capacity of clusters, etc.
 
 There are NO HTTP rate limits applied to the <RouterLink :to="`/${$site.themeConfig.typesenseLatestVersion}/api/`"><strong>Typesense Server API</strong></RouterLink> which is what you'd use to search or send writes to. 

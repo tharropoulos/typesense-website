@@ -16,7 +16,7 @@ If the document contains an `id` field of type `string`, Typesense will use that
 Otherwise, Typesense will assign an auto-generated identifier to the document. Since it's a special field, the `id` field
 is not required to be defined as part of the collection schema.
 
-:::warning NOTE
+:::warning Note
 The `id` should not include spaces or any other characters that require [encoding in urls](https://www.w3schools.com/tags/ref_urlencode.asp).
 :::
 
@@ -604,7 +604,7 @@ If there is a failure, the response line will include a corresponding error mess
   </template>
 </Tabs>
 
-:::warning NOTE
+:::warning Note
 The import endpoint will always return a `HTTP 200 OK` code, regardless of the import results of the individual documents.
 
 We do this because there might be some documents which succeeded on import and others that failed, and we don't want to return an HTTP error code in those partial scenarios.

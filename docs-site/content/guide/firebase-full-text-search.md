@@ -18,7 +18,7 @@ Typesense is blazing fast and highly configurable, so you can tailor results acc
 
 You can either self-host Typesense or use the managed SaaS service [Typesense Cloud](https://cloud.typesense.org).
 
-:::tip UPDATE
+:::tip Update
 
 Firebase Extensions shut down on March 31, 2027. Because of it, Typesense Firebase Extension is now a function kit. 
 

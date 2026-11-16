@@ -327,7 +327,7 @@ For a restore to a new cluster, `target_cluster_reference_id` then holds the new
 
 `source_region` is the region the backup is read from: the backup's copy in the target region when there is one, otherwise another region the backup is stored in.
 
-:::warning IMPORTANT
+:::warning Important
 A restore with `"target": "in_place"` replaces all of the cluster's data with the backup's data, and can't be undone.
 The cluster can't serve searches or writes while it restores.
 :::

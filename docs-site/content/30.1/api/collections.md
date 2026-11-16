@@ -278,7 +278,7 @@ See [Schema Parameters](#schema-parameters) for all available options, and [Fiel
 
 `POST ${TYPESENSE_HOST}/collections`
 
-:::warning IMPORTANT NOTE & TIP
+:::warning Important note & tip
 All fields you mention in a collection's schema will be indexed _in memory_.
 
 There might be cases where you don't intend to search / filter / facet / group by a particular field and just want it to be stored (on disk) and returned as is when a document is a search hit.

@@ -8,7 +8,7 @@ Once you've provisioned a cluster via the Typesense Cloud web console or using t
 you can configure advanced <RouterLink :to="`/${$site.themeConfig.typesenseLatestVersion}/api/server-configuration.html`">Typesense Server Configuration Parameters</RouterLink> that control various aspects of Typesense's behavior, 
 such as CORS settings, performance tuning, and analytics configuration.
 
-:::warning IMPORTANT
+:::warning Important
 Parameter changes take effect when the Typesense server is restarted. So you want to start a [rolling restart](./cluster-restarts.md#start-a-rolling-restart) after changing them. A [configuration change](./cluster-configuration-changes.md#schedule-a-configuration-change) also restarts every node, so it applies them too.
 :::
 
