@@ -34,7 +34,7 @@ On any API Reference page, you can use the version dropdown to switch between ve
 
 But here are direct clickable links as well:
 
-<ul class="!pl-0 !list-none flex flex-wrap gap-x-5 gap-y-2 [&>li]:!mt-0">
+<ul role="list" class="!pl-0 !list-none flex flex-wrap gap-x-5 gap-y-2 [&>li]:!mt-0">
   <li v-for="version in $site.themeConfig.typesenseVersions">
     <RouterLink :to="version.startsWith('0.') && Number(version.split('.')[1]) < 20 ? `/${version}/` : `/${version}/api/`"> {{version}} </RouterLink>
   </li>
