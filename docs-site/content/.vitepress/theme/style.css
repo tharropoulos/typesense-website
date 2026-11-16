@@ -413,6 +413,9 @@ html:has(> body > #app > .Layout > .VPNav:focus-within) {
   background: linear-gradient(var(--vp-c-bg), transparent 50%);
 }
 
+.vp-doc .custom-block p {
+  @apply leading-7;
+}
 .vp-doc .custom-block.tip {
   --vp-custom-block-tip-border: var(--brand-6-raw);
   --vp-custom-block-tip-text: var(--brand-12-raw);
