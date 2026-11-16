@@ -29,10 +29,10 @@
         <Breadcrumb class="min-w-0">
           <BreadcrumbList class="flex-nowrap text-xs font-medium leading-6">
             <template v-if="pageVersion">
-              <BreadcrumbItem class="shrink-0">
+              <BreadcrumbItem class="shrink-0 min-[768px]:hidden">
                 <VersionDropdown breadcrumb />
               </BreadcrumbItem>
-              <BreadcrumbSeparator />
+              <BreadcrumbSeparator class="min-[768px]:hidden" />
             </template>
             <template v-if="section">
               <BreadcrumbItem class="shrink-0">{{ section }}</BreadcrumbItem>
