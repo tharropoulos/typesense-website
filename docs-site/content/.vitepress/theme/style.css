@@ -447,6 +447,9 @@ img.medium-zoom-image {
   @apply motion-reduce:![transition-duration:1ms];
 }
 
+.vp-doc table {
+  @apply my-4;
+}
 .vp-doc tr {
   @apply bg-transparent;
 }
