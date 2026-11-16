@@ -10,7 +10,7 @@ export function copyPageMarkdown(page: TypesensePageData, pick = (markdown: stri
   const tabGroups = page.markdownCopyTabGroups || []
   const languages = docsStore.state.copyLanguages
   const visibleTabs = getVisibleCopyTabs(tabGroups, docsStore.state.defaultTab)
-  const text = fetch(withBase(page.markdownUrl))
+  const text = fetch(withBase(page.markdownUrl), { cache: 'no-cache' })
     .then(response => {
       if (!response.ok) throw new Error(`${response.status} for ${response.url}`)
       return response.text()
