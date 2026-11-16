@@ -416,6 +416,13 @@ html:has(> body > #app > .Layout > .VPNav:focus-within) {
 .vp-doc .custom-block p {
   @apply leading-7;
 }
+
+/* a ch is wider than the average letter in source sans 3, so 60ch holds lines
+ * near 70 characters. code, tables, media and callouts keep the full column */
+.vp-doc
+  :is(p, blockquote, ul, ol):not(.custom-block *, :has(img, iframe, video, table, div[class*='language-'])) {
+  @apply max-w-[60ch];
+}
 .vp-doc .custom-block.tip {
   --vp-custom-block-tip-border: var(--brand-6-raw);
   --vp-custom-block-tip-text: var(--brand-12-raw);
