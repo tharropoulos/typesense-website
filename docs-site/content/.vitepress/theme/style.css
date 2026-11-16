@@ -327,7 +327,7 @@ html:has(> body > #app > .Layout > .VPNav:focus-within) {
 
 /* long titles wrap. a single line keeps the default 32px row */
 .VPSidebarItem .text {
-  @apply !py-1 !text-base;
+  @apply !py-1 !text-base text-balance;
 }
 /* the `> .item` ties vitepress's specificity. a shorter selector loses to its 500 */
 .VPSidebarItem:not(.level-0) > .item .text {
@@ -339,7 +339,7 @@ html:has(> body > #app > .Layout > .VPNav:focus-within) {
   @apply pl-3;
 }
 .VPDocOutlineItem .outline-link {
-  @apply !whitespace-normal !py-1.5 !leading-5;
+  @apply !whitespace-normal !py-1.5 !leading-5 text-balance;
 }
 
 /* vitepress names the mobile dropdown's heading list `outline`, colliding with
