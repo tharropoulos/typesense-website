@@ -145,6 +145,7 @@
   --vp-c-brand-3: var(--brand-9-raw); /* solid brand */
   --vp-c-brand-soft: var(--brand-5-raw); /* light lime fill */
   --typesense-primary: var(--brand-11-raw); /* search modal text, light only */
+  --docsearch-font-family: var(--vp-font-family-base);
 
   --vp-button-brand-border: transparent;
   --vp-button-brand-hover-border: transparent;
