@@ -1,7 +1,7 @@
 <template>
   <RouterLink
     :to="sectionLink"
-    class="flex items-center justify-center h-[120px] bg-surface-gray !no-underline hover:bg-surface-gray-hover"
+    class="flex items-center justify-center h-[120px] rounded-lg bg-surface-gray !no-underline hover:bg-surface-gray-hover"
   >
     <span class="text-xl font-semibold tracking-[-0.01em]">{{ sectionName }}</span>
   </RouterLink>
