@@ -9,11 +9,22 @@
       :model-value="currentVersion ?? undefined"
       @update:model-value="version => goToVersion(String(version))"
     >
+      <!-- the shadcn trigger trades the button focus outline for an inset ring, which would sit on bare text -->
+      <SelectTriggerPrimitive
+        v-if="breadcrumb"
+        :aria-label="`Version ${label}, change version`"
+        class="relative flex items-center gap-0.5 text-xs font-medium leading-6 text-muted-foreground after:absolute after:-inset-x-1.5 after:-inset-y-3 hover:text-foreground [&>svg]:size-3 [&>svg]:opacity-60 [&>svg]:transition-transform [&[data-state=open]>svg]:rotate-180"
+      >
+        <SelectValue>v{{ label }}</SelectValue>
+        <SelectIcon as-child>
+          <ChevronDown />
+        </SelectIcon>
+      </SelectTriggerPrimitive>
       <SelectTrigger
+        v-else
         class="h-8 w-auto gap-2 border-line bg-surface-gray px-3 py-0 text-sm font-medium leading-none text-ink hover:bg-surface-gray-hover data-[placeholder]:text-ink [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:opacity-60 [&>svg]:transition-transform [&[data-state=open]>svg]:rotate-180"
       >
-        <!-- an unlisted version has no item to take its label from -->
-        <SelectValue>v{{ currentVersion ?? pageVersion }}</SelectValue>
+        <SelectValue>v{{ label }}</SelectValue>
       </SelectTrigger>
       <SelectContent :align="align" :collision-padding="16" :body-lock="false" class="w-44">
         <SelectItem
@@ -49,18 +60,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useId } from 'vue'
+import { computed, ref, useId } from 'vue'
+import { ChevronDown } from 'lucide-vue-next'
+import { SelectIcon, SelectTrigger as SelectTriggerPrimitive } from 'reka-ui'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import RouterLink from './RouterLink.vue'
 import { useVersionSwitch } from '../composables/useVersionSwitch'
 
-withDefaults(defineProps<{ showOnMobileOnly?: boolean; showOnDesktopOnly?: boolean; align?: 'start' | 'end' }>(), {
-  showOnMobileOnly: false,
-  showOnDesktopOnly: false,
-  align: 'start',
-})
+withDefaults(
+  defineProps<{ showOnMobileOnly?: boolean; showOnDesktopOnly?: boolean; align?: 'start' | 'end'; breadcrumb?: boolean }>(),
+  {
+    showOnMobileOnly: false,
+    showOnDesktopOnly: false,
+    align: 'start',
+    breadcrumb: false,
+  },
+)
 
 const { versions, currentVersion, pageVersion, getVersionedPath, versionHasPage, goToVersion } = useVersionSwitch()
+
+// an unlisted version has no item to take its label from
+const label = computed(() => currentVersion.value ?? pageVersion.value)
 
 const open = ref(false)
 const greyedNoteId = useId()

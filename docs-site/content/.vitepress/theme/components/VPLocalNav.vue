@@ -14,7 +14,7 @@
     <div class="flex items-center justify-between">
       <div
         v-if="hasSidebar"
-        class="relative flex min-w-0 items-center gap-2 self-stretch px-6 min-[768px]:px-8 narrow:hidden"
+        class="relative flex min-w-0 items-center gap-2 self-stretch pl-6 min-[768px]:pl-8 narrow:hidden"
       >
         <button
           class="flex text-muted-foreground transition-colors after:absolute after:inset-0 hover:text-foreground"
@@ -28,6 +28,12 @@
 
         <Breadcrumb class="min-w-0">
           <BreadcrumbList class="flex-nowrap text-xs font-medium leading-6">
+            <template v-if="pageVersion">
+              <BreadcrumbItem class="shrink-0">
+                <VersionDropdown breadcrumb />
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+            </template>
             <template v-if="section">
               <BreadcrumbItem class="shrink-0">{{ section }}</BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -60,6 +66,7 @@ import { isActive } from 'vitepress/dist/client/shared.js'
 // @ts-expect-error vitepress ships no types for its internals
 import { getFlatSideBarLinks } from 'vitepress/dist/client/theme-default/support/sidebar.js'
 import VPLocalNavOutlineDropdown from './VPLocalNavOutlineDropdown.vue'
+import VersionDropdown from './VersionDropdown.vue'
 import { computed, onMounted, ref } from 'vue'
 import {
   Breadcrumb,
@@ -69,6 +76,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { useNavHidden } from '../composables/useNavHidden'
+import { useVersionSwitch } from '../composables/useVersionSwitch'
 import { cn } from '@/lib/utils'
 
 defineProps<{
@@ -85,6 +93,7 @@ const { headers } = useLocalNav()
 const { y } = useWindowScroll()
 const navHidden = useNavHidden()
 const wide = useMediaQuery('(min-width: 960px)')
+const { pageVersion } = useVersionSwitch()
 
 const navHeight = ref(0)
 
