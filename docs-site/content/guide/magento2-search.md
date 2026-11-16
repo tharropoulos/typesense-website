@@ -72,11 +72,11 @@ From the Magento Admin panel, click on:
 
 Store > Configuration > Typesense Search > General > General Configuration
 
-![Typesense Configuration](~@images/magento2/configuration.png)
+![Typesense Configuration](~@images/magento2/configuration.png){width=1138 height=816}
 
 You can get the typesense credentials from [Typesense Cloud Dashboard](https://cloud.typesense.org/login)
 
-![Typesense API Keys Generate](~@images/magento2/api_key_generate.png)
+![Typesense API Keys Generate](~@images/magento2/api_key_generate.png){width=1911 height=780}
 
 #### Admin API key & Search-only (public) API key, 
 
@@ -113,7 +113,7 @@ To configure semantic search from the Magento Admin panel click on,
 
 Store > Configuration > Typesense Search > Semantic Search > Semantic Search
 
-![Typesense Semantic Search](~@images/magento2/semantic_search.png)
+![Typesense Semantic Search](~@images/magento2/semantic_search.png){width=720 height=635}
 
 ## Support
 

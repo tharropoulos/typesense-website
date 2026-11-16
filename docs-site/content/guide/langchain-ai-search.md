@@ -29,7 +29,7 @@ Why developers choose Typesense:
 
 Before writing code, let's understand how the pieces fit together:
 
-![Architecture Overview](~@images/langchain-ai-search/ai-search-architecture.svg)
+![Architecture Overview](~@images/langchain-ai-search/ai-search-architecture.svg){width=800 height=450}
 
 **Chainlit** serves as our interactive frontend. **OpenAI** provides the intelligence to parse natural queries and generate conversational responses. **Typesense** acts as our vector database and hybrid search engine, and the **Movie of the Night API** provides the real-time streaming availability and poster images.
 
@@ -1041,7 +1041,7 @@ Open `http://localhost:8000` in your browser. You can now chat with your movie d
 
 Here's how the final output should look like:
 
-![Langchain Movie Search Final Output](~@images/langchain-ai-search/final-output.png)
+![Langchain Movie Search Final Output](~@images/langchain-ai-search/final-output.png){width=2548 height=1332}
 
 ## Source Code
 

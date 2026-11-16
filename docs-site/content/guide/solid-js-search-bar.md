@@ -565,7 +565,7 @@ You've successfully built a search interface with Solid.js and Typesense!
 
 Here's how the final output should look like:
 
-![Solid.js Search Bar Final Output](~@images/solidjs-search-bar/final-output.png)
+![Solid.js Search Bar Final Output](~@images/solidjs-search-bar/final-output.png){width=1512 height=861}
 
 ## Source Code
 

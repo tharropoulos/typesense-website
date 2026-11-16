@@ -517,7 +517,7 @@ You've successfully built a search interface with Astro and Typesense!
 
 Here's how the final output should look like:
 
-![Astro Search Bar Final Output](~@images/astro-search-bar/final-output.png)
+![Astro Search Bar Final Output](~@images/astro-search-bar/final-output.png){width=2556 height=1354}
 
 ## Source Code
 

@@ -479,7 +479,7 @@ Just save this as `index.html` and open it in your browser. It will work as long
 
 Here's how the final output should look like:
 
-![Vanilla JS Search Bar Final Output](~@images/vanilla-js-search-bar/final-output.png)
+![Vanilla JS Search Bar Final Output](~@images/vanilla-js-search-bar/final-output.png){width=1512 height=861}
 
 ## Source Code
 

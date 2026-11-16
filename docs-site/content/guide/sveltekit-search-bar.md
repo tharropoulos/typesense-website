@@ -524,7 +524,7 @@ You've successfully built a search interface with SvelteKit and Typesense!
 
 Here's how the final output should look like:
 
-![SvelteKit Search Bar Final Output](~@images/sveltekit-search-bar/final-output.png)
+![SvelteKit Search Bar Final Output](~@images/sveltekit-search-bar/final-output.png){width=1512 height=805}
 
 ## Source Code
 

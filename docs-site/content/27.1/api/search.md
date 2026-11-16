@@ -334,7 +334,7 @@ For integer fields, Typesense will also return min, max, sum and average values,
 **Example**: if you have a [dataset of songs](https://songs-search.typesense.org/) like in the screenshot below,
 the **_count_** next to each of the "Release Dates" and "Artists" on the left is obtained by faceting on the `release_date` and `artist` fields.
 
-![Faceting Usecase Example](~@images/faceting_usecase_example.png)
+![Faceting Usecase Example](~@images/faceting_usecase_example.png){width=2346 height=1792}
 
 This is useful to show users a summary of results, so they can refine the results further to get to what they're looking for efficiently.
 

@@ -661,7 +661,7 @@ You've successfully built a search interface with Angular and Typesense!
 
 Here's how the final output should look like:
 
-![Angular Search Bar Final Output](~@images/angular-search-bar/final-output.png)
+![Angular Search Bar Final Output](~@images/angular-search-bar/final-output.png){width=1512 height=854}
 
 ## Source Code
 

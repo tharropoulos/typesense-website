@@ -576,7 +576,7 @@ You've successfully built a search interface with Nuxt.js and Typesense!
 
 Here's how the final output should look like:
 
-![Nuxt.js Search Bar Final Output](~@images/nuxt-search-bar/final-output.png)
+![Nuxt.js Search Bar Final Output](~@images/nuxt-search-bar/final-output.png){width=1512 height=854}
 
 ## Source Code
 

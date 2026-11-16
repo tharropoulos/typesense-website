@@ -371,7 +371,7 @@ You can also try using a different ML model that was trained using a dataset tha
 
 Let's say you have a Songs Search UI, where you want to show a filter widget that users can use to filter on Artists:
 
-<img src="~@images/faqs/artists-filter-widget.png" alt="Filter by Artists" height="400">
+<img src="~@images/faqs/artists-filter-widget.png" alt="Filter by Artists" width="560" height="958">
 
 Initially when you do `facet_by: artist`, you'll get facet counts for all artist names in the search results.
 
@@ -402,7 +402,7 @@ The **_count_** next to each of the "Release Dates" and "Artists" on the left is
 
 If you click on say "John Denver" and want to only fetch songs where the artist is "John Denver", that is called filtering.
 
-![Faceting Usecase Example](~@images/faceting_usecase_example.png)
+![Faceting Usecase Example](~@images/faceting_usecase_example.png){width=2346 height=1792}
 
 ## Indexing
 

@@ -53,11 +53,11 @@ If you are using Typesense Cloud, once the cluster is set up, click on "Generate
 This will generate and download API Keys to be used. 
 Keep this file safe and secure for future use.
 
-![Typesense API Keys Generate](~@images/wordpress/api-keys-overview.png)
+![Typesense API Keys Generate](~@images/wordpress/api-keys-overview.png){width=916 height=503}
 
 The text file will have the following information:
 
-![Typesense DynamoDB Integration Chart](~@images/wordpress/configuration-txt.png)
+![Typesense DynamoDB Integration Chart](~@images/wordpress/configuration-txt.png){width=678 height=223}
 
 - Admin API Key
 - Search Only API Key
@@ -82,7 +82,7 @@ Go to WordPress Admin Area > Typesense > Search Configuration and from here you 
 - Autocomplete Input Delay
 - Replace WordPress Search
 
-![Typesense DynamoDB Integration Chart](~@images/wordpress/typesense-search-configuration.png)
+![Typesense DynamoDB Integration Chart](~@images/wordpress/typesense-search-configuration.png){width=1740 height=917}
 
 ##### Enable Post Types
 This option allows you to select which post types to index. By default, the plugin allows you to index posts and pages. 
@@ -152,14 +152,14 @@ Before configuring the plugin in WordPress, you need a running Typesense instanc
 * **Typesense Cloud:** Set up a cluster on [Typesense Cloud](https://cloud.typesense.org). Once active, click **Generate API Keys** on your cluster dashboard to download your credentials text file.
 * **Self-Hosted:** If you are running Typesense on your own server, generate your API keys following the instructions here: <RouterLink :to="`/${$site.themeConfig.typesenseLatestVersion}/api/api-keys.html`">Generate API Keys</RouterLink>.
 
-![Typesense API Keys Generate](~@images/wordpress/api-keys-overview.png)
+![Typesense API Keys Generate](~@images/wordpress/api-keys-overview.png){width=916 height=503}
 
 From the downloaded credentials file or your self-hosted setup, locate the following details:
 - **Admin API Key** (required for server-side indexing).
 - **Search Only API Key** (required for client-side search queries).
 - **Nodes/Hostnames** (along with port number and protocol).
 
-![Typesense Credentials File](~@images/wordpress/configuration-txt.png)
+![Typesense Credentials File](~@images/wordpress/configuration-txt.png){width=678 height=223}
 
 ### Configuration
 Once you have your credentials, navigate to **SwiftSearch** in the WordPress admin menu. The setup wizard will guide you through the configuration:

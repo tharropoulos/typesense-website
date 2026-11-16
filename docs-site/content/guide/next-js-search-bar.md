@@ -516,7 +516,7 @@ You've successfully built a search interface with Next.js and Typesense!
 
 Here's how the final output should look like:
 
-![NextJS Search Bar Final Output](~@images/next-search-bar/final-output.png)
+![NextJS Search Bar Final Output](~@images/next-search-bar/final-output.png){width=2556 height=1352}
 
 ## Source Code
 

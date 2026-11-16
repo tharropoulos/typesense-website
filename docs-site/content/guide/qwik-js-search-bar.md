@@ -659,7 +659,7 @@ This makes Qwik applications incredibly fast, especially on mobile devices and s
 
 Here's how the final output should look like:
 
-![Qwik Search Bar Final Output](~@images/qwik-search-bar/final-output.png)
+![Qwik Search Bar Final Output](~@images/qwik-search-bar/final-output.png){width=1512 height=862}
 
 ## Source Code
 
