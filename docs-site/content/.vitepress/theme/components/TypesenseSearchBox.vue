@@ -192,6 +192,16 @@ watch(
 
 .DocSearch-Button {
   @apply max-mobile:border-0 max-mobile:bg-transparent;
+
+  --docsearch-search-button-background: var(--vp-nav-bg-color);
+  --docsearch-search-button-text-color: var(--gray-11);
+  --docsearch-subtle-color: var(--gray-4);
+  --docsearch-key-background: var(--gray-3);
+  --docsearch-key-color: var(--gray-11);
+}
+
+.dark .DocSearch-Button {
+  --docsearch-subtle-color: var(--gray-5);
 }
 
 .DocSearch-Button-Placeholder,
