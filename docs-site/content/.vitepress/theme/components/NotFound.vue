@@ -3,7 +3,14 @@
     <p class="font-mono text-sm font-semibold tracking-wider text-accent">404</p>
     <h1 class="mt-3 text-3xl font-semibold tracking-tight text-[var(--vp-c-text-1)]">Page not found</h1>
     <p class="mt-4 text-balance text-base leading-7 text-[var(--vp-c-text-2)]">
-      This page doesn't exist or has moved. Pick a section below, or search the docs.
+      This page doesn't exist or has moved. Pick a section below, or
+      <button
+        type="button"
+        class="font-medium text-accent underline underline-offset-2 transition-colors ease-out hover:text-accent-hover"
+        @click="openSearch"
+      >
+        search the docs</button
+      >.
     </p>
     <div class="mt-8 flex flex-wrap justify-center gap-3">
       <VPLink
@@ -60,6 +67,10 @@ const links = computed(() => [
 ])
 
 const suggestions = ref<{ title: string; href: string }[]>([])
+
+function openSearch() {
+  document.querySelector<HTMLButtonElement>('.DocSearch-Button')?.click()
+}
 
 type Hit = { document: { url_without_anchor: string; 'hierarchy.lvl0': string } }
 
