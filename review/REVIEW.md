@@ -1022,10 +1022,10 @@ Handoff 07 fixed DocSearch bugs in the typesense-docsearch.js fork, not in this 
 
 ## Run it yourself
 
-Build both sides and serve them, then run the gates from this folder. A build needs about 16GB and takes about 2.5 minutes.
+Build both sides and serve them, then run the gates from this folder. A build needs about 16GB and takes about 2.5 minutes. Without bun or Node, `nix develop ./docs-site` from the repo root gives you both.
 
 ```sh
-# the branch, from docs-site on docs-ui-review-fixes
+# the branch, from docs-site
 bun run build && bun run preview --port 4173
 
 # the base, in a shared clone so your checkout stays put
@@ -1034,7 +1034,7 @@ ln -s <repo>/docs-site/node_modules docs-site/node_modules
 cd docs-site && bun run build && bun run preview --port 4174
 
 # the gates, from review/
-bun install
+bun install && bunx playwright install chromium
 node run.js gates/g1-tabs-controls.js gates/g2-contrast-keyboard.js gates/g3-shell-load-reading.js gates/g3-shell-load-reading-anchors.js
 ```
 
