@@ -2,7 +2,7 @@
 
 Review kit for `docs-ui-review-fixes`. It holds 98 commits from the docs UI audit, on top of the font bump in PR #512. Before is `6e776ca3` and after is `e69af439`. Both were built for production and compared in headless Chromium on 2026-11-17.
 
-Every commit is reviewed in exactly one pass below. The [ledger](#ledger) at the bottom maps each commit to its pass. There is also an [interactive version](https://claude.ai/artifact/D2hKLH43KZaAAMyRj63uTg) with side-by-side clips and per-reviewer sign-off. Ask Fanis for access.
+Every commit is reviewed in exactly one pass below. The [ledger](#ledger) at the bottom maps each commit to its pass. The same review is also an interactive page with the clips side by side. Open `review/index.html` in a browser from a checkout of this branch.
 
 | Pass | What you do | Count |
 |---|---|---|

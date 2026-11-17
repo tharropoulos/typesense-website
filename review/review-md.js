@@ -3,7 +3,6 @@ const fs = require('fs')
 const path = require('path')
 
 const D = JSON.parse(fs.readFileSync(path.join(__dirname, 'site/data.json'), 'utf8'))
-const ARTIFACT = 'https://claude.ai/artifact/D2hKLH43KZaAAMyRj63uTg'
 const sha = s => `\`${s}\``
 const cell = s =>
   String(s ?? '')
@@ -32,7 +31,7 @@ w(
     D.meta.captured
   }.`,
   '',
-  `Every commit is reviewed in exactly one pass below. The [ledger](#ledger) at the bottom maps each commit to its pass. There is also an [interactive version](${ARTIFACT}) with side-by-side clips and per-reviewer sign-off. Ask Fanis for access.`,
+  `Every commit is reviewed in exactly one pass below. The [ledger](#ledger) at the bottom maps each commit to its pass. The same review is also an interactive page with the clips side by side. Open \`review/index.html\` in a browser from a checkout of this branch.`,
   '',
   '| Pass | What you do | Count |',
   '|---|---|---|',

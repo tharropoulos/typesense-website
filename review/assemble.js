@@ -1,4 +1,4 @@
-// Builds site/index.html and site/files.json from the kit's outputs.
+// Builds index.html (open it from a checkout), plus site/index.html and site/files.json for the claude.ai copy.
 const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
@@ -172,7 +172,7 @@ const data = {
   rerun: [
     {
       title: 'Build the branch and preview it',
-      text: 'From docs-site on docs-ui-review-fixes. A build needs about 16GB and takes about 2.5 minutes.',
+      text: 'From docs-site. A build needs about 16GB and takes about 2.5 minutes. Without bun or Node, `nix develop ./docs-site` from the repo root gives you both.',
       cmd: 'bun run build && bun run preview --port 4173',
     },
     {
@@ -182,18 +182,20 @@ const data = {
     },
     {
       title: 'Run the gates',
-      text: 'In any scratch folder with Playwright 1.49.1 installed, next to the gates folder. Each gate opens a fresh context on both builds and prints its verdict.',
-      cmd: 'node run.js gates/g1-tabs-controls.js gates/g2-contrast-keyboard.js gates/g3-shell-load-reading.js',
+      text: 'From review/. Each gate opens a fresh context on both builds and prints its verdict.',
+      cmd: 'bun install && bunx playwright install chromium\nnode run.js gates/g1-tabs-controls.js gates/g2-contrast-keyboard.js gates/g3-shell-load-reading.js gates/g3-shell-load-reading-anchors.js',
     },
     { title: 'run.js', text: 'The whole runner.', cmd: runJs },
   ],
 }
 
 const json = JSON.stringify(data).replace(/</g, '\\u003c')
+const page = fs.readFileSync(path.join(K, 'template.html'), 'utf8').replace('/*__DATA__*/', () => json)
 fs.mkdirSync(path.join(K, 'site'), { recursive: true })
+fs.writeFileSync(path.join(K, 'site/index.html'), page)
 fs.writeFileSync(
-  path.join(K, 'site/index.html'),
-  fs.readFileSync(path.join(K, 'template.html'), 'utf8').replace('/*__DATA__*/', () => json),
+  path.join(K, 'index.html'),
+  '<!doctype html>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' + page,
 )
 fs.writeFileSync(path.join(K, 'site/data.json'), JSON.stringify(data))
 fs.writeFileSync(
