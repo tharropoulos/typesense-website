@@ -1,0 +1,11 @@
+{
+  "name": "docs-ui-review-kit",
+  "private": true,
+  "description": "Gates, screenshots and clips for reviewing docs-ui-review-fixes",
+  "scripts": {
+    "gates": "node run.js gates/g1-tabs-controls.js gates/g2-contrast-keyboard.js gates/g3-shell-load-reading.js gates/g3-shell-load-reading-anchors.js"
+  },
+  "devDependencies": {
+    "playwright": "1.49.1"
+  }
+}

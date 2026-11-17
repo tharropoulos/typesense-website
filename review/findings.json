@@ -1,0 +1,3 @@
+{
+  "sidebar-server-matches-hydrated": "Real regression on the branch. d24ce632 starts three guide groups collapsed, and the server renders them collapsed even when one holds the current page (HEAD's HTML has 'collapsed has-active'). VitePress opens the group after hydration, so the sidebar jumps. CLS 0.040 on the LangChain guide and 0.028 on Semantic Search, 0 on base. With JavaScript off the current page is hidden. See Calls."
+}

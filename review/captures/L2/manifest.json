@@ -1,0 +1,217 @@
+{
+  "id": "L2",
+  "title": "API reference tables, code and popups",
+  "page": "/docs/30.2/api/search.html",
+  "viewport": "1280x800",
+  "crops": [
+    {
+      "id": "table",
+      "theme": "light",
+      "title": "First parameter table, heading plus header and two rows",
+      "base": "table-light-base.png",
+      "head": "table-light-head.png",
+      "viewport": "1280x1400",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "886ec9e6",
+          "look_for": "Green inline code such as `q: \"*\"` and `company_name, country` is one step darker (#4f8000 to #497500).",
+          "seen": false,
+          "note": "Too small to see at this scale. The table-chip zoom shows it."
+        },
+        {
+          "sha": "39ab66e7",
+          "look_for": "In the header row, \"Parameter\", \"Required\" and \"Description\" lose their wide letter-spacing and sit tighter.",
+          "seen": true
+        },
+        {
+          "sha": "f78d766d",
+          "look_for": "The gap between the \"Query parameters\" heading and the table shrinks from 20px to 16px. The header row sits 4px higher on HEAD.",
+          "seen": true
+        },
+        {
+          "sha": "e1d57f93",
+          "look_for": "Left of \"q\" in the first row, HEAD shows a small green # link while the row is hovered. Base shows the name alone.",
+          "seen": true
+        }
+      ],
+      "note": "The mouse rests on the q row's \"yes\" cell because the # only shows on hover on desktop. The viewport is 1280x1400 instead of 1280x800 so the heading and two 580px-tall rows fit. The width and layout are unchanged. The Description column starts about 5px further left on HEAD because the tighter \"Required\" header (39ab66e7) narrows that column."
+    },
+    {
+      "id": "table-chip",
+      "theme": "light",
+      "title": "Zoom on one inline code chip in the table",
+      "base": "table-chip-light-base.png",
+      "head": "table-chip-light-head.png",
+      "dsf": 4,
+      "items": [
+        {
+          "sha": "886ec9e6",
+          "look_for": "The green \"company_name, country\" text is a touch deeper and more olive on HEAD.",
+          "seen": true
+        }
+      ],
+      "note": "Subtle. Extra framing at deviceScaleFactor 4 of the chip in the query_by row. Computed colour goes from #4f8000 to #497500. A contrast gate is the firmer check."
+    },
+    {
+      "id": "code",
+      "theme": "light",
+      "title": "First code group on its JavaScript tab",
+      "base": "code-light-base.png",
+      "head": "code-light-head.png",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "5e30f0af",
+          "look_for": "Across the code panel, GitHub's red, navy and purple tokens become the site palette. \"let\" turns green, strings brown-amber, \"client\" dark red and the method names plain gray.",
+          "seen": true
+        },
+        {
+          "sha": "e3d83063",
+          "look_for": "On HEAD the three token colours differ in lightness. Green \"let\" is the lightest, the amber strings sit in the middle and dark red \"client\" is the darkest.",
+          "seen": true
+        }
+      ],
+      "note": "The gray \"js\" label in the top-right corner also goes (c425dce1)."
+    },
+    {
+      "id": "code",
+      "theme": "dark",
+      "title": "First code group on its JavaScript tab",
+      "base": "code-dark-base.png",
+      "head": "code-dark-head.png",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "5e30f0af",
+          "look_for": "Across the code panel, GitHub's pink, light blue and purple tokens become lime keywords, amber strings, a tomato \"client\" and gray method names.",
+          "seen": true
+        },
+        {
+          "sha": "e3d83063",
+          "look_for": "The lime, amber and tomato tokens sit at clearly different brightness on HEAD, lime brightest and tomato darkest.",
+          "seen": true
+        }
+      ],
+      "note": "The gray \"js\" label in the top-right corner also goes (c425dce1)."
+    },
+    {
+      "id": "selection",
+      "theme": "dark",
+      "title": "Selected text in the first code panel",
+      "base": "selection-dark-base.png",
+      "head": "selection-dark-head.png",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "78e0b917",
+          "look_for": "The selection fill behind the code goes from a bright mid green to a much darker green, and the tokens on it read more clearly.",
+          "seen": true
+        }
+      ],
+      "note": "Token colours under the selection also change (5e30f0af) and the \"js\" label goes (c425dce1)."
+    },
+    {
+      "id": "listbox",
+      "theme": "dark",
+      "title": "Aside version list open, one row keyboard-focused",
+      "base": "listbox-dark-base.png",
+      "head": "listbox-dark-head.png",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "5bfe7432",
+          "look_for": "The open version list is a lighter gray than the page on HEAD (#1a1a1f to #23232a). The focused \"v30.1\" row is lighter still (#222229 to #31303b) and stands out more.",
+          "seen": true
+        },
+        {
+          "sha": "66d59344",
+          "look_for": "Nothing to look for here.",
+          "seen": false,
+          "note": "No visible change is claimed (a refactor of shadcn variant defaults). Nothing in this pair belongs to it. Leave it to a gate or a code read."
+        },
+        {
+          "sha": "17966f88",
+          "look_for": "Nothing to look for here.",
+          "seen": false,
+          "note": "No visible change is claimed (screen-reader text only, and the visible footer line is in both builds). Nothing in this pair belongs to it. Leave it to a gate or a code read."
+        }
+      ],
+      "note": "The trigger above the list also gains a thin border (819cc8d7)."
+    },
+    {
+      "id": "search-modal",
+      "theme": "light",
+      "title": "Search modal after typing 'vector search'",
+      "base": "search-modal-light-base.png",
+      "head": "search-modal-light-head.png",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "a7a03d39",
+          "look_for": "Across the modal, the typed query, the hit titles and the footer labels (\"Navigate\", \"Select\", \"Close\") switch from the system font to the narrower Source Sans 3.",
+          "seen": true
+        },
+        {
+          "sha": "6ad33ed6",
+          "look_for": "The underlined matches (\"Vector Search\", \"vector search\") and \"Clear\" are one step darker green.",
+          "seen": false,
+          "note": "Too small to see at 1x (primary colour lightness 25% to 23%). The search-modal-zoom pair shows it better."
+        }
+      ],
+      "note": "One live query per build, entered with a single fill so each build sent one request. Both builds returned the same five hits."
+    },
+    {
+      "id": "search-modal-zoom",
+      "theme": "light",
+      "title": "Zoom on the hits in the search modal",
+      "base": "search-modal-zoom-light-base.png",
+      "head": "search-modal-zoom-light-head.png",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "6ad33ed6",
+          "look_for": "The green match text and underlines in the selected \"Vector Search\" hit and the last row read slightly deeper on HEAD.",
+          "seen": true
+        }
+      ],
+      "note": "Subtle. This is a 3x pixel zoom of the search-modal captures, so no extra queries ran. The thinner Source Sans 3 strokes from a7a03d39 also change how dark the green reads."
+    },
+    {
+      "id": "outline",
+      "theme": "light",
+      "title": "On this page outline at scrollY 0",
+      "base": "outline-light-base.png",
+      "head": "outline-light-head.png",
+      "page": "/docs/30.2/api/api-keys.html",
+      "viewport": "1440x900",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "bb6a4814",
+          "look_for": "In the right column list, \"Sample Response\" and \"Definition\" no longer appear under \"Search-only API Key\". Everything below moves up two rows.",
+          "seen": true
+        }
+      ],
+      "note": "Labels such as \"Synonym Set Item actions\" and \"Analytics Rules actions\" also wrap differently, from 8da4e8c6. The list is taller than the 900px viewport on both builds, so outline-full shows all of it."
+    },
+    {
+      "id": "outline-full",
+      "theme": "light",
+      "title": "Whole On this page outline",
+      "base": "outline-full-light-base.png",
+      "head": "outline-full-light-head.png",
+      "page": "/docs/30.2/api/api-keys.html",
+      "viewport": "1440x1720",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "bb6a4814",
+          "look_for": "Down the whole list, HEAD drops every \"Sample Response\" and \"Definition\" row (42 rows to 33) and ends about 290px shorter.",
+          "seen": true
+        }
+      ],
+      "note": "Extra framing with a 1440x1720 viewport so the full outline fits on both builds."
+    }
+  ]
+}

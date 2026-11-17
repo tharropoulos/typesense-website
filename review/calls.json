@@ -1,0 +1,325 @@
+[
+ {
+  "id": "found-sidebar-ssr",
+  "group": "Found while building this review",
+  "shas": [
+   "d24ce632",
+   "04f199ee"
+  ],
+  "see": "gate-sidebar-server-matches-hydrated",
+  "title": "Guide pages inside a collapsed group jump when the sidebar hydrates",
+  "detail": "The server renders Cookbooks, Walk-Throughs and Reference Implementations collapsed even on a page inside them (the HTML says 'collapsed has-active'). VitePress opens the group on the client, so the sidebar jumps: CLS 0.040 on the LangChain guide and 0.028 on Semantic Search, 0 on base. With JavaScript off the current page is hidden. Every page in those three groups is affected. The shadowed VPSidebarItem could start a group open on the server when it holds the current page. Handoff 08 doesn't list this as accepted."
+ },
+ {
+  "id": "found-copy-attrs",
+  "group": "Found while building this review",
+  "shas": [
+   "1e5d1ec6"
+  ],
+  "title": "Copied markdown and llms-full.txt now carry image size braces",
+  "detail": "The 17 images sized for lazy loading are written as ![…](…){width=2346 height=1792}. That syntax now appears in Copy Markdown, the raw .md files (59 built files with language variants) and llms-full.txt (22 places). Otherwise the copied text matches base byte for byte."
+ },
+ {
+  "id": "found-gray-token",
+  "group": "Found while building this review",
+  "shas": [
+   "e3d83063"
+  ],
+  "see": "L2",
+  "title": "In light code, a gray token sits at the keyword's lightness",
+  "detail": "The colour-blind stepping spaced keywords, strings and constants apart in lightness. A plain gray token (rgb(99,99,112), 325 spans on search.html) sits at OKLCH lightness 0.504 against the green keyword's 0.499. Readers who tell tokens apart by lightness alone may not separate the two. The gate skips low-chroma tokens, so it can't see this."
+ },
+ {
+  "id": "call-prose-cap",
+  "group": "Design calls to accept",
+  "shas": [
+   "085e9425",
+   "84032a0f"
+  ],
+  "see": "L1",
+  "title": "Prose stops at 30rem while code and tables run full width",
+  "detail": "At 1440 paragraphs end about 200px short of the code blocks, tables and callouts beside them. Approved as G2 (a 60ch cap, shipped as 30rem so both fonts match). Decide whether the ragged right edge reads as intended. The cap also narrows the home page's version list."
+ },
+ {
+  "id": "call-active-sidebar",
+  "group": "Design calls to accept",
+  "shas": [
+   "84ecbfdd"
+  ],
+  "see": "L4",
+  "title": "The current sidebar page is no longer bold",
+  "detail": "Long titles stopped rewrapping, so the current page is marked only by brand text and the lime pill. In light the pill is 1.05:1 against the page. Decide whether the current page is still obvious. The phone outline dropdown's active row is still semibold."
+ },
+ {
+  "id": "call-dark-search-label",
+  "group": "Design calls to accept",
+  "shas": [
+   "de20e790"
+  ],
+  "see": "L1",
+  "title": "The dark search button label is dimmer",
+  "detail": "The DocSearch button now uses the site grays, with 'Search' at gray 11. In dark it reads clearly dimmer than before. Approved as G16."
+ },
+ {
+  "id": "call-code-palette",
+  "group": "Design calls to accept",
+  "shas": [
+   "5e30f0af",
+   "e3d83063"
+  ],
+  "see": "L2",
+  "title": "Code is coloured from the site palette, not GitHub's",
+  "detail": "Every token passes AA and the token lightness is stepped apart for colour-blind readers. Fanis checked it himself. Nobody has tested long 14px reading with it yet."
+ },
+ {
+  "id": "call-truncation",
+  "group": "Design calls to accept",
+  "shas": [
+   "032fc436",
+   "fc63b9ee",
+   "e654bb5b"
+  ],
+  "see": "L6",
+  "title": "Long titles truncate in the pinned bar and the phone breadcrumb",
+  "detail": "The pinned section bar holds one line at every width and ends long titles in an ellipsis. At 360 the phone breadcrumb's page title can shrink to a stub like 'Sea…', because the version and section never truncate (G12). The full title stays in the heading and the outline."
+ },
+ {
+  "id": "call-param-hash",
+  "group": "Design calls to accept",
+  "shas": [
+   "e1d57f93",
+   "2dc5f5f0"
+  ],
+  "see": "L6",
+  "title": "Each parameter gets a # link and a Tab stop",
+  "detail": "The # hit area is 44px tall but 16px wide on desktop and 20px on phones, so it doesn't cover the name. Every parameter adds one Tab stop, as headings do. Search hits could start landing on these ids after the next scrape. Nobody has checked that yet."
+ },
+ {
+  "id": "call-balance",
+  "group": "Design calls to accept",
+  "shas": [
+   "8da4e8c6"
+  ],
+  "see": "L4",
+  "title": "Sidebar and outline labels use text-balance",
+  "detail": "Balance removes one-word last lines, but a wrapped label can look narrower than its neighbours. The handoff suggested text-pretty."
+ },
+ {
+  "id": "call-faqs-widget",
+  "group": "Design calls to accept",
+  "shas": [
+   "1e5d1ec6"
+  ],
+  "title": "The faqs widget image stays 958px tall",
+  "detail": "It was meant to show at 400px, as it did on the old VuePress site. Sizing it for lazy loading kept today's 958px. Restoring 400px is a visible change left for Fanis."
+ },
+ {
+  "id": "call-zoom-ring",
+  "group": "Design calls to accept",
+  "shas": [
+   "db6f668e"
+  ],
+  "see": "W2",
+  "title": "A focused zoomable image shows the browser's default ring",
+  "detail": "Images are now keyboard stops, but .medium-zoom-image has no focus style. Chrome draws its 1px blue outline, not the site's lime ring. On the high-availability diagram it blends into the image's own blue frame. Found while writing the gates."
+ },
+ {
+  "id": "call-tabs-keys",
+  "group": "Behaviour calls to accept",
+  "shas": [
+   "5ed71446",
+   "ba82008a",
+   "9f5824f1"
+  ],
+  "see": "W1",
+  "title": "Code tabs are hand-built, without Home and End",
+  "detail": "reka-ui Tabs cost 83 to 133ms per synced click at 4x CPU, so the tab list is hand-built. Arrow keys move and select. Home and End still scroll the page. A strip with one language is a plain label but keeps role=tab, so a screen reader reads it as 'tab, 1 of 1'."
+ },
+ {
+  "id": "call-zoom-modal",
+  "group": "Behaviour calls to accept",
+  "shas": [
+   "db6f668e",
+   "529af28e",
+   "0e6dbad4"
+  ],
+  "see": "W2",
+  "title": "Image zoom behaves like a modal",
+  "detail": "Focus moves into the zoomed image on every open, mouse included, and Space closes it. Closing by overlay click, wheel or resize leaves focus on the page body. After a click close, Space can reopen an image that has since scrolled off screen."
+ },
+ {
+  "id": "call-404-escape",
+  "group": "Behaviour calls to accept",
+  "shas": [
+   "f93c0c38"
+  ],
+  "see": "W9",
+  "title": "Escape from search opened on the 404 lands on the nav search button",
+  "detail": "The DocSearch fork always refocuses its own button. Returning focus to the 404 link needs a fork change."
+ },
+ {
+  "id": "call-version-v",
+  "group": "Behaviour calls to accept",
+  "shas": [
+   "ba4383af"
+  ],
+  "see": "W3",
+  "title": "Typing '29' finds v29 in the version picker, typing 'v29' doesn't",
+  "detail": "Reka matches one text value per row, and 'v' alone matched every row, so the bare number won."
+ },
+ {
+  "id": "call-outline-hold",
+  "group": "Behaviour calls to accept",
+  "shas": [
+   "6d3748cf"
+  ],
+  "see": "W7",
+  "title": "The phone nav can't be revealed while the outline panel is open",
+  "detail": "The nav holds still while the panel is open, so scrolling up doesn't bring it back until the panel closes."
+ },
+ {
+  "id": "call-lazy-search",
+  "group": "Behaviour calls to accept",
+  "shas": [
+   "780722ac"
+  ],
+  "see": "W9",
+  "title": "DocSearch loads on first use",
+  "detail": "If the chunk fails to load, search stays off in that tab until a reload. Off Apple platforms the server-rendered ⌘ becomes Ctrl after mount, a 9px shift. DocSearch's CSS still ships in the render-blocking stylesheet, about 40KB."
+ },
+ {
+  "id": "call-copy-fetch",
+  "group": "Behaviour calls to accept",
+  "shas": [
+   "34a2ed2b",
+   "370843e7"
+  ],
+  "title": "Copy Markdown fetches the page's .md on click",
+  "detail": "Pages no longer embed their markdown. The clipboard write waits on the fetch through a promise-valued ClipboardItem, which older Firefox doesn't support, so copy fails there. Production sends no Cache-Control on .md files."
+ },
+ {
+  "id": "call-font-fallback",
+  "group": "Behaviour calls to accept",
+  "shas": [
+   "1796037a"
+  ],
+  "title": "Self-hosted fonts fall back to a resized Arial",
+  "detail": "On a system without Arial (many Linux setups) the old fallback stack returns and so does the swap shift. Only the latin subset ships, and italic isn't preloaded."
+ },
+ {
+  "id": "hand-firefox-safari",
+  "group": "Check by hand",
+  "shas": [
+   "5ed71446",
+   "9a961159",
+   "34a2ed2b",
+   "1796037a"
+  ],
+  "title": "Try it once in Safari and Firefox",
+  "detail": "Every capture and gate ran in headless Chromium. Worth one pass in other engines: arrow keys in a code tab strip that overflows, Copy Markdown (Safari needs the click gesture, older Firefox lacks promise-valued ClipboardItem), and the font swap on a cold load."
+ },
+ {
+  "id": "hand-phone-tabs",
+  "group": "Check by hand",
+  "shas": [
+   "5ed71446",
+   "d74ea978"
+  ],
+  "title": "On a real phone, picking a tab with the arrow keys shouldn't move the nav",
+  "detail": "With a hardware keyboard on a phone or tablet, arrow keys in a tab strip shouldn't hide or reveal the phone nav. The code checks defaultPrevented, but no gate covers it."
+ },
+ {
+  "id": "hand-version-fades",
+  "group": "Check by hand",
+  "shas": [
+   "547c3e8d"
+  ],
+  "title": "The version list's edge fades follow its scroll",
+  "detail": "Open the version picker, scroll the list, and press End and Home. The top and bottom fades should show only when there's more list in that direction."
+ },
+ {
+  "id": "hand-copy-status",
+  "group": "Check by hand",
+  "shas": [
+   "68b077cd"
+  ],
+  "title": "Copy announcements stay out of the outline and search",
+  "detail": "The new 'Code copied' and 'Section copied' status text shouldn't show up in the outline, the pinned bars, or the scraped search records after the next scrape."
+ },
+ {
+  "id": "open-shiki",
+  "group": "Follow-ups that aren't in this branch",
+  "shas": [
+   "5e30f0af"
+  ],
+  "title": "shiki is pinned to exactly 2.5.0 in dependencies",
+  "detail": "Handoff 03 wants it as a dev dependency with a caret: bun add -d shiki@^2.5.0."
+ },
+ {
+  "id": "open-popover-768",
+  "group": "Follow-ups that aren't in this branch",
+  "shas": [
+   "dc9ac5ca"
+  ],
+  "title": "The copy popover is still misaligned from 768px up",
+  "detail": "At 768 it starts at 24px against the group's 40px. From 1024 it hangs 65px into the sidebar column. On short screens it can open above the top edge."
+ },
+ {
+  "id": "open-dark-dropdown",
+  "group": "Follow-ups that aren't in this branch",
+  "shas": [
+   "fe94d5f1"
+  ],
+  "title": "The phone 'On this page' dropdown is still gray 2 in dark",
+  "detail": "Every other floating panel moved to gray 3. It's a one-line fix, recorded in handoff 03."
+ },
+ {
+  "id": "open-tailwind-glob",
+  "group": "Follow-ups that aren't in this branch",
+  "shas": [
+   "f5b32529"
+  ],
+  "title": "Tailwind scans the build output",
+  "detail": "The content glob includes .vitepress/dist and cache, which leaks about 99 stale rules into production CSS and slows compiles from 2s to 21s."
+ },
+ {
+  "id": "open-skip-link",
+  "group": "Follow-ups that aren't in this branch",
+  "shas": [
+   "64ec5980"
+  ],
+  "title": "Shift+Tab onto the skip link scrolls to the top",
+  "detail": "This was already broken on master. Making the skip link fixed in the new shadow component would fix it."
+ },
+ {
+  "id": "open-scraper",
+  "group": "Follow-ups that aren't in this branch",
+  "shas": [
+   "8c75edf5",
+   "2dc5f5f0"
+  ],
+  "title": "The scraper config change hasn't seen a real scrape",
+  "detail": "docsearch.config.js now leaves tab lists and tab panels out of records. This was checked by emulating the scraper only. The new parameter ids will also show up in the next scrape."
+ },
+ {
+  "id": "open-vitepress2",
+  "group": "Follow-ups that aren't in this branch",
+  "shas": [
+   "4bcb92ad",
+   "e5046597",
+   "f01a81ed",
+   "08c5cbf5"
+  ],
+  "title": "Four VitePress components are now local copies",
+  "detail": "The outline dropdown, sidebar item, sidebar transition and skip link are Tailwind ports pinned to VitePress 1.6.4. Recheck them when VitePress 2 lands."
+ },
+ {
+  "id": "open-512",
+  "group": "Follow-ups that aren't in this branch",
+  "shas": [
+   "5de0bfd3"
+  ],
+  "title": "One commit belongs to PR #512",
+  "detail": "'set sidebar links to regular weight' is Fanis's fix for the #512 review. It was cherry-picked onto bump-font-size and drops out when this branch is rebased."
+ }
+]

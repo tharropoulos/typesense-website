@@ -1,0 +1,1265 @@
+[
+  {
+    "id": "light-brand-text-passes-aa",
+    "title": "Inline code, links and tip titles are readable in light mode",
+    "shas": [
+      "886ec9e6"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "On search.html in light mode, reads the WCAG ratio of the first code chip in an odd and an even parameter-table row, a prose link and the first tip title against what sits behind each. Passes when all four reach 4.5.",
+    "base": {
+      "pass": false,
+      "value": {
+        "codeOddRow": {
+          "fg": "#4f8000",
+          "bg": "#eff0f3",
+          "ratio": 4.17
+        },
+        "codeEvenRow": {
+          "fg": "#4f8000",
+          "bg": "#eaebf0",
+          "ratio": 3.99
+        },
+        "link": {
+          "fg": "#4f8000",
+          "bg": "#ffffff",
+          "ratio": 4.75
+        },
+        "tipTitle": {
+          "fg": "#4f8000",
+          "bg": "#f7ffeb",
+          "ratio": 4.63
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "codeOddRow": {
+          "fg": "#497500",
+          "bg": "#eff0f3",
+          "ratio": 4.82
+        },
+        "codeEvenRow": {
+          "fg": "#497500",
+          "bg": "#eaebf0",
+          "ratio": 4.61
+        },
+        "link": {
+          "fg": "#497500",
+          "bg": "#ffffff",
+          "ratio": 5.49
+        },
+        "tipTitle": {
+          "fg": "#497500",
+          "bg": "#f7ffeb",
+          "ratio": 5.34
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "warning-title-passes-aa",
+    "title": "Warning callout titles are readable in light mode, dark unchanged",
+    "shas": [
+      "ff3818a2"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "On install-typesense.html, reads the ratio of the first warning title against its callout fill, in light and in dark. Passes when both reach 4.5 (16px semibold is not large text).",
+    "base": {
+      "pass": false,
+      "value": {
+        "light": {
+          "fg": "#ab6400",
+          "bg": "#fefbe9",
+          "ratio": 4.43
+        },
+        "dark": {
+          "fg": "#ffca16",
+          "bg": "#1d180f",
+          "ratio": 11.52
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "light": {
+          "fg": "#a05e00",
+          "bg": "#fefbe9",
+          "ratio": 4.93
+        },
+        "dark": {
+          "fg": "#ffca16",
+          "bg": "#1d180f",
+          "ratio": 11.52
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "code-token-hues-differ-in-lightness",
+    "title": "Coloured code tokens differ in lightness, not only hue, and stay readable",
+    "shas": [
+      "e3d83063"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "On search.html, collects every distinct hued colour (OKLCH chroma over 0.06) used by code tokens and reads their OKLCH lightness, in both themes. Passes when every pair is at least 0.05 apart in lightness and every visible token reaches 4.5 against its line.",
+    "base": {
+      "pass": false,
+      "value": {
+        "light": {
+          "lightness": {
+            "#e36209": 0.648,
+            "#d73a49": 0.588,
+            "#6f42c1": 0.502,
+            "#b31d28": 0.496,
+            "#005cc5": 0.495,
+            "#032f62": 0.311
+          },
+          "minGap": 0.001,
+          "minContrast": 4.35
+        },
+        "dark": {
+          "lightness": {
+            "#9ecbff": 0.829,
+            "#fdaeb7": 0.829,
+            "#ffab70": 0.811,
+            "#79b8ff": 0.769,
+            "#b392f0": 0.727,
+            "#f97583": 0.721
+          },
+          "minGap": 0,
+          "minContrast": 6.59
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "light": {
+          "lightness": {
+            "#4f6f18": 0.499,
+            "#704412": 0.429,
+            "#6f1b0a": 0.361
+          },
+          "minGap": 0.068,
+          "minContrast": 4.87
+        },
+        "dark": {
+          "lightness": {
+            "#b5f742": 0.9,
+            "#fab36e": 0.82,
+            "#f8866e": 0.741
+          },
+          "minGap": 0.079,
+          "minContrast": 6.07
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "tailwind-dark-follows-site-toggle",
+    "title": "A Tailwind dark: class would follow the site theme toggle, not the OS",
+    "shas": [
+      "80cdff98"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "Nothing uses dark: yet, so the gate compiles one sample dark:underline class with the build's own tailwind.config.js and injects it into the live page. Passes when it stays off with the site on light and the OS on dark, and turns on with the site on dark and the OS on light.",
+    "base": {
+      "pass": false,
+      "value": {
+        "darkMode": "unset (media)",
+        "siteLightOsDark": "underline",
+        "siteDarkOsLight": "none"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "darkMode": "selector",
+        "siteLightOsDark": "none",
+        "siteDarkOsLight": "underline"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "small-gray-labels-pass-aa",
+    "title": "Code block language labels and 404 suggestions are readable in both themes",
+    "shas": [
+      "35505491"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "Reads the ratio of the 'markdown' corner label on install-typesense.html, and of the 404 page's 'Were you looking for?' heading and suggestion URL (suggestions stubbed), in light and dark. Passes when all reach 4.5.",
+    "base": {
+      "pass": false,
+      "value": {
+        "light": {
+          "codeLabel": 3.6,
+          "heading": 3.78,
+          "url": 3.78
+        },
+        "dark": {
+          "codeLabel": 4.12,
+          "heading": 4.4,
+          "url": 4.4
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "light": {
+          "codeLabel": 5.63,
+          "heading": 5.92,
+          "url": 5.92
+        },
+        "dark": {
+          "codeLabel": 8.38,
+          "heading": 8.94,
+          "url": 8.94
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "unavailable-note-readable",
+    "title": "The copy menu's 'Unavailable' note matches its greyed row and clears 3:1",
+    "shas": [
+      "aa3eebef"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "Opens 'Choose copied languages' on analytics-query-suggestions.html in light and dark and reads the first 'Unavailable' note against the menu. Passes when it reaches 3.0 (the ledger's accepted floor for disabled-row text, which WCAG exempts) and has the same colour as its row.",
+    "base": {
+      "pass": false,
+      "value": {
+        "light": {
+          "fg": "#babacb",
+          "bg": "#ffffff",
+          "ratio": 1.91,
+          "sameAsRow": false
+        },
+        "dark": {
+          "fg": "#5e5e75",
+          "bg": "#1a1a1f",
+          "ratio": 2.75,
+          "sameAsRow": false
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "light": {
+          "fg": "#8c8c9d",
+          "bg": "#ffffff",
+          "ratio": 3.31,
+          "sameAsRow": true
+        },
+        "dark": {
+          "fg": "#6b6b82",
+          "bg": "#23232a",
+          "ratio": 3.01,
+          "sameAsRow": true
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "dropped-colour-tokens-gone",
+    "title": "The unused Tailwind colours and popover shadow are gone from the config and nothing uses them",
+    "shas": [
+      "f5b32529"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "Reads tailwind.config.js at the build's commit with git show and lists which of the keys f5b32529 deleted are still there (accent hover-border and secondary, ink lightest, line dark, code, badge, warning-bg, boxShadow popover). Also fetches the page's built stylesheets for utilities made from them and greps every source and markdown file at that commit for class uses. Passes when all three lists are empty. Base fails because its config still has every key, and it still uses text-ink-lightest.",
+    "base": {
+      "pass": false,
+      "value": {
+        "configKeys": [
+          "theme.extend.colors.accent.hover-border",
+          "theme.extend.colors.accent.secondary",
+          "theme.extend.colors.ink.lightest",
+          "theme.extend.colors.line.dark",
+          "theme.extend.colors.code",
+          "theme.extend.colors.badge",
+          "theme.extend.colors.warning-bg",
+          "theme.extend.boxShadow.popover"
+        ],
+        "cssUtilities": [
+          ".text-ink-lightest"
+        ],
+        "sourceClassUses": [
+          "MarkdownActions.vue:107 text-ink-lightest"
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "configKeys": [],
+        "cssUtilities": [],
+        "sourceClassUses": []
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "dropped-layout-tokens-unused",
+    "title": "The unused breakpoint, spacing and max-width tokens are gone from the config and used nowhere",
+    "shas": [
+      "c23acb4e"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "Same three lists for the keys c23acb4e deleted, the mobile-narrow screen, spacing navbar and sidebar, and maxWidth content and home. Base fails because its config still has them. Nothing used them on base either, so the CSS and source lists are empty on both builds.",
+    "base": {
+      "pass": false,
+      "value": {
+        "configKeys": [
+          "theme.screens.mobile-narrow",
+          "theme.extend.spacing.navbar",
+          "theme.extend.spacing.sidebar",
+          "theme.extend.maxWidth.content",
+          "theme.extend.maxWidth.home"
+        ],
+        "cssUtilities": [],
+        "sourceClassUses": []
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "configKeys": [],
+        "cssUtilities": [],
+        "sourceClassUses": []
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "no-dead-utility-classes",
+    "title": "Every Tailwind class on the page still produces CSS",
+    "shas": [
+      "f5b32529",
+      "c23acb4e",
+      "66d59344"
+    ],
+    "kind": "css",
+    "expect": "guard",
+    "checks": "Visits search, install-typesense, home and the 404 at 1280, opens the copy menu, version list and search modal, then the phone menu at 390 and the extra menu at 768. Lists utility-shaped classes in the DOM that no loaded CSS rule matches. Passes when the only one is sm:gap-2.5, a stock shadcn class that never generated because 'sm' isn't a screen in this config.",
+    "base": {
+      "pass": true,
+      "value": {
+        "dead": [
+          "sm:gap-2.5"
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "dead": [
+          "sm:gap-2.5"
+        ]
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "shadcn-hover-stays-neutral",
+    "title": "Copy Markdown, language and raw-markdown buttons hover gray, the checked version stays lime",
+    "shas": [
+      "66d59344"
+    ],
+    "kind": "dom",
+    "expect": "guard",
+    "checks": "On documents.html in light and dark, hovers the three action buttons and reads their fill and text, opens the version list and reads the checked row, then presses ArrowDown and reads the focused row. Passes when the hovers resolve to gray 4 with gray 12 text, the checked row is brand 5 and the focused row is a neutral gray.",
+    "base": {
+      "pass": true,
+      "value": {
+        "light": {
+          "hovers": [
+            "#e7e7ef on #1f1f28",
+            "#e7e7ef on #1f1f28",
+            "#e7e7ef on #1f1f28"
+          ],
+          "checked": "#f0ffd6",
+          "focused": "#f0f0f5",
+          "expected": {
+            "fill": "#e7e7ef",
+            "text": "#1f1f28",
+            "lime": "#f0ffd6"
+          }
+        },
+        "dark": {
+          "hovers": [
+            "#292832 on #ededf2",
+            "#292832 on #ededf2",
+            "#292832 on #ededf2"
+          ],
+          "checked": "#406600",
+          "focused": "#222229",
+          "expected": {
+            "fill": "#292832",
+            "text": "#ededf2",
+            "lime": "#406600"
+          }
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "light": {
+          "hovers": [
+            "#e7e7ef on #1f1f28",
+            "#e7e7ef on #1f1f28",
+            "#e7e7ef on #1f1f28"
+          ],
+          "checked": "#f0ffd6",
+          "focused": "#f0f0f5",
+          "expected": {
+            "fill": "#e7e7ef",
+            "text": "#1f1f28",
+            "lime": "#f0ffd6"
+          }
+        },
+        "dark": {
+          "hovers": [
+            "#292832 on #ededf2",
+            "#292832 on #ededf2",
+            "#292832 on #ededf2"
+          ],
+          "checked": "#406600",
+          "focused": "#31303b",
+          "expected": {
+            "fill": "#292832",
+            "text": "#ededf2",
+            "lime": "#406600"
+          }
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "dark-selection-keeps-code-readable",
+    "title": "Selected code and gray text stay readable in dark mode",
+    "shas": [
+      "78e0b917"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "Dark mode on search.html. Reads the ::selection fill (getComputedStyle resolves it in this Chromium) over the first visible code block, then the lowest ratio of any token in that block and of the gray table header against it. Passes when both reach 4.5 and tip prose still selects in brand 5.",
+    "base": {
+      "pass": false,
+      "value": {
+        "selection": "#406600",
+        "lowestToken": 2.53,
+        "grayHeader": 3.22,
+        "tipProseSelection": "#406600",
+        "brand5": "#406600"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "selection": "#203300",
+        "lowestToken": 5.62,
+        "grayHeader": 6.55,
+        "tipProseSelection": "#406600",
+        "brand5": "#406600"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "table-labels-normal-tracking",
+    "title": "Table headers and phone column labels lose their wide letter-spacing",
+    "shas": [
+      "39ab66e7"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "Reads letter-spacing of the first table header on search.html at 1280, and of the phone 'Behavior' column label (td::before) on documents.html at 390. Passes when both are normal.",
+    "base": {
+      "pass": false,
+      "value": {
+        "header": "0.7px",
+        "phoneLabel": "0.7px"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "header": "normal",
+        "phoneLabel": "normal"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "dark-popovers-lifted",
+    "title": "Dark version list and copy menu sit on a lighter gray than code blocks",
+    "shas": [
+      "5bfe7432"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "Dark mode. Opens the aside version list on search.html and the copy menu on analytics-query-suggestions.html, and compares each surface with the code block fill (gray 2). Passes when both surfaces are lighter by at least 1.05:1, the ArrowDown row is lighter than its list and the checked row stays brand 5.",
+    "base": {
+      "pass": false,
+      "value": {
+        "code": "#19191e",
+        "list": "#1a1a1f",
+        "listVsCode": 1.01,
+        "focusedRow": "#222229",
+        "rowVsList": 1.1,
+        "copyMenu": "#1a1a1f",
+        "copyMenuVsCode": 1.01,
+        "checkedRowLime": true
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "code": "#19191e",
+        "list": "#23232a",
+        "listVsCode": 1.12,
+        "focusedRow": "#31303b",
+        "rowVsList": 1.2,
+        "copyMenu": "#23232a",
+        "copyMenuVsCode": 1.12,
+        "checkedRowLime": true
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "search-hit-mark-passes-aa",
+    "title": "The matched words in the selected search hit are readable in light mode",
+    "shas": [
+      "6ad33ed6"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "Light mode. Opens search on search.html and types 'vector search' (results replayed from one captured live response). Reads the first highlighted word in the selected hit against that hit's fill. Passes at 4.5.",
+    "base": {
+      "pass": false,
+      "value": {
+        "fg": "#4f8000",
+        "bg": "#f1f1f1",
+        "ratio": 4.21,
+        "word": "Vector"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "fg": "#497500",
+        "bg": "#f1f1f1",
+        "ratio": 4.86,
+        "word": "Vector"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "dark-nav-flyout-lifted",
+    "title": "The tablet '•••' menu sits on the same lifted gray as the other dark menus",
+    "shas": [
+      "fe94d5f1"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "Dark mode at 768. Opens 'extra navigation' from the keyboard (so hover plays no part) and compares the visible menu panel with the code block fill. Passes when the panel is lighter by at least 1.05:1.",
+    "base": {
+      "pass": false,
+      "value": {
+        "panel": "#19191e",
+        "code": "#19191e",
+        "panelVsCode": 1
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "panel": "#222229",
+        "code": "#19191e",
+        "panelVsCode": 1.11
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "focus-clear-of-pinned-bars-desktop",
+    "title": "Shift+Tab never leaves a focused link hidden under the pinned section bars (1440)",
+    "shas": [
+      "d74ea978"
+    ],
+    "kind": "focus-order",
+    "expect": "flip",
+    "checks": "At 1440 on search.html, starts from the article's last control at the bottom and presses Shift+Tab 60 times. After each stop it waits two frames plus 350ms and counts article stops whose top sits above the bottom of the pinned bars ([data-sticky-floor]). Stops taller than the space below the bars can't fit and are counted apart. Passes at 0 covered.",
+    "base": {
+      "pass": false,
+      "value": {
+        "stops": 60,
+        "covered": 15,
+        "tallerThanView": 1,
+        "first": [
+          {
+            "text": "let searchRequests = {\n ",
+            "top": 84,
+            "floor": 113
+          },
+          {
+            "text": "Copied!",
+            "top": 92,
+            "floor": 113
+          }
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "stops": 60,
+        "covered": 0,
+        "tallerThanView": 1,
+        "first": []
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "focus-clear-of-pinned-bars-phone",
+    "title": "Shift+Tab never leaves a focused link hidden under the pinned bars on a phone",
+    "shas": [
+      "d74ea978"
+    ],
+    "kind": "focus-order",
+    "expect": "flip",
+    "checks": "Same walk at 390x844 with touch, where the nav also slides away and back. Passes at 0 covered.",
+    "base": {
+      "pass": false,
+      "value": {
+        "stops": 60,
+        "covered": 18,
+        "tallerThanView": 1,
+        "first": [
+          {
+            "text": "let searchRequests = {\n ",
+            "top": 64,
+            "floor": 161
+          },
+          {
+            "text": "Copied!",
+            "top": 72,
+            "floor": 161
+          }
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "stops": 60,
+        "covered": 0,
+        "tallerThanView": 1,
+        "first": []
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "closed-phone-sidebar-out-of-tab-order",
+    "title": "The closed phone sidebar takes no keyboard focus, the desktop sidebar still does",
+    "shas": [
+      "f01a81ed"
+    ],
+    "kind": "focus-order",
+    "expect": "flip",
+    "checks": "At 390 with touch, reads the closed .VPSidebar visibility and presses Tab 40 times from the top, counting stops inside the sidebar. Repeats at 1280. Passes when the phone sidebar is hidden with 0 stops and the desktop one is visible with stops.",
+    "base": {
+      "pass": false,
+      "value": {
+        "phone": {
+          "visibility": "visible",
+          "sidebarStops": 26,
+          "firstX": -288
+        },
+        "desktop": {
+          "visibility": "visible",
+          "sidebarStops": 26,
+          "firstX": 32
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "phone": {
+          "visibility": "hidden",
+          "sidebarStops": 0
+        },
+        "desktop": {
+          "visibility": "visible",
+          "sidebarStops": 25,
+          "firstX": 32
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "phone-menu-escape-and-focus-trap",
+    "title": "The phone menu keeps Tab inside it and closes on Escape with focus back on the hamburger",
+    "shas": [
+      "6c40f66a"
+    ],
+    "kind": "keyboard",
+    "expect": "flip",
+    "checks": "At 390 with touch, taps the hamburger and checks the skip link, local nav, sidebar and content are inert. Presses Tab 16 times and counts stops outside the nav (the document wrap to <body> excepted), then Escape. Passes when all four are inert, no stop escapes, and Escape closes the menu with focus on the hamburger and no inert left.",
+    "base": {
+      "pass": false,
+      "value": {
+        "restInert": false,
+        "stopsOutsideMenu": [
+          "Menu",
+          "On this page",
+          "Introduction",
+          "Server Configuration"
+        ],
+        "afterEscape": {
+          "menuOpen": true,
+          "focusOnHamburger": false,
+          "inertLeft": 0
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "restInert": true,
+        "stopsOutsideMenu": [],
+        "afterEscape": {
+          "menuOpen": false,
+          "focusOnHamburger": true,
+          "inertLeft": 0
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "cross-page-link-keeps-focus",
+    "title": "Following a link to a heading on another page leaves focus there",
+    "shas": [
+      "08c5cbf5"
+    ],
+    "kind": "focus-order",
+    "expect": "flip",
+    "checks": "On search.html, focuses the first link to collections.html#schema-parameters and presses Enter. After the landing, reads the focused element and scrollY, then presses Tab and reads them again. Passes when focus is on #schema-parameters and the Tab stays in the article within 100px of the landing.",
+    "base": {
+      "pass": false,
+      "value": {
+        "landed": {
+          "tag": "SPAN",
+          "scrollY": 6094
+        },
+        "afterTab": {
+          "tag": "A",
+          "text": "Skip to content",
+          "inArticle": false,
+          "scrollY": 0
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "landed": {
+          "tag": "H3",
+          "id": "schema-parameters",
+          "scrollY": 6374
+        },
+        "afterTab": {
+          "tag": "A",
+          "text": "(header-anchor)",
+          "inArticle": true,
+          "scrollY": 6374
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "skip-link-lands-in-article",
+    "title": "'Skip to content' goes straight to the article, past the version picker and outline",
+    "shas": [
+      "64ec5980"
+    ],
+    "kind": "focus-order",
+    "expect": "flip",
+    "checks": "At 1440, presses Tab (must focus .VPSkipLink), Enter, then Tab until focus is inside .VPDoc main, on search.html and install-typesense.html. Passes when the first Tab after the skip is already in the article on both pages.",
+    "base": {
+      "pass": false,
+      "value": {
+        "search.html": {
+          "onSkip": true,
+          "stopsBeforeArticle": 38,
+          "firstStop": "aside: v30.2"
+        },
+        "install-typesense.html": {
+          "onSkip": true,
+          "stopsBeforeArticle": 16,
+          "firstStop": "aside: Option 1: Typesense Cloud"
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "search.html": {
+          "onSkip": true,
+          "stopsBeforeArticle": 0,
+          "firstStop": "(header-anchor)"
+        },
+        "install-typesense.html": {
+          "onSkip": true,
+          "stopsBeforeArticle": 0,
+          "firstStop": "(header-anchor)"
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "outline-dropdown-state-and-focus",
+    "title": "'On this page' reports open or closed and Escape puts focus back on it",
+    "shas": [
+      "4bcb92ad"
+    ],
+    "kind": "aria",
+    "expect": "flip",
+    "checks": "At 390 (touch) and 768, reads aria-expanded and aria-controls on the 'On this page' toggle, clicks it, reads them again, focuses the first outline link and presses Escape. Passes when it goes 'false' to 'true', aria-controls names the open list, and Escape closes it with focus on the toggle.",
+    "base": {
+      "pass": false,
+      "value": {
+        "phone": {
+          "closed": null,
+          "expanded": null,
+          "controlsList": false,
+          "afterEscape": {
+            "open": false,
+            "focus": "BODY"
+          }
+        },
+        "tablet": {
+          "closed": null,
+          "expanded": null,
+          "controlsList": false,
+          "afterEscape": {
+            "open": false,
+            "focus": "BODY"
+          }
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "phone": {
+          "closed": "false",
+          "expanded": "true",
+          "controlsList": true,
+          "afterEscape": {
+            "open": false,
+            "focus": "toggle"
+          }
+        },
+        "tablet": {
+          "closed": "false",
+          "expanded": "true",
+          "controlsList": true,
+          "afterEscape": {
+            "open": false,
+            "focus": "toggle"
+          }
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "sidebar-groups-state-one-stop",
+    "title": "Collapsible sidebar groups announce their state and take one Tab stop each",
+    "shas": [
+      "e5046597"
+    ],
+    "kind": "aria",
+    "expect": "flip",
+    "checks": "On search.html, every sidebar role=button must carry aria-expanded. Focuses 'API Resources', presses Enter and Tab, and reads where focus went. On install-typesense.html, every caret button must carry aria-expanded and no group row may be a dead tabindex=0 stop. Passes when all hold and the Tab after Enter reaches 'API Errors'.",
+    "base": {
+      "pass": false,
+      "value": {
+        "api": {
+          "buttons": 2,
+          "withoutExpanded": 2,
+          "expandedAfterEnter": null,
+          "tabAfterEnter": "(caret)"
+        },
+        "guide": {
+          "caretButtonsWithoutExpanded": 8,
+          "deadRowStops": 1
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "api": {
+          "buttons": 1,
+          "withoutExpanded": 0,
+          "expandedAfterEnter": "false",
+          "tabAfterEnter": "API Errors"
+        },
+        "guide": {
+          "caretButtonsWithoutExpanded": 0,
+          "deadRowStops": 0
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "extra-menu-click-only",
+    "title": "The tablet '•••' menu opens on click or tap only and closes on Escape",
+    "shas": [
+      "f2ad9046"
+    ],
+    "kind": "aria",
+    "expect": "flip",
+    "checks": "At 768 with a mouse, hovers 'extra navigation' for 500ms and counts visible menus, then opens it from the keyboard and presses Escape. Then a first tap at 820x1180 with touch. Passes when hover opens nothing, Escape closes it with aria-expanded 'false' and focus on the trigger, and the first tap opens it with aria-expanded 'true'.",
+    "base": {
+      "pass": false,
+      "value": {
+        "hoverMenus": 1,
+        "keyboardOpen": "true / 1",
+        "afterEscape": "true / 1 / true",
+        "firstTap": "false / 1"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "hoverMenus": 0,
+        "keyboardOpen": "true / 1",
+        "afterEscape": "false / 0 / true",
+        "firstTap": "true / 1"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "extra-menu-closes-with-trigger",
+    "title": "The open '•••' menu goes away when the window crosses 1280 or 768",
+    "shas": [
+      "9b561402"
+    ],
+    "kind": "dom",
+    "expect": "guard",
+    "checks": "At 768, opens 'extra navigation' from the keyboard, resizes to 1280x800 and counts visible menus. Reloads at 768, opens it again, resizes to 390x844 and counts again. Passes when it was open each time and 0 remain. Base passes because its menu lived inside the trigger.",
+    "base": {
+      "pass": true,
+      "value": {
+        "to1280": "open 1 then 0",
+        "to390": "open 1 then 0"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "to1280": "open 1 then 0",
+        "to390": "open 1 then 0"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "parameter-anchor-focus-no-ring",
+    "title": "A link to a parameter on another page focuses the parameter without a focus ring",
+    "shas": [
+      "705326e8",
+      "08c5cbf5"
+    ],
+    "kind": "focus-order",
+    "expect": "flip",
+    "checks": "On api-keys.html, focuses the link to search.html#pinned_hits and presses Enter. Reads the focused element's outline and box-shadow. Then focuses span#pinned_hits directly (keyboard heuristic still on) to read the ring it would get. Passes when focus landed on the span and neither shows a visible outline or any box-shadow.",
+    "base": {
+      "pass": false,
+      "value": {
+        "landed": {
+          "tag": "SPAN",
+          "id": "(none)",
+          "ring": "auto 1px rgb(0, 95, 204)"
+        },
+        "ifFocused": {
+          "focusVisible": true,
+          "ring": "auto 1px rgb(0, 95, 204)"
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "landed": {
+          "tag": "SPAN",
+          "id": "pinned_hits",
+          "ring": "none"
+        },
+        "ifFocused": {
+          "focusVisible": true,
+          "ring": "none"
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-hash-loads-land-below-bars",
+    "title": "Direct #hash loads still land just below the pinned bars",
+    "shas": [
+      "d74ea978"
+    ],
+    "kind": "focus-order",
+    "expect": "guard",
+    "checks": "Fresh loads of search.html#caching-parameters (h3) and #supported-functions (h4) at 1440 and #pagination (h2) at 390. After 1.5s compares the heading top with the bottom of the pinned bars. Passes when each sits between 2px above and 30px below it.",
+    "base": {
+      "pass": true,
+      "value": {
+        "h3": {
+          "top": 122,
+          "floor": 113
+        },
+        "h4": {
+          "top": 182,
+          "floor": 158
+        },
+        "phoneH2": {
+          "top": 47,
+          "floor": 48
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "h3": {
+          "top": 122,
+          "floor": 113
+        },
+        "h4": {
+          "top": 182,
+          "floor": 158
+        },
+        "phoneH2": {
+          "top": 47,
+          "floor": 48
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-phone-drawer-focus-and-lock",
+    "title": "The phone sidebar drawer still takes focus, locks scroll and returns focus to 'Menu'",
+    "shas": [
+      "f01a81ed"
+    ],
+    "kind": "keyboard",
+    "expect": "guard",
+    "checks": "At 390 with touch, focuses 'Menu' in the bar under the nav and presses Enter. Reads whether the drawer is open, focus is inside it and the body is overflow hidden, then moves the mouse over the backdrop at 370,600 and checks a wheel scroll there leaves the page where it was. Presses Escape and reads the drawer and focus again.",
+    "base": {
+      "pass": true,
+      "value": {
+        "opened": {
+          "open": true,
+          "focusInside": true,
+          "bodyOverflow": "hidden"
+        },
+        "pageMovedOnWheel": 0,
+        "afterEscape": {
+          "open": false,
+          "focus": "Menu"
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "opened": {
+          "open": true,
+          "focusInside": true,
+          "bodyOverflow": "hidden"
+        },
+        "pageMovedOnWheel": 0,
+        "afterEscape": {
+          "open": false,
+          "focus": "Menu"
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-skip-link-shows-on-focus",
+    "title": "'Skip to content' still appears top left on focus and reads well in both themes",
+    "shas": [
+      "08c5cbf5",
+      "64ec5980"
+    ],
+    "kind": "contrast",
+    "expect": "guard",
+    "checks": "At 1280 in light and dark, presses Tab once and reads the focused skip link box and its contrast. Passes when it sits within 24px of the top-left corner, is at least 80x24 and reaches 4.5.",
+    "base": {
+      "pass": true,
+      "value": {
+        "light": {
+          "isSkip": true,
+          "box": "16,14,112,34",
+          "ratio": 4.75
+        },
+        "dark": {
+          "isSkip": true,
+          "box": "16,14,112,34",
+          "ratio": 16.26
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "light": {
+          "isSkip": true,
+          "box": "16,14,112,34",
+          "ratio": 5.49
+        },
+        "dark": {
+          "isSkip": true,
+          "box": "16,14,112,34",
+          "ratio": 16.26
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-no-overflow-360",
+    "title": "Nothing scrolls sideways at 360px",
+    "shas": [
+      "f01a81ed",
+      "6c40f66a",
+      "4bcb92ad",
+      "39ab66e7"
+    ],
+    "kind": "dom",
+    "expect": "guard",
+    "checks": "At 360x740 with touch, loads five pages and reads the root's scrollWidth minus its clientWidth, then opens the phone menu on search.html and reads it again. Passes when every value is 0. innerWidth would not do, because a mobile viewport grows to fit wide content.",
+    "base": {
+      "pass": true,
+      "value": {
+        "30.2/api/search.html": 0,
+        "30.2/api/documents.html": 0,
+        "30.2/api/server-configuration.html": 0,
+        "guide/install-typesense.html": 0,
+        "home": 0,
+        "phone menu open": 0
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "30.2/api/search.html": 0,
+        "30.2/api/documents.html": 0,
+        "30.2/api/server-configuration.html": 0,
+        "guide/install-typesense.html": 0,
+        "home": 0,
+        "phone menu open": 0
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-body-text-contrast",
+    "title": "Body text, links, table headers, outline and sidebar rows stay readable, the current page stands apart",
+    "shas": [
+      "886ec9e6",
+      "35505491"
+    ],
+    "kind": "contrast",
+    "expect": "guard",
+    "checks": "On search.html at 1280 in light and dark, reads the ratio of the first paragraph, prose link, table header, outline link, a plain sidebar item and the active sidebar item. Passes when all reach 4.5 and the active item has a different colour from the plain one.",
+    "base": {
+      "pass": true,
+      "value": {
+        "light": {
+          "paragraph": 16.34,
+          "link": 4.75,
+          "tableHeader": 5.92,
+          "outline": 5.92,
+          "sidebarPlain": 5.92,
+          "sidebarActive": 4.75,
+          "activeDiffers": true
+        },
+        "dark": {
+          "paragraph": 16.01,
+          "link": 16.26,
+          "tableHeader": 8.94,
+          "outline": 8.94,
+          "sidebarPlain": 8.94,
+          "sidebarActive": 16.26,
+          "activeDiffers": true
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "light": {
+          "paragraph": 16.34,
+          "link": 5.49,
+          "tableHeader": 5.92,
+          "outline": 5.92,
+          "sidebarPlain": 5.92,
+          "sidebarActive": 5.49,
+          "activeDiffers": true
+        },
+        "dark": {
+          "paragraph": 16.01,
+          "link": 16.26,
+          "tableHeader": 8.94,
+          "outline": 8.94,
+          "sidebarPlain": 8.94,
+          "sidebarActive": 16.26,
+          "activeDiffers": true
+        }
+      }
+    },
+    "verdict": "ok"
+  }
+]

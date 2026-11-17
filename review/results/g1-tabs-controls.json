@@ -1,0 +1,751 @@
+[
+  {
+    "id": "tabs-are-a-tablist",
+    "title": "Screen readers hear code tabs as a tab list with the selected tab",
+    "shas": [
+      "5ed71446"
+    ],
+    "kind": "aria",
+    "expect": "flip",
+    "checks": "Reads the first code tab strip on documents.html. Passes when the strip is role=tablist, every tab is a role=tab with aria-selected, exactly one tab is a Tab stop, and each tab points at a role=tabpanel labelled by it.",
+    "base": {
+      "pass": false,
+      "value": {
+        "strip": "UL role=null",
+        "tabs": 0,
+        "selected": [],
+        "tabStops": 0,
+        "panelsOk": false,
+        "axTree": "- list: - listitem: JavaScript - listitem: PHP"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "strip": "DIV role=tablist",
+        "tabs": 10,
+        "selected": [
+          "JavaScript"
+        ],
+        "tabStops": 1,
+        "panelsOk": true,
+        "axTree": "- tablist: - tab \"JavaScript\" [selected] - tab \"PHP\""
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "tabs-arrow-keys-switch-language",
+    "title": "Tab reaches the code tabs and the arrow keys switch the language everywhere",
+    "shas": [
+      "5ed71446"
+    ],
+    "kind": "keyboard",
+    "expect": "flip",
+    "checks": "Clicks the paragraph above the first strip on documents.html, presses Tab, then ArrowRight twice and ArrowLeft once. Passes when Tab lands on the JavaScript tab and the arrows leave PHP focused and selected in every group that has PHP.",
+    "base": {
+      "pass": false,
+      "value": {
+        "afterTab": "button \"Copy code\"",
+        "afterArrows": "button \"Copy code\"",
+        "groupsOnPHP": "0 of 13"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "afterTab": "button[tab] \"JavaScript\"",
+        "afterArrows": "button[tab] \"PHP\"",
+        "groupsOnPHP": "13 of 13"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "tabs-lone-tab-not-a-stop",
+    "title": "Tabbing through the page never stops on a lone \"JSON\" label",
+    "shas": [
+      "ba82008a"
+    ],
+    "kind": "focus-order",
+    "expect": "guard",
+    "checks": "Base never had focusable tabs, so this guards HEAD. Reads the tabIndex of every lone tab on documents.html, then clicks the first \"Sample Response\" line and presses Tab 6 times. Passes when no lone tab has tabIndex 0 and no stop lands inside a lone strip.",
+    "base": {
+      "pass": true,
+      "value": {
+        "loneTabs": 11,
+        "loneTabIndex": [
+          -1
+        ],
+        "stops": [
+          "Copy code",
+          "{\n  \"id\": \"124\",\n  \"",
+          "bulk import API",
+          "High-volume writes i",
+          "​",
+          "Copy this section as Markdown"
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "loneTabs": 11,
+        "loneTabIndex": [
+          -1
+        ],
+        "stops": [
+          "Copy code",
+          "{\n  \"id\": \"124\",\n  \"",
+          "bulk import API",
+          "High-volume writes i",
+          "​",
+          "Copy this section as Markdown"
+        ]
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "tabs-focus-clears-strip-edges",
+    "title": "A keyboard-focused tab on a phone scrolls fully clear of the strip edge fades",
+    "shas": [
+      "9a961159"
+    ],
+    "kind": "focus-order",
+    "expect": "head",
+    "checks": "At 390px scrolls the first strip 40px sideways so JavaScript sits under the left fade, clicks the paragraph above and presses Tab. Passes when the focused JavaScript tab sits at least 16px inside both strip edges. Base has no focusable tabs, so only HEAD counts.",
+    "base": {
+      "pass": false,
+      "value": {
+        "tab": "not a tab: UL",
+        "left": 0,
+        "right": 0
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "tab": "JavaScript",
+        "left": 16,
+        "right": 305.3
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "tabs-in-server-html",
+    "title": "Code tabs are in the page before JavaScript runs",
+    "shas": [
+      "8c75edf5"
+    ],
+    "kind": "ssr-html",
+    "expect": "flip",
+    "checks": "Loads search.html at 390px with JavaScript off. Counts role=tablist strips and reads whether the first tab panel already holds code. Passes when there are strips and the first one shows code.",
+    "base": {
+      "pass": false,
+      "value": {
+        "tablists": 0,
+        "stripsAnyMarkup": 0,
+        "firstPanelCode": null
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "tablists": 7,
+        "stripsAnyMarkup": 7,
+        "firstPanelCode": "let searchParameters = {\n  'q'         :"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "tabs-no-load-shift",
+    "title": "API page text no longer jumps down while the code tabs load",
+    "shas": [
+      "8c75edf5"
+    ],
+    "kind": "dom",
+    "expect": "flip",
+    "checks": "Loads search.html at 390px with 4x CPU throttling and no saved language, waits 3s, then reads the buffered layout-shift entries. Passes when the total CLS is under 0.01. The biggest shift lists the nodes it moved. Without the throttle a fast load can mount base's tabs before the first paint, which records no shift at all.",
+    "base": {
+      "pass": false,
+      "value": {
+        "cls": 0.479,
+        "biggest": "0.479 moved DIV P DIV P H2"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "cls": 0,
+        "biggest": null
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "tabs-arrow-steps-from-focused-tab",
+    "title": "Arrow keys move on from the tab that has focus, not the selected one",
+    "shas": [
+      "eb4869bf"
+    ],
+    "kind": "keyboard",
+    "expect": "head",
+    "checks": "With JavaScript selected, focuses Ruby in the first strip on documents.html and presses ArrowRight. Passes when Dart is then selected and focused. The pre-fix code would pick PHP. Base has no tabs and neither build has the pre-fix code, so only HEAD counts.",
+    "base": {
+      "pass": false,
+      "value": {
+        "rubyFocused": false,
+        "selected": "JavaScript",
+        "focused": "BODY"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "rubyFocused": true,
+        "selected": "Dart",
+        "focused": "button[tab] \"Dart\""
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "tabs-lone-tab-unclickable",
+    "title": "Clicking a lone \"JSON\" label does nothing and shows no pointer",
+    "shas": [
+      "9f5824f1"
+    ],
+    "kind": "dom",
+    "expect": "flip",
+    "checks": "Saves Python as the language, then clicks the centre of the first lone JSON tab on documents.html. Reads the cursor under that point and the saved language. Passes when the cursor is not a pointer and Python is still saved.",
+    "base": {
+      "pass": false,
+      "value": {
+        "underPoint": "LI",
+        "cursor": "pointer",
+        "savedAfterClick": "JSON"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "underPoint": "DIV",
+        "cursor": "auto",
+        "savedAfterClick": "Python"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "tabs-lone-tab-not-selectable",
+    "title": "Drag-selecting across a JSON sample leaves out the \"JSON\" label",
+    "shas": [
+      "b38e1318"
+    ],
+    "kind": "text",
+    "expect": "flip",
+    "checks": "Drags the mouse from the first \"Sample Response\" line into its JSON code on documents.html, copies with Cmd/Ctrl+C and reads the clipboard. Passes when the copied text has \"Sample Response\" and the code but no \"JSON\" line. Chrome keeps the label in getSelection().toString() either way, so the clipboard is the honest read.",
+    "base": {
+      "pass": false,
+      "value": {
+        "copiedLines": [
+          "Sample Response",
+          "JSON",
+          "{"
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "copiedLines": [
+          "Sample Response",
+          "{"
+        ]
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "focus-rings-drawn-inside",
+    "title": "Keyboard focus rings on Copy Markdown, the languages button and the version picker are drawn inside the control",
+    "shas": [
+      "ec87f0ff"
+    ],
+    "kind": "focus-order",
+    "expect": "flip",
+    "checks": "At 1440px on documents.html, reaches each control with a real Tab press and reads its box-shadow. Passes when each has an inset layer with a spread of at least 2px and a colour that is not fully transparent, so the button group and aside cannot clip the ring.",
+    "base": {
+      "pass": false,
+      "value": {
+        "copyMarkdown": "outer ring with 2px offset",
+        "languages": "outer ring with 2px offset",
+        "version": "outer ring with 2px offset"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "copyMarkdown": "inset ring 2px",
+        "languages": "inset ring 2px",
+        "version": "inset ring 2px"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "copy-checkbox-edge-light",
+    "title": "Language checkboxes in the copy menu have a visible edge (light)",
+    "shas": [
+      "a8463db1"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "Opens the copy languages menu on federated-multi-search.html and reads each checkbox border (or outline) against the menu background. Passes when every enabled box edge is at least 3:1 and the greyed Swift box has an edge at all.",
+    "base": {
+      "pass": false,
+      "value": {
+        "enabled": "outline 1.31:1",
+        "greyed": [
+          "Swift none"
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "enabled": "border 3.78:1",
+        "greyed": [
+          "Swift border 1.8:1"
+        ]
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "copy-checkbox-edge-dark",
+    "title": "Language checkboxes in the copy menu have a visible edge (dark)",
+    "shas": [
+      "a8463db1"
+    ],
+    "kind": "contrast",
+    "expect": "flip",
+    "checks": "Opens the copy languages menu on federated-multi-search.html and reads each checkbox border (or outline) against the menu background. Passes when every enabled box edge is at least 3:1 and the greyed Swift box has an edge at all.",
+    "base": {
+      "pass": false,
+      "value": {
+        "enabled": "outline 1.32:1",
+        "greyed": [
+          "Swift none"
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "enabled": "border 3.68:1",
+        "greyed": [
+          "Swift border 1.91:1"
+        ]
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "copy-languages-are-checkboxes",
+    "title": "Screen readers hear each copy language as a checkbox, and Space ticks it",
+    "shas": [
+      "2547430e"
+    ],
+    "kind": "aria",
+    "expect": "flip",
+    "checks": "Opens the copy languages menu on federated-multi-search.html and finds the checkbox named Python. Focuses it and presses Space. Passes when it reads unchecked then checked, and Swift is a disabled checkbox.",
+    "base": {
+      "pass": false,
+      "value": {
+        "pythonCheckboxes": 0,
+        "rowRole": "button",
+        "swift": "no checkbox"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "pythonCheckboxes": 1,
+        "before": "false",
+        "afterSpace": "true",
+        "swift": "disabled checkbox"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "zoom-snaps-under-reduced-motion",
+    "title": "With reduced motion on, image zoom snaps open and shut",
+    "shas": [
+      "37cc1324"
+    ],
+    "kind": "motion",
+    "expect": "flip",
+    "checks": "With reducedMotion reduce on high-availability.html, samples the zoomed image scale every frame for 1s after a click, then clicks it shut. Passes when the transition is under 10ms, at most one frame shows an in-between scale, and the zoom is gone within 500ms.",
+    "base": {
+      "pass": false,
+      "value": {
+        "transition": "0.3s",
+        "framesBetween1AndFinal": 17,
+        "finalScale": 2.07,
+        "closedMs": 350
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "transition": "0.001s",
+        "framesBetween1AndFinal": 0,
+        "finalScale": 2.07,
+        "closedMs": 50
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "zoom-from-keyboard",
+    "title": "Doc images zoom from the keyboard and Tab closes the zoom back onto the image",
+    "shas": [
+      "db6f668e"
+    ],
+    "kind": "keyboard",
+    "expect": "flip",
+    "checks": "On high-availability.html clicks the paragraph above the HA screenshot and presses Tab up to 6 times looking for the image, then Enter, then Tab. Passes when Tab reaches the image (role button), Enter opens the zoom, and the next Tab closes it with focus back on the image.",
+    "base": {
+      "pass": false,
+      "value": {
+        "role": null,
+        "tabsToImage": "not in 6"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "role": "button",
+        "tabsToImage": 1,
+        "enterOpens": true,
+        "tabCloses": true,
+        "focusAfterClose": "image"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "zoom-focus-moves-in",
+    "title": "Opening an image zoom moves focus onto the zoomed image",
+    "shas": [
+      "529af28e"
+    ],
+    "kind": "focus-order",
+    "expect": "flip",
+    "checks": "Clicks the HA screenshot on high-availability.html and reads the focused element after 400ms, closes with Escape, then Tabs to the image and presses Enter. Passes when focus is on the zoomed image both times, with a ring only after Enter.",
+    "base": {
+      "pass": false,
+      "value": {
+        "afterClick": "BODY",
+        "afterEnter": "image not focusable"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "afterClick": "zoomed image",
+        "afterEnter": "zoomed image with ring"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "zoom-click-close-returns-focus",
+    "title": "Clicking a zoomed image shut puts focus back on the image",
+    "shas": [
+      "0e6dbad4"
+    ],
+    "kind": "focus-order",
+    "expect": "flip",
+    "checks": "Clicks the HA screenshot open, then clicks the zoomed image to close it, and reads the focused element. Passes when focus is on the original image.",
+    "base": {
+      "pass": false,
+      "value": {
+        "focusAfterClose": "BODY"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "focusAfterClose": "original image"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "copy-announced",
+    "title": "Screen readers hear \"Code copied\" and \"Markdown copied\" after a copy",
+    "shas": [
+      "68b077cd"
+    ],
+    "kind": "aria",
+    "expect": "flip",
+    "checks": "On documents.html reads every role=status region before any copy, clicks the first \"Copy code\" button, then Copy Markdown, reads the status text next to each, and reads every region again 2.7s after the Markdown click. Passes when all regions start empty, they read \"Code copied\" and \"Markdown copied\", and all are empty again, so a later copy is announced afresh.",
+    "base": {
+      "pass": false,
+      "value": {
+        "beforeCopy": [],
+        "codeStatus": null,
+        "markdownStatus": null,
+        "after2700ms": [],
+        "statusNodes": 0
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "beforeCopy": [],
+        "codeStatus": "Code copied",
+        "markdownStatus": "Markdown copied",
+        "after2700ms": [],
+        "statusNodes": 156
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "version-greyed-described",
+    "title": "Screen readers hear why a version is greyed out in the picker",
+    "shas": [
+      "17966f88"
+    ],
+    "kind": "aria",
+    "expect": "flip",
+    "checks": "Opens the aside version picker from the keyboard on natural-language-search.html and reads aria-describedby on every option. Passes when every greyed option points at \"Greyed out versions don't have this page.\" and no enabled option has a description.",
+    "base": {
+      "pass": false,
+      "value": {
+        "options": 31,
+        "greyed": 26,
+        "greyedDescriptions": [
+          null
+        ],
+        "enabledWithDescription": 0,
+        "idMatches": ""
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "options": 31,
+        "greyed": 26,
+        "greyedDescriptions": [
+          "Greyed out versions don't have this page."
+        ],
+        "enabledWithDescription": 0,
+        "idMatches": "1"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "version-typeahead-without-v",
+    "title": "Typing \"0.23\" in the open version list jumps to v0.23.1",
+    "shas": [
+      "ba4383af"
+    ],
+    "kind": "keyboard",
+    "expect": "flip",
+    "checks": "Opens the aside version picker from the keyboard on collections.html and types 0.23. Passes when the focused row starts with v0.23.1.",
+    "base": {
+      "pass": false,
+      "value": {
+        "focusedRow": "v30.2"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "focusedRow": "v0.23.1"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "version-end-keeps-focus",
+    "title": "End in the open version list goes to the last row and the arrows keep working",
+    "shas": [
+      "547c3e8d"
+    ],
+    "kind": "keyboard",
+    "expect": "flip",
+    "checks": "Opens the aside version picker from the keyboard on collections.html, presses End, then ArrowUp. Passes when End focuses the last option and ArrowUp the one above it.",
+    "base": {
+      "pass": false,
+      "value": {
+        "afterEnd": "BODY",
+        "afterUp": "BODY"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "afterEnd": "option 31 of 31 v0.11.2",
+        "afterUp": "option 30 of 31 v0.12.0"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-tabs-sync-holds-strip",
+    "title": "Picking a language with the mouse switches every group and keeps the clicked strip still",
+    "shas": [
+      "5ed71446",
+      "9a961159"
+    ],
+    "kind": "dom",
+    "expect": "guard",
+    "checks": "Scrolls strip 14 of 25 on documents.html (9 languages) to 300px from the top and clicks its Python tab. Passes when every group with Python switches to it and the strip moves less than 2px on screen while the page scrolls to absorb the groups above changing height.",
+    "base": {
+      "pass": true,
+      "value": {
+        "stripTop": "301 to 302",
+        "scrollY": "10775 to 10679",
+        "groupsOnPython": "13 of 13"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "stripTop": "301 to 302",
+        "scrollY": "11371 to 11275",
+        "groupsOnPython": "13 of 13"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-tabs-saved-language",
+    "title": "A saved language and a shared ?languages= link both pick the tab on load, and Vue logs no hydration mismatch",
+    "shas": [
+      "5ed71446",
+      "8c75edf5",
+      "17966f88"
+    ],
+    "kind": "dom",
+    "expect": "guard",
+    "checks": "Loads documents.html once with localStorage default-tab=Shell and once with ?languages=Go and nothing saved, listening to the console. Passes when every group that has the language shows it and Vue logs no hydration mismatch. The production build only reports mismatched text that Vue renders and mismatched element structure. A wrong attribute or class, or changed text inside static markdown, logs nothing, so a quiet console does not prove the server sent the same tab state.",
+    "base": {
+      "pass": true,
+      "value": {
+        "savedShell": "13 of 13",
+        "linkGo": "12 of 12",
+        "hydrationWarnings": []
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "savedShell": "13 of 13",
+        "linkGo": "12 of 12",
+        "hydrationWarnings": []
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-copy-popover-focus",
+    "title": "The copy languages menu opens on Enter, focuses \"Select all\" and Escape returns focus",
+    "shas": [
+      "2547430e",
+      "a8463db1",
+      "ec87f0ff"
+    ],
+    "kind": "keyboard",
+    "expect": "guard",
+    "checks": "Tabs to the braces button on federated-multi-search.html, presses Enter, reads the focused element and aria-expanded, then presses Escape. Passes when focus moves to \"Select all\" and comes back to the trigger with the menu closed.",
+    "base": {
+      "pass": true,
+      "value": {
+        "afterEnter": "button \"Select all\"",
+        "ariaExpanded": "true",
+        "afterEscape": "trigger",
+        "dialogOpen": false
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "afterEnter": "button \"Select all\"",
+        "ariaExpanded": "true",
+        "afterEscape": "trigger",
+        "dialogOpen": false
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-version-picker-keys",
+    "title": "The version picker opens on Enter, arrows move, and Escape returns focus",
+    "shas": [
+      "17966f88",
+      "ba4383af",
+      "547c3e8d",
+      "ec87f0ff"
+    ],
+    "kind": "keyboard",
+    "expect": "guard",
+    "checks": "Tabs to the aside version picker on collections.html, presses Enter, ArrowDown, then Escape. Passes when Enter focuses the current version, ArrowDown the next row, and Escape closes the list with focus on the trigger.",
+    "base": {
+      "pass": true,
+      "value": {
+        "afterEnter": "v30.2",
+        "afterArrowDown": "v30.1",
+        "afterEscape": "trigger"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "afterEnter": "v30.2",
+        "afterArrowDown": "v30.1",
+        "afterEscape": "trigger"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guard-code-copy-button",
+    "title": "The code copy button shows on keyboard focus, is named \"Copy code\" and keeps focus after copying",
+    "shas": [
+      "68b077cd"
+    ],
+    "kind": "keyboard",
+    "expect": "guard",
+    "checks": "Tabs to the first code copy button on documents.html, reads its title and opacity, presses Enter and reads the focused element. Passes when it is named \"Copy code\", fully visible on focus and still focused after the copy.",
+    "base": {
+      "pass": true,
+      "value": {
+        "name": "Copy code",
+        "opacityOnFocus": "1",
+        "focusKept": true,
+        "copiedChars": 177
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "name": "Copy code",
+        "opacityOnFocus": "1",
+        "focusKept": true,
+        "copiedChars": 177
+      }
+    },
+    "verdict": "ok"
+  }
+]

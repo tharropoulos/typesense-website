@@ -1,0 +1,27 @@
+{
+  "id": "W5",
+  "title": "Phone menu, sidebar drawer and outline dropdown",
+  "shas": [
+    "6c40f66a",
+    "f01a81ed",
+    "4bcb92ad"
+  ],
+  "page": "/docs/30.2/api/search.html",
+  "viewport": "390x844 touch",
+  "steps": [
+    "Load /docs/30.2/api/search.html at 390x844 (touch) and tap the hamburger at the top right.",
+    "Press Tab 15 times.",
+    "Press Escape. If the menu is still open, tap the hamburger again to close it.",
+    "Press Tab 4 times.",
+    "Move focus to 'On this page' in the bar under the nav and press Enter, then Tab into the list.",
+    "Press Escape, then Tab once."
+  ],
+  "expect_head": "Tab cycles through the nav bar and menu only and is back on 'Docs Home' after 15. Escape closes the menu and focus sits on the hamburger. The next four Tabs go Menu, v30.2, On this page, then the article. Escape in the outline list closes it with focus back on 'On this page', and Tab carries on into the article.",
+  "expect_base": "From the 11th Tab focus leaves the menu for 'Menu', 'On this page' and sidebar links hidden behind the overlay, so no ring shows. Escape does nothing. With the menu closed, Tabs 3 and 4 land on sidebar links off screen and no ring shows. Escape in the outline list drops focus to the page, and the next Tab lands on an off-screen sidebar link.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm"
+  },
+  "seen": true,
+  "note": "Checked frames. After 15 Tabs HEAD rings Docs Home inside the menu and base shows no ring. After Escape HEAD has closed the menu with the ring on the hamburger and base is still open. After the outline Escape and one Tab, HEAD rings the title # and base shows nothing because focus sits on an off-screen sidebar link. Base clip has one extra tap to close the menu. No video cursor, taps are not drawn."
+}

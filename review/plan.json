@@ -1,0 +1,79 @@
+{
+  "builds": { "base": "http://localhost:4174/docs/", "head": "http://localhost:4173/docs/" },
+  "stops": [
+    { "id": "L1", "owner": "C1", "title": "API page on a laptop", "page": "/docs/30.2/api/documents.html", "viewport": "1440x900",
+      "crops": [
+        { "id": "top", "what": "Whole viewport at scrollY 0, deviceScaleFactor 1", "themes": ["light", "dark"], "shas": ["a7a03d39", "de20e790", "819cc8d7", "085e9425", "84032a0f", "5de0bfd3", "8da4e8c6"] },
+        { "id": "tabs", "what": "First tab group (T1 in the ledger), deviceScaleFactor 2", "themes": ["light"], "shas": ["c425dce1", "dc72f6b4", "11126d9b"] },
+        { "id": "json", "what": "First JSON-only group (T2 in the ledger), deviceScaleFactor 2", "themes": ["light"], "shas": ["ea15f32d"] },
+        { "id": "callouts", "what": "The warning plus tip pair, deviceScaleFactor 2", "themes": ["light"], "shas": ["af36c9ea", "6a85ca5a", "e69af439"] },
+        { "id": "focus", "what": "Keyboard focus (focus-visible) on Copy Markdown, then on the aside version trigger. Two crops per theme, deviceScaleFactor 2", "themes": ["light", "dark"], "shas": ["ec87f0ff", "ade9117d", "886ec9e6"] }
+      ] },
+    { "id": "L2", "owner": "C1", "title": "API reference tables, code and popups", "page": "/docs/30.2/api/search.html", "viewport": "1280x800",
+      "crops": [
+        { "id": "table", "what": "First parameter table, header plus first two rows, with the paragraph above it so the table margin shows. deviceScaleFactor 2", "themes": ["light"], "shas": ["886ec9e6", "39ab66e7", "f78d766d", "e1d57f93"] },
+        { "id": "code", "what": "First code group on its JavaScript tab. deviceScaleFactor 2", "themes": ["light", "dark"], "shas": ["5e30f0af", "e3d83063"] },
+        { "id": "selection", "what": "Selected text in the first code panel", "themes": ["dark"], "shas": ["78e0b917"] },
+        { "id": "listbox", "what": "Aside version list open with one row keyboard-focused", "themes": ["dark"], "shas": ["5bfe7432", "66d59344", "17966f88"] },
+        { "id": "search-modal", "what": "Search modal after typing 'vector search' (one live query per build)", "themes": ["light"], "shas": ["6ad33ed6", "a7a03d39"] },
+        { "id": "outline", "page": "/docs/30.2/api/api-keys.html", "viewport": "1440x900", "what": "The On this page outline at scrollY 0", "themes": ["light"], "shas": ["bb6a4814"] }
+      ] },
+    { "id": "L3", "owner": "C1", "title": "Copy menu", "page": "/docs/30.2/api/analytics-query-suggestions.html", "viewport": "1280x800",
+      "crops": [
+        { "id": "popover", "what": "Language popover open (button 'Choose copied languages'), mouse moved away", "themes": ["light", "dark"], "shas": ["a8463db1", "aa3eebef", "2547430e"] }
+      ] },
+    { "id": "L9", "owner": "C1", "title": "Tablet nav menu", "page": "/docs/30.2/api/search.html", "viewport": "768x1024",
+      "crops": [
+        { "id": "flyout", "what": "Extra navigation menu open, mouse on the page body", "themes": ["dark"], "shas": ["fe94d5f1"] }
+      ] },
+    { "id": "L4", "owner": "C2", "title": "Guide page on a laptop", "page": "/docs/guide/install-typesense.html", "viewport": "1440x900",
+      "crops": [
+        { "id": "top", "what": "Whole viewport at scrollY 0, deviceScaleFactor 1", "themes": ["light"], "shas": ["8da4e8c6", "5de0bfd3", "085e9425"] },
+        { "id": "collapsed", "what": "Sidebar scrolled so Cookbooks is at its top", "themes": ["light"], "shas": ["d24ce632"] },
+        { "id": "warning", "what": "The macOS compatibility warning callout, deviceScaleFactor 2", "themes": ["light"], "shas": ["ff3818a2", "af36c9ea"] },
+        { "id": "code-label", "what": "Markdown code block corner label, no hover, deviceScaleFactor 2", "themes": ["light", "dark"], "shas": ["35505491"] },
+        { "id": "active", "page": "/docs/guide/langchain-ai-search.html", "what": "Sidebar around the active item after 1s", "themes": ["light"], "shas": ["84ecbfdd", "5de0bfd3"] },
+        { "id": "scrollbar", "page": "/docs/guide/", "what": "Sidebar right edge. Launch with ignoreDefaultArgs ['--hide-scrollbars']. If headless draws no scrollbar on either build, say so and skip", "themes": ["light"], "shas": ["7dabec76"] }
+      ] },
+    { "id": "L6", "owner": "C2", "title": "Phone", "page": "/docs/30.2/api/search.html", "viewport": "390x844 isMobile hasTouch",
+      "crops": [
+        { "id": "breadcrumb", "what": "Top 260px at scrollY 0: local nav, breadcrumb row and title", "themes": ["light"], "shas": ["fc63b9ee", "e654bb5b"] },
+        { "id": "popover", "page": "/docs/30.2/api/documents.html", "what": "Copy language popover open", "themes": ["light"], "shas": ["dc9ac5ca"] },
+        { "id": "params", "page": "/docs/30.2/api/server-configuration.html", "what": "First three parameter rows", "themes": ["light"], "shas": ["e1d57f93", "2dc5f5f0"] },
+        { "id": "pinned", "page": "/docs/guide/django-search-api.html", "what": "Pinned h2 bar for the long Step 8 heading", "themes": ["light"], "shas": ["032fc436"] }
+      ] },
+    { "id": "L7", "owner": "C2", "title": "Docs home and old versions", "page": "/docs/", "viewport": "1280x800",
+      "crops": [
+        { "id": "home", "what": "The .vp-doc element, full height", "themes": ["light"], "shas": ["4fc72719", "085e9425"] },
+        { "id": "old-cards", "page": "/docs/0.19.0/", "what": "The three cards", "themes": ["light"], "shas": ["eee80b20"] }
+      ] },
+    { "id": "L8", "owner": "C2", "title": "Not found page", "page": "/docs/nope.html", "viewport": "1280x800",
+      "crops": [
+        { "id": "body", "what": "404 body with the 'search the docs' line. Stub the title search to empty so both builds match", "themes": ["light", "dark"], "shas": ["f93c0c38"] },
+        { "id": "suggestion-focus", "page": "/docs/30.2/api/collection.html", "what": "Live suggestions list with the first suggestion keyboard-focused, plus its small grey text", "themes": ["light"], "shas": ["264fbc07", "35505491"] }
+      ] },
+    { "id": "L10", "owner": "C2", "title": "Before JavaScript runs", "page": "/docs/30.2/api/search.html", "viewport": "various",
+      "crops": [
+        { "id": "phone-tabs", "viewport": "390x844", "what": "javaScriptEnabled false, the first screen of content that holds a code group", "themes": ["light"], "shas": ["8c75edf5"] },
+        { "id": "desktop-shell", "viewport": "1440x900", "what": "javaScriptEnabled false, whole viewport: sidebar current page and nav layout", "themes": ["light"], "shas": ["04f199ee", "cebd9e1b"] },
+        { "id": "phone-home", "page": "/docs/", "viewport": "390x844", "what": "javaScriptEnabled false, top of the page: local nav and On this page label", "themes": ["light"], "shas": ["103b1f77", "4d384472", "6ea64666"] }
+      ] }
+  ],
+  "walks": [
+    { "id": "W1", "owner": "G1", "title": "Code tabs from the keyboard", "shas": ["5ed71446", "ba82008a", "eb4869bf", "9f5824f1", "b38e1318", "9a961159"], "note": "Desktop clip on documents.html, plus a short phone clip for 9a961159" },
+    { "id": "W2", "owner": "G1", "title": "Image zoom from the keyboard", "shas": ["db6f668e", "529af28e", "0e6dbad4", "7d6f6435"], "page": "/docs/guide/high-availability.html" },
+    { "id": "W3", "owner": "G1", "title": "Copy menu and version picker from the keyboard", "shas": ["2547430e", "ba4383af", "547c3e8d"] },
+    { "id": "W4", "owner": "G2", "title": "Skip link and landing focus", "shas": ["64ec5980", "08c5cbf5", "d74ea978"] },
+    { "id": "W5", "owner": "G2", "title": "Phone menu, sidebar drawer and outline dropdown", "shas": ["6c40f66a", "f01a81ed", "4bcb92ad"] },
+    { "id": "W6", "owner": "G2", "title": "Tablet extra menu and sidebar groups", "shas": ["f2ad9046", "9b561402", "e5046597"] },
+    { "id": "W7", "owner": "G3", "title": "Phone nav while scrolling", "shas": ["84a244e4", "6d3748cf"] },
+    { "id": "W8", "owner": "G3", "title": "Sidebar pill between pages", "shas": ["a253eacf", "1dc95b1e"] },
+    { "id": "W9", "owner": "G3", "title": "Opening search", "shas": ["780722ac", "f93c0c38"] },
+    { "id": "W10", "owner": "G3", "title": "Phone version switch and parameter links", "shas": ["fc63b9ee", "e1d57f93"] }
+  ],
+  "gates": {
+    "G1": { "file": "gates/g1-tabs-controls.js", "shas": ["5ed71446", "ba82008a", "9a961159", "8c75edf5", "eb4869bf", "9f5824f1", "b38e1318", "ec87f0ff", "a8463db1", "2547430e", "37cc1324", "db6f668e", "529af28e", "0e6dbad4", "68b077cd", "17966f88", "ba4383af", "547c3e8d"] },
+    "G2": { "file": "gates/g2-contrast-keyboard.js", "shas": ["886ec9e6", "ff3818a2", "e3d83063", "80cdff98", "35505491", "aa3eebef", "f5b32529", "66d59344", "78e0b917", "39ab66e7", "5bfe7432", "6ad33ed6", "c23acb4e", "fe94d5f1", "d74ea978", "f01a81ed", "6c40f66a", "08c5cbf5", "64ec5980", "4bcb92ad", "e5046597", "f2ad9046", "9b561402", "705326e8"] },
+    "G3": { "file": "gates/g3-shell-load-reading.js", "shas": ["032fc436", "84ecbfdd", "84a244e4", "6d3748cf", "7dabec76", "bd0a8728", "cebd9e1b", "04f199ee", "a253eacf", "103b1f77", "ba0cc97b", "cfdf8875", "63f99faf", "1796037a", "780722ac", "34a2ed2b", "370843e7", "1e5d1ec6", "a7a03d39", "de20e790", "eee80b20", "4fc72719", "092ced0c", "20c1598a", "f78d766d", "af36c9ea", "8da4e8c6", "6a85ca5a", "d24ce632", "bb6a4814", "fc63b9ee", "085e9425", "e1d57f93"] }
+  }
+}

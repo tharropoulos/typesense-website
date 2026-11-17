@@ -1,0 +1,291 @@
+{
+  "id": "L1",
+  "title": "API page on a laptop",
+  "page": "/docs/30.2/api/documents.html",
+  "viewport": "1440x900",
+  "crops": [
+    {
+      "id": "top",
+      "theme": "light",
+      "title": "Top of the page, whole viewport",
+      "base": "top-light-base.png",
+      "head": "top-light-head.png",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "a7a03d39",
+          "look_for": "In the search button at the top right, \"Search\" and the key caps switch from the system font to Source Sans 3. The button is 5px narrower, and the nav links to its left move 5px right.",
+          "seen": true
+        },
+        {
+          "sha": "de20e790",
+          "look_for": "In the same search button, the \"Search\" label and the magnifier turn a lighter blue-gray (#4d4d4d to #636370).",
+          "seen": true
+        },
+        {
+          "sha": "819cc8d7",
+          "look_for": "The \"v30.2\" pill at the top of the right column gains a thin gray border.",
+          "seen": true
+        },
+        {
+          "sha": "84032a0f",
+          "look_for": "In the middle column, body paragraphs stop at 480px instead of running the full 688px. The Note callout still spans the whole column.",
+          "seen": true
+        },
+        {
+          "sha": "085e9425",
+          "look_for": "Nothing to look for here.",
+          "seen": false,
+          "note": "No visible change by design. HEAD paragraphs measure exactly 480px, the fixed cap this commit sets. Its point is that the width holds during the font swap, which a settled screenshot cannot show. Leave it to a gate."
+        },
+        {
+          "sha": "5de0bfd3",
+          "look_for": "In the left sidebar, page links such as \"Collections\" and \"Search\" are regular weight instead of medium. They look lighter and a little shorter.",
+          "seen": true
+        },
+        {
+          "sha": "8da4e8c6",
+          "look_for": "In the right column \"On this page\" list, \"Action modes (create, upsert, update & emplace)\" no longer leaves \"emplace)\" alone on its last line. It wraps into three even lines.",
+          "seen": true
+        }
+      ],
+      "note": "Other differences in this frame come from shas shown in other crops. The Note callout title and its looser lines come from e69af439 and af36c9ea (see callouts). Inline code and links are a shade darker from 886ec9e6 (see L2 table-chip). The tab strip at the bottom edge comes from 11126d9b. Nothing unexplained."
+    },
+    {
+      "id": "top",
+      "theme": "dark",
+      "title": "Top of the page, whole viewport",
+      "base": "top-dark-base.png",
+      "head": "top-dark-head.png",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "a7a03d39",
+          "look_for": "In the search button at the top right, \"Search\" and the key caps switch from the system font to Source Sans 3. The button is 5px narrower, and the nav links to its left move 5px right.",
+          "seen": true
+        },
+        {
+          "sha": "de20e790",
+          "look_for": "In the same search button, the \"Search\" label drops from near-white to a dimmer gray (#f9f9f9 to #b2b2c3).",
+          "seen": true
+        },
+        {
+          "sha": "819cc8d7",
+          "look_for": "The \"v30.2\" pill at the top of the right column gains a thin gray border, easier to see than in light.",
+          "seen": true
+        },
+        {
+          "sha": "84032a0f",
+          "look_for": "In the middle column, body paragraphs stop at 480px instead of running the full 688px. The Note callout still spans the whole column.",
+          "seen": true
+        },
+        {
+          "sha": "085e9425",
+          "look_for": "Nothing to look for here.",
+          "seen": false,
+          "note": "No visible change by design. HEAD paragraphs measure exactly 480px, the fixed cap this commit sets. Its point is that the width holds during the font swap, which a settled screenshot cannot show. Leave it to a gate."
+        },
+        {
+          "sha": "5de0bfd3",
+          "look_for": "In the left sidebar, page links such as \"Collections\" and \"Search\" are regular weight instead of medium. They look lighter and a little shorter.",
+          "seen": true
+        },
+        {
+          "sha": "8da4e8c6",
+          "look_for": "In the right column \"On this page\" list, \"Action modes (create, upsert, update & emplace)\" no longer leaves \"emplace)\" alone on its last line. It wraps into three even lines.",
+          "seen": true
+        }
+      ],
+      "note": "Other differences in this frame come from shas shown in other crops. The Note callout title and its looser lines come from e69af439 and af36c9ea (see callouts). The tab strip at the bottom edge comes from 11126d9b. Nothing unexplained."
+    },
+    {
+      "id": "tabs",
+      "theme": "light",
+      "title": "First code tab group",
+      "base": "tabs-light-base.png",
+      "head": "tabs-light-head.png",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "c425dce1",
+          "look_for": "In the top-right corner of the code panel, the small gray \"js\" label is gone.",
+          "seen": true
+        },
+        {
+          "sha": "dc72f6b4",
+          "look_for": "The top corners of the tab strip round at 8px instead of 6px.",
+          "seen": false,
+          "note": "Too small to judge at this scale. The tabs-corner zoom shows it."
+        },
+        {
+          "sha": "11126d9b",
+          "look_for": "In the tab strip, the \"JavaScript\" label now starts at the same left edge as \"let\" in the code below. On base it sits 8px further right. The selected pill now hangs into the left gutter.",
+          "seen": true
+        }
+      ],
+      "note": "Token colours in the code also change, from 5e30f0af and e3d83063 (see L2 code). The narrower edge fades only show when the strip scrolls, and this strip does not overflow at 1440."
+    },
+    {
+      "id": "tabs-corner",
+      "theme": "light",
+      "title": "Zoom on the tab strip top-left corner",
+      "base": "tabs-corner-light-base.png",
+      "head": "tabs-corner-light-head.png",
+      "dsf": 4,
+      "items": [
+        {
+          "sha": "dc72f6b4",
+          "look_for": "The top-left corner of the gray strip curves over a wider arc on HEAD (8px radius) than on base (6px).",
+          "seen": true
+        }
+      ],
+      "note": "Extra framing at deviceScaleFactor 4 because the 2px change is hard to judge in the tabs pair. The pill starting further left comes from 11126d9b."
+    },
+    {
+      "id": "json",
+      "theme": "light",
+      "title": "First JSON-only group",
+      "base": "json-light-base.png",
+      "head": "json-light-head.png",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "ea15f32d",
+          "look_for": "At the top left of the panel, \"JSON\" is plain text on HEAD with no bordered gray pill behind it.",
+          "seen": true
+        }
+      ],
+      "note": "The \"json\" corner label also goes (c425dce1), the \"JSON\" label lines up with the code (11126d9b) and token colours change (5e30f0af)."
+    },
+    {
+      "id": "callouts",
+      "theme": "light",
+      "title": "Warning plus tip pair",
+      "base": "callouts-light-base.png",
+      "head": "callouts-light-head.png",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "af36c9ea",
+          "look_for": "Inside the yellow Note box, lines sit 28px apart instead of 24px. The box grows from 250px to 282px tall.",
+          "seen": true
+        },
+        {
+          "sha": "6a85ca5a",
+          "look_for": "In the green box at the bottom, the title reads \"Tip\" instead of \"TIP\".",
+          "seen": true
+        },
+        {
+          "sha": "e69af439",
+          "look_for": "In the yellow box at the top, the title reads \"Note\" instead of \"NOTE\".",
+          "seen": true
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "focus-copy",
+      "theme": "light",
+      "title": "Keyboard focus on the Copy Markdown button",
+      "base": "focus-copy-light-base.png",
+      "head": "focus-copy-light-head.png",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "ec87f0ff",
+          "look_for": "On the Copy Markdown button, base shows only a green bar on its right seam. HEAD draws a complete ring inside the button.",
+          "seen": true
+        },
+        {
+          "sha": "ade9117d",
+          "look_for": "The ring on the Copy Markdown button goes from pale lime (#8bb34d) to dark green.",
+          "seen": true
+        },
+        {
+          "sha": "886ec9e6",
+          "look_for": "The HEAD ring's dark green (#487500) is the darker brand 11 this commit sets. This pair shows it together with ade9117d and cannot isolate the one-step change.",
+          "seen": true
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "focus-version",
+      "theme": "light",
+      "title": "Keyboard focus on the \"v30.2\" version trigger",
+      "base": "focus-version-light-base.png",
+      "head": "focus-version-light-head.png",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "ec87f0ff",
+          "look_for": "On the \"v30.2\" trigger, base shows the ring only along the right and bottom edges. HEAD draws a complete ring inside the pill.",
+          "seen": true
+        },
+        {
+          "sha": "ade9117d",
+          "look_for": "The ring on the \"v30.2\" version trigger goes from pale lime (#8bb34d) to dark green.",
+          "seen": true
+        },
+        {
+          "sha": "886ec9e6",
+          "look_for": "The HEAD ring's dark green (#487500) is the darker brand 11 this commit sets. This pair shows it together with ade9117d and cannot isolate the one-step change.",
+          "seen": true
+        }
+      ],
+      "note": "The trigger also gains a thin border from 819cc8d7."
+    },
+    {
+      "id": "focus-copy",
+      "theme": "dark",
+      "title": "Keyboard focus on the Copy Markdown button",
+      "base": "focus-copy-dark-base.png",
+      "head": "focus-copy-dark-head.png",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "ec87f0ff",
+          "look_for": "On the Copy Markdown button, base shows only a green bar on its right seam. HEAD draws a complete ring inside the button.",
+          "seen": true
+        },
+        {
+          "sha": "ade9117d",
+          "look_for": "No colour change is expected in dark. The ring on the Copy Markdown button is the same lime (#8bb34d) on both.",
+          "seen": true
+        },
+        {
+          "sha": "886ec9e6",
+          "look_for": "No colour change is expected in dark. The ring colour matches on both.",
+          "seen": true
+        }
+      ],
+      "note": "The tooltip above the button sits on a lighter gray on HEAD (#1a1a1f to #23232a). That comes from 5bfe7432 (see L2 listbox)."
+    },
+    {
+      "id": "focus-version",
+      "theme": "dark",
+      "title": "Keyboard focus on the \"v30.2\" version trigger",
+      "base": "focus-version-dark-base.png",
+      "head": "focus-version-dark-head.png",
+      "dsf": 2,
+      "items": [
+        {
+          "sha": "ec87f0ff",
+          "look_for": "On the \"v30.2\" trigger, base shows the ring only along the right and bottom edges. HEAD draws a complete ring inside the pill.",
+          "seen": true
+        },
+        {
+          "sha": "ade9117d",
+          "look_for": "No colour change is expected in dark. The ring on the \"v30.2\" version trigger is the same lime (#8bb34d) on both.",
+          "seen": true
+        },
+        {
+          "sha": "886ec9e6",
+          "look_for": "No colour change is expected in dark. The ring colour matches on both.",
+          "seen": true
+        }
+      ],
+      "note": "The trigger also gains a thin border from 819cc8d7."
+    }
+  ]
+}

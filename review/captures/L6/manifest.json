@@ -1,0 +1,83 @@
+{
+  "id": "L6",
+  "title": "Phone",
+  "page": "/docs/30.2/api/search.html",
+  "viewport": "390x844 phone (isMobile, hasTouch)",
+  "crops": [
+    {
+      "id": "breadcrumb",
+      "theme": "light",
+      "title": "Breadcrumb row",
+      "base": "breadcrumb-light-base.png",
+      "head": "breadcrumb-light-head.png",
+      "items": [
+        {
+          "sha": "e654bb5b",
+          "look_for": "The breadcrumb under the logo starts with 'v30.2' and a small chevron on HEAD, ahead of 'API Reference > Search'.",
+          "seen": true
+        },
+        {
+          "sha": "fc63b9ee",
+          "look_for": "Nothing to see at this width. This commit hides the breadcrumb version from 768px up, and at 768 both builds show a single version picker.",
+          "seen": false,
+          "note": "Not a pixel issue, its effect is only at 768px and up where base and HEAD match. Covered by its gate (one picker at 390 and 768)."
+        }
+      ],
+      "note": "The search icon in the top bar is a bluer grey on HEAD, from de20e790 (search button tinted with the site greys, icon #4d4d4d to #636370)."
+    },
+    {
+      "id": "popover",
+      "theme": "light",
+      "title": "Copy languages popover",
+      "page": "/docs/30.2/api/documents.html",
+      "base": "popover-light-base.png",
+      "head": "popover-light-head.png",
+      "items": [
+        {
+          "sha": "dc9ac5ca",
+          "look_for": "The popover's left edge lines up with the Copy Markdown button group on HEAD, 8px further right than on base where it overhangs the group.",
+          "seen": true
+        }
+      ],
+      "note": "The checkbox borders are darker on HEAD, from a8463db1 (visible checkbox edge)."
+    },
+    {
+      "id": "params",
+      "theme": "light",
+      "title": "First three parameter rows",
+      "page": "/docs/30.2/api/server-configuration.html",
+      "base": "params-light-base.png",
+      "head": "params-light-head.png",
+      "items": [
+        {
+          "sha": "e1d57f93",
+          "look_for": "Each parameter name ('--config', '--api-key', '--data-dir') has a muted # in front of it on HEAD and sits about 20px further right.",
+          "seen": true
+        },
+        {
+          "sha": "2dc5f5f0",
+          "look_for": "Nothing of its own to see. It added the row ids the # points to, and its first look with the name as the link was replaced by e1d57f93.",
+          "seen": false,
+          "note": "Ids are invisible. Covered by its anchors gate."
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "pinned",
+      "theme": "light",
+      "title": "Pinned section bar",
+      "page": "/docs/guide/django-search-api.html",
+      "base": "pinned-light-base.png",
+      "head": "pinned-light-head.png",
+      "items": [
+        {
+          "sha": "032fc436",
+          "look_for": "The pinned bar under the breadcrumb reads 'Step 8: Implement paginated sy…' on one line on HEAD, where base wraps the full title over two lines and covers more of the page.",
+          "seen": true
+        }
+      ],
+      "note": "Code token colours differ, from 5e30f0af."
+    }
+  ]
+}

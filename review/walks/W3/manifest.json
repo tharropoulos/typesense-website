@@ -1,0 +1,29 @@
+{
+  "id": "W3",
+  "title": "Copy menu and version picker from the keyboard",
+  "shas": [
+    "2547430e",
+    "ba4383af",
+    "547c3e8d"
+  ],
+  "page": "/docs/30.2/api/collections.html",
+  "viewport": "1440x900",
+  "steps": [
+    "Press Tab until the braces button next to Copy Markdown is focused, then press Enter",
+    "Press Tab to reach the first language (JavaScript) and press Space",
+    "Press Escape",
+    "Press Tab until the v30.2 version picker in the right column is focused, then press Enter",
+    "Type 0.23 quickly",
+    "Press End",
+    "Press ArrowUp",
+    "Press Escape"
+  ],
+  "expect_head": "Enter opens the menu on Select all. Tab rings the JavaScript checkbox and Space ticks it. In the version list, typing 0.23 moves the highlight to v0.23.1, End moves it to the last row v0.11.2, and ArrowUp to v0.12.0. Escape closes the list with focus on the picker.",
+  "expect_base": "The copy menu looks and toggles the same, with an outer offset ring on the row. Typing 0.23 leaves the highlight on v30.2. End drops the highlight and ArrowUp does nothing. Escape still closes the list.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm"
+  },
+  "seen": true,
+  "note": "Checked from frame sheets. 2547430e changes what a screen reader hears (a named checkbox with its ticked state), so its menu half looks almost the same on both builds. The gate copy-languages-are-checkboxes shows the difference. Ticking JavaScript also sets it as the shown tab, which is existing behaviour."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "W9",
+  "title": "Opening search",
+  "shas": [
+    "780722ac",
+    "f93c0c38"
+  ],
+  "page": "/docs/30.2/api/search.html and /docs/nope.html",
+  "viewport": "1440x900",
+  "steps": [
+    "Open /docs/30.2/api/search.html at 1440x900 and leave the mouse alone. Press Cmd+K (Ctrl+K off Apple), then Escape.",
+    "Reload and click the nav search button once, then press Escape.",
+    "Open /docs/nope.html. Wait for 'Page not found' and click 'search the docs' in the sentence under it."
+  ],
+  "expect_head": "Cmd+K and the first click each open the modal on the first try with focus in the input, while the library loads behind the static button. On the 404, 'search the docs' is a lime underlined link-style button that opens the same modal.",
+  "expect_base": "Cmd+K and the click open the modal the same way (the library was already in the main bundle). On the 404, 'search the docs' is plain grey text and clicking it does nothing.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm"
+  },
+  "seen": true,
+  "note": "The 404's title search is answered with {\"grouped_hits\": []} so its suggestion list stays empty on both builds. No query is typed. Frames checked. Both builds open the modal on Cmd+K and on the first click. On the 404 HEAD shows 'search the docs' underlined in lime and the modal opens on click (9.4s). Base shows plain grey text and nothing opens (15.0s to 16.4s). Light theme. A badge bottom left shows keys pressed and one bottom right names the step. The search cluster and trackers are blocked."
+}

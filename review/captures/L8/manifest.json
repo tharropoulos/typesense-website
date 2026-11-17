@@ -1,0 +1,60 @@
+{
+  "id": "L8",
+  "title": "Not found page",
+  "page": "/docs/nope.html",
+  "viewport": "1280x800",
+  "crops": [
+    {
+      "id": "body",
+      "theme": "light",
+      "title": "404 message",
+      "base": "body-light-base.png",
+      "head": "body-light-head.png",
+      "items": [
+        {
+          "sha": "f93c0c38",
+          "look_for": "At the end of the sentence under 'Page not found', 'search the docs' is lime green, medium weight and underlined on HEAD, where base shows it as plain grey text.",
+          "seen": true
+        }
+      ],
+      "note": "Title search stubbed to empty results on both builds. The '404' label is a step darker green on HEAD (886ec9e6)."
+    },
+    {
+      "id": "body",
+      "theme": "dark",
+      "title": "404 message",
+      "base": "body-dark-base.png",
+      "head": "body-dark-head.png",
+      "items": [
+        {
+          "sha": "f93c0c38",
+          "look_for": "At the end of the sentence under 'Page not found', 'search the docs' is bright lime, medium weight and underlined on HEAD, where base shows it as plain grey text.",
+          "seen": true
+        }
+      ],
+      "note": "Title search stubbed to empty results on both builds."
+    },
+    {
+      "id": "suggestion-focus",
+      "theme": "light",
+      "title": "Suggestions with keyboard focus",
+      "page": "/docs/30.2/api/collection.html",
+      "base": "suggestion-focus-light-base.png",
+      "head": "suggestion-focus-light-head.png",
+      "items": [
+        {
+          "sha": "264fbc07",
+          "look_for": "Around the first suggestion 'Collection Alias' HEAD draws the blue focus outline on all four sides, where base shows only a blue line along its bottom edge.",
+          "seen": true
+        },
+        {
+          "sha": "35505491",
+          "look_for": "The 'WERE YOU LOOKING FOR?' heading and the grey URLs under each title are a darker grey on HEAD.",
+          "seen": true,
+          "note": "Pixel-sampled #828291 to #636370."
+        }
+      ],
+      "note": "Live suggestions, one load per build, 2 live queries in total. Both builds returned the same four results. Focus reached the first suggestion by focusing the API Reference button and pressing Tab."
+    }
+  ]
+}

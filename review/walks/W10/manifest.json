@@ -1,0 +1,24 @@
+{
+  "id": "W10",
+  "title": "Phone version switch and parameter links",
+  "shas": [
+    "fc63b9ee",
+    "e1d57f93"
+  ],
+  "page": "/docs/30.2/api/server-configuration.html",
+  "viewport": "390x844",
+  "steps": [
+    "On a phone (390x844), open /docs/30.2/api/server-configuration.html and look at the breadcrumb row under the nav.",
+    "Tap the version at the start of the breadcrumb, look at the list, then tap the same version to close it.",
+    "Scroll to the Common Parameters table and look at the parameter names.",
+    "Tap the muted # before --api-key."
+  ],
+  "expect_head": "The breadcrumb starts with a tappable v30.2 that opens the version list. Each parameter shows a muted # before its name. Tapping it puts #--api-key in the URL and lands that row just under the pinned bars.",
+  "expect_base": "The breadcrumb has no version on phones. Parameter names stand alone with no # and nothing to tap.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm"
+  },
+  "seen": true,
+  "note": "From 768px up HEAD hides this breadcrumb version again so tablets show one picker (fc63b9ee). That width is covered by the one-version-picker-per-width gate, not this clip. Frames checked. HEAD shows v30.2 first in the breadcrumb, the tap opens the version list (3.3s), each parameter has a muted # and tapping the --api-key # lands that row under the pinned bars with #--api-key in the URL (7.4s). Base has no breadcrumb version and no #. Light theme. A badge bottom left shows keys pressed and one bottom right names the step. The search cluster and trackers are blocked."
+}

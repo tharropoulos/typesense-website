@@ -1,0 +1,24 @@
+{
+  "id": "L9",
+  "title": "Tablet nav menu",
+  "page": "/docs/30.2/api/search.html",
+  "viewport": "768x1024",
+  "crops": [
+    {
+      "id": "flyout",
+      "theme": "dark",
+      "title": "Extra navigation menu open, mouse on the page body",
+      "base": "flyout-dark-base.png",
+      "head": "flyout-dark-head.png",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "fe94d5f1",
+          "look_for": "The \"•••\" menu panel is a slightly lighter gray on HEAD (#19191e to #222229) and lifts off the page. Border and contents match.",
+          "seen": true
+        }
+      ],
+      "note": "Setup differs in one step. Base opens this menu on hover, so after a real click the menu shuts once the mouse leaves (f2ad9046 made HEAD open on click only). The script clicks on both builds and moves the mouse to the page body, then reopens base with a scripted click. HEAD stayed open on its own. Page text behind the panel wraps differently because of the prose cap (84032a0f)."
+    }
+  ]
+}

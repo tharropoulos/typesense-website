@@ -1,0 +1,28 @@
+{
+  "id": "W2",
+  "title": "Image zoom from the keyboard",
+  "shas": [
+    "db6f668e",
+    "529af28e",
+    "0e6dbad4",
+    "7d6f6435"
+  ],
+  "page": "/docs/guide/high-availability.html",
+  "viewport": "1280x800",
+  "steps": [
+    "Click in the paragraph just above the 'Typesense Cloud HA Hostnames' screenshot ('When you flip the setting ON...')",
+    "Press Tab",
+    "Press Enter",
+    "Press Tab",
+    "Click the screenshot with the mouse and wait for the zoom to finish",
+    "Press Tab"
+  ],
+  "expect_head": "Tab lands on the screenshot. Enter opens the zoom and Tab closes it with focus back on the screenshot. After a mouse zoom, Tab also closes it and focus lands back on the screenshot. The page never moves.",
+  "expect_base": "Tab skips the screenshot and lands on the 'Client Configuration' link in the note further down, and Enter follows that link to its section. After a mouse zoom, Tab moves focus to that link behind the overlay. The page scrolls to it, which closes the zoom.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm"
+  },
+  "seen": true,
+  "note": "Checked from frame sheets. The screenshot's focus ring is Chrome's default 1px auto outline, not the site's lime ring, and it is hard to see against the image's own blue frame. The clip shows focus by what Enter and Tab do, not by a ring. 0e6dbad4 (clicking the zoomed image shut returns focus) has no visible effect and is covered by gate zoom-click-close-returns-focus."
+}

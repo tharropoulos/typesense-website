@@ -1,0 +1,26 @@
+{
+  "id": "W6",
+  "title": "Tablet extra menu and sidebar groups",
+  "shas": [
+    "f2ad9046",
+    "9b561402",
+    "e5046597"
+  ],
+  "page": "/docs/30.2/api/search.html",
+  "viewport": "1024x768",
+  "steps": [
+    "Load /docs/30.2/api/search.html at 1024x768 and hover the '•••' button at the right of the nav bar.",
+    "Move the mouse away, then Tab to '•••' and press Enter.",
+    "Press Escape.",
+    "Tab into the sidebar until 'API Resources' has focus, then press Enter.",
+    "Press Tab."
+  ],
+  "expect_head": "Hover does nothing. Enter opens the menu, Escape closes it and the ring is back on '•••'. Enter collapses API Resources and Tab goes straight to 'API Errors'.",
+  "expect_base": "Hover opens the menu. Enter opens it, Escape leaves it open. Enter collapses API Resources, then Tab stops on its unlabelled caret first.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm"
+  },
+  "seen": true,
+  "note": "Checked frames. Hover opens the menu on base only. After Escape HEAD has closed it with the ring on the dots button and base is still open. After Enter and Tab on API Resources HEAD rings API Errors and base rings the caret. Playwright video draws no cursor, so the hover shows only through its effect. 9b561402 (closing on resize) is not in the clip, the gate extra-menu-closes-with-trigger covers it."
+}

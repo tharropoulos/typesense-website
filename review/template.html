@@ -1,0 +1,503 @@
+<title>Docs UI Branch Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: a review desk. A pinned bar with progress, then the passes in order (Look, Watch, Gates, Calls, Read), the fork note and the full ledger. Every reviewable unit carries its own sign-off. */
+:root {
+  --bg: #fbfbfc; --surface: #ffffff; --sunk: #f3f3f6; --line: #e2e2e8; --line-strong: #cdcdd6;
+  --fg: #1d1d22; --muted: #5f5f6c; --faint: #8a8a97;
+  --lime: #c0ff58; --lime-ink: #1d1d22; --link: #497500;
+  --ok: #1d7a3c; --ok-bg: #e6f4ea; --check: #9a5600; --check-bg: #fbf0dc; --flag: #b8322a; --flag-bg: #fbe6e4;
+  --before: #6b6b78; --shadow: 0 1px 2px rgb(20 20 30 / 6%), 0 4px 16px rgb(20 20 30 / 5%);
+  --sans: "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Source Code Pro", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111114; --surface: #18181c; --sunk: #1f1f25; --line: #2b2b33; --line-strong: #3b3b45;
+  --fg: #ececf0; --muted: #a3a3b0; --faint: #7c7c89;
+  --lime: #c0ff58; --lime-ink: #111114; --link: #c0ff58;
+  --ok: #5ec27e; --ok-bg: #16281c; --check: #f0a640; --check-bg: #2e2312; --flag: #ff7468; --flag-bg: #301716;
+  --before: #9a9aa8; --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 6px 20px rgb(0 0 0 / 25%); color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #111114; --surface: #18181c; --sunk: #1f1f25; --line: #2b2b33; --line-strong: #3b3b45;
+  --fg: #ececf0; --muted: #a3a3b0; --faint: #7c7c89;
+  --lime: #c0ff58; --lime-ink: #111114; --link: #c0ff58;
+  --ok: #5ec27e; --ok-bg: #16281c; --check: #f0a640; --check-bg: #2e2312; --flag: #ff7468; --flag-bg: #301716;
+  --before: #9a9aa8; --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 6px 20px rgb(0 0 0 / 25%); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+a { color: var(--link); text-underline-offset: 2px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; }
+h1, h2, h3, h4 { text-wrap: balance; margin: 0; line-height: 1.2; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* pinned bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: saturate(1.4) blur(8px); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; align-items: center; gap: 16px; min-height: 52px; padding-block: 6px; flex-wrap: wrap; }
+.bar .name { font-weight: 700; white-space: nowrap; }
+.bar nav { display: flex; gap: 2px; flex-wrap: wrap; flex: 1; min-width: 0; }
+.bar nav a { color: var(--muted); text-decoration: none; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 15px; }
+.bar nav a:hover { color: var(--fg); background: var(--sunk); }
+@media (max-width: 760px) {
+  .bar .wrap { gap: 4px 12px; padding-block: 8px 4px; }
+  .bar nav { order: 3; flex: 1 0 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -10px; }
+  .bar nav a { white-space: nowrap; }
+  .progress { margin-left: auto; }
+}
+.progress { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); white-space: nowrap; }
+.meter { width: 120px; height: 6px; border-radius: 3px; background: var(--sunk); overflow: hidden; }
+.meter i { display: block; height: 100%; background: var(--lime); border-right: 1px solid var(--lime-ink); transition: width .3s ease-out; }
+@media (prefers-reduced-motion: reduce) { .meter i { transition: none; } }
+
+/* intro */
+header.intro { padding-block: 40px 8px; }
+.eyebrow { font: 600 13px/1 var(--mono); color: var(--muted); letter-spacing: .02em; }
+header.intro h1 { font-size: clamp(30px, 4vw, 42px); font-weight: 700; margin-top: 12px; letter-spacing: -0.01em; }
+.lead { font-size: 18px; color: var(--muted); max-width: 64ch; margin: 12px 0 0; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; font-size: 14px; color: var(--muted); }
+.facts b { color: var(--fg); font-weight: 600; }
+.passes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 28px; }
+.pass { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); text-decoration: none; color: inherit; }
+.pass:hover { border-color: var(--line-strong); }
+.pass .k { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.pass .n { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.pass .d { font-size: 14px; color: var(--muted); }
+.pass .mine { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; margin-top: 4px; }
+.notice { margin-top: 18px; padding: 10px 14px; border-radius: 8px; background: var(--sunk); color: var(--muted); font-size: 14px; }
+
+/* sections */
+section.pass-section { padding-block: 48px 8px; scroll-margin-top: 64px; }
+.sec-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-bottom: 2px solid var(--fg); padding-bottom: 10px; margin-bottom: 8px; }
+.sec-head h2 { font-size: 28px; font-weight: 700; }
+.sec-head p { margin: 4px 0 0; color: var(--muted); max-width: 70ch; }
+.seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; }
+.seg button { font: 600 14px var(--sans); padding: 6px 12px; background: var(--surface); color: var(--muted); border: 0; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line-strong); }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.stop { padding-top: 32px; scroll-margin-top: 64px; }
+.stop > h3 { font-size: 21px; font-weight: 700; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.stop > h3 .where { font: 400 14px var(--mono); color: var(--muted); }
+
+.unit { margin-top: 16px; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); scroll-margin-top: 64px; }
+.unit-head { display: flex; gap: 10px 14px; align-items: center; flex-wrap: wrap; }
+.unit-head h4 { font-size: 17px; font-weight: 700; flex: 1; min-width: 200px; }
+.chip { display: inline-flex; align-items: center; gap: 4px; font: 600 12px/1 var(--sans); padding: 4px 8px; border-radius: 999px; background: var(--sunk); color: var(--muted); white-space: nowrap; }
+.chip.ok { background: var(--ok-bg); color: var(--ok); }
+.chip.check { background: var(--check-bg); color: var(--check); }
+.chip.flag { background: var(--flag-bg); color: var(--flag); }
+.sha { font: 600 12.5px var(--mono); color: var(--fg); background: var(--sunk); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; white-space: nowrap; cursor: copy; }
+
+/* image pairs */
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.pair figure { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.pair figcaption, .flip-label { font: 600 12px/1 var(--sans); text-transform: uppercase; letter-spacing: .08em; }
+.cap-before { color: var(--before); }
+.cap-after { color: var(--fg); display: inline-flex; gap: 6px; align-items: center; }
+.cap-after::before { content: ""; width: 10px; height: 10px; border-radius: 2px; background: var(--lime); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 25%); }
+.shot { display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--sunk); overflow: hidden; cursor: zoom-in; }
+.shot img { display: block; width: 100%; height: auto; }
+.pair.flip { grid-template-columns: 1fr; }
+.flip-box { display: flex; flex-direction: column; gap: 6px; }
+.flip-box .shot { cursor: pointer; }
+.flip-hint { font-size: 13px; color: var(--muted); }
+@media (max-width: 760px) { .pair { grid-template-columns: 1fr; } }
+
+.items { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.items li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: baseline; font-size: 15px; }
+.items li .gone { color: var(--muted); font-style: italic; }
+.note { margin-top: 10px; font-size: 14px; color: var(--muted); }
+
+/* videos */
+.vids { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.vids figure { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.vids video { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: #000; }
+@media (max-width: 760px) { .vids { grid-template-columns: 1fr; } }
+.steps { margin: 12px 0 0; padding-left: 22px; font-size: 15px; }
+.expect { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 12px; font-size: 14px; }
+.expect div { padding: 10px 12px; border-radius: 8px; background: var(--sunk); }
+.expect b { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+.btn { font: 600 14px var(--sans); padding: 6px 12px; border-radius: 7px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg); cursor: pointer; }
+.btn:hover { background: var(--sunk); }
+
+/* gates */
+.gate-summary { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+.gate-group { margin-top: 28px; }
+.gate-group > h3 { font-size: 19px; }
+.gate-group > p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+.gate { margin-top: 10px; padding: 12px 14px; }
+.gate .vals { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.gate .val { min-width: 0; padding: 8px 10px; border-radius: 8px; background: var(--sunk); font: 12.5px/1.45 var(--mono); overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.gate .val b { display: block; font: 600 11px var(--sans); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+.gate .val.pass b::after { content: " · pass"; color: var(--ok); }
+.gate .val.fail b::after { content: " · fail"; color: var(--flag); }
+.gate p.checks { margin: 8px 0 0; font-size: 15px; }
+.gate details { margin-top: 8px; }
+.gate summary { cursor: pointer; font-size: 14px; color: var(--muted); }
+.gate pre { margin: 8px 0 0; padding: 10px 12px; border-radius: 8px; background: var(--sunk); font: 12.5px/1.5 var(--mono); overflow-x: auto; }
+@media (max-width: 760px) { .gate .vals { grid-template-columns: 1fr; } }
+
+/* calls, read, ledger */
+.call-group { margin-top: 28px; }
+.call-group > h3 { font-size: 19px; }
+.call p { margin: 8px 0 0; font-size: 15px; max-width: 80ch; }
+.meta-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 10px; font-size: 14px; color: var(--muted); }
+.table-wrap { overflow-x: auto; margin-top: 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); background: var(--sunk); position: sticky; top: 0; }
+tr.superseded td { color: var(--faint); }
+td.plain { min-width: 280px; }
+.filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+.filters input, .filters select { font: 15px var(--sans); padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--surface); color: var(--fg); }
+.filters input { min-width: 0; flex: 1 1 220px; }
+.cmd { display: flex; gap: 8px; align-items: stretch; margin-top: 8px; }
+.cmd pre { flex: 1; min-width: 0; margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--sunk); font: 13px/1.5 var(--mono); overflow-x: auto; }
+
+/* sign-off */
+.sign { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.sign[hidden] { display: none; }
+.sign .mark { font: 600 14px var(--sans); padding: 5px 12px; border-radius: 7px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg); cursor: pointer; }
+.sign .mark:hover { background: var(--sunk); }
+.sign .mark[aria-pressed="true"].ok { background: var(--ok-bg); color: var(--ok); border-color: var(--ok); }
+.sign .mark[aria-pressed="true"].flag { background: var(--flag-bg); color: var(--flag); border-color: var(--flag); }
+.sign input { flex: 1 1 220px; min-width: 0; font: 14px var(--sans); padding: 5px 10px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--surface); color: var(--fg); }
+.others { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+.who { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 2px 8px 2px 2px; border-radius: 999px; background: var(--sunk); color: var(--muted); }
+.who img { width: 20px; height: 20px; border-radius: 50%; }
+.who.ok { color: var(--ok); } .who.flag { color: var(--flag); }
+.flagnotes { width: 100%; margin: 6px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--flag); }
+footer { padding-block: 56px 72px; color: var(--muted); font-size: 14px; }
+</style>
+
+<div class="bar"><div class="wrap">
+  <span class="name">Docs UI review</span>
+  <nav aria-label="Passes">
+    <a href="#look">Look</a><a href="#watch">Watch</a><a href="#gates">Gates</a><a href="#calls">Calls</a><a href="#read">Read</a><a href="#fork">Fork</a><a href="#ledger">Ledger</a>
+  </nav>
+  <div class="progress" id="progress" hidden><span id="progress-text"></span><span class="meter" aria-hidden="true"><i id="progress-bar" style="width:0"></i></span></div>
+</div></div>
+
+<main class="wrap" id="app"></main>
+
+<script type="application/json" id="data">/*__DATA__*/</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent)
+const $ = (tag, attrs = {}, ...kids) => {
+  const el = document.createElement(tag)
+  Object.entries(attrs).forEach(([k, v]) => {
+    if (v == null || v === false) return
+    if (k === 'class') el.className = v
+    else if (k === 'text') el.textContent = v
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v)
+    else el.setAttribute(k, v === true ? '' : v)
+  })
+  kids.flat().forEach(c => c != null && el.append(c.nodeType ? c : document.createTextNode(c)))
+  return el
+}
+const ledgerBySha = Object.fromEntries(D.ledger.map(e => [e.sha, e]))
+const units = []
+const signSlots = []
+
+const shaChip = sha => {
+  const e = ledgerBySha[sha]
+  const el = $('code', { class: 'sha', title: e ? `${e.subject} (click to copy)` : 'click to copy', tabindex: 0 }, sha)
+  const copy = () => {
+    navigator.clipboard?.writeText(sha).then(() => { el.textContent = 'copied'; setTimeout(() => { el.textContent = sha }, 900) }).catch(() => getSelection().selectAllChildren(el))
+  }
+  el.addEventListener('click', copy)
+  el.addEventListener('keydown', ev => { if (ev.key === 'Enter') copy() })
+  return el
+}
+const gatesFor = sha => {
+  const gs = D.gates.filter(g => g.shas.includes(sha))
+  return gs.length ? [' Checked by ', ...gs.flatMap((g, i) => [i ? ', ' : '', $('a', { href: `#gate-${g.id}`, text: g.title })]), '.'] : []
+}
+const signSlot = id => {
+  units.push(id)
+  const box = $('div', { class: 'sign', 'data-id': id, hidden: true })
+  signSlots.push(box)
+  return box
+}
+
+/* ---------- intro ---------- */
+const counts = {
+  look: D.stops.reduce((n, s) => n + s.crops.length, 0),
+  watch: D.walks.length,
+  gates: D.gates.length,
+  gatesCheck: D.gates.filter(g => g.verdict !== 'ok').length,
+  calls: D.calls.length,
+  read: D.read.length,
+}
+const app = document.getElementById('app')
+app.append($('header', { class: 'intro' },
+  $('div', { class: 'eyebrow', text: 'typesense/website · docs-ui-review-fixes' }),
+  $('h1', { text: 'Docs UI branch review' }),
+  $('p', { class: 'lead', text: `${D.meta.commits} commits from the docs UI audit, on top of the font bump. Every commit is reviewed in exactly one of the passes below. Visible changes are screenshot pairs, interactions are short clips, and changes you can't see are automated gates run against both builds.` }),
+  $('div', { class: 'facts' },
+    $('span', {}, 'Before ', $('b', { class: 'mono', text: D.meta.base }), ` ${D.meta.baseLabel}`),
+    $('span', {}, 'After ', $('b', { class: 'mono', text: D.meta.head }), ` ${D.meta.headLabel}`),
+    $('span', {}, $('b', { text: String(D.meta.commits) }), ' commits in 8 handoffs'),
+    $('span', {}, $('b', { text: String(D.fork.length) }), ' DocSearch fork commits, reviewed separately'),
+    $('span', {}, 'Captured ', $('b', { text: D.meta.captured }))),
+  $('div', { class: 'passes' },
+    passCard('look', 'Look', counts.look, 'before and after pairs'),
+    passCard('watch', 'Watch', counts.watch, 'keyboard and scroll clips'),
+    passCard('gates', 'Gates', counts.gates, counts.gatesCheck ? `${counts.gatesCheck} need a look` : 'all pass as expected'),
+    passCard('calls', 'Calls', counts.calls, 'decisions and follow-ups'),
+    passCard('read', 'Read', counts.read, 'diff-only commits')),
+  $('p', { class: 'notice', id: 'signoff-note', text: 'Sign-off buttons appear when this page is opened signed in to claude.ai. Each reviewer marks a unit “Looks right” or “Flag” with a note, and everyone sees everyone’s marks.' })))
+
+function passCard(id, k, n, d) {
+  return $('a', { class: 'pass', href: `#${id}` }, $('span', { class: 'k', text: k }), $('span', { class: 'n', text: String(n) }), $('span', { class: 'd', text: d }), $('span', { class: 'mine', 'data-pass': id }))
+}
+function section(id, title, blurb, ...extra) {
+  const s = $('section', { class: 'pass-section', id }, $('div', { class: 'sec-head' }, $('div', {}, $('h2', { text: title }), $('p', { text: blurb })), ...extra))
+  app.append(s)
+  return s
+}
+
+/* ---------- look ---------- */
+let compareMode = 'side'
+try { compareMode = localStorage.getItem('compare') || 'side' } catch {}
+const modeSeg = $('div', { class: 'seg', role: 'group', 'aria-label': 'Compare mode' },
+  $('button', { 'aria-pressed': String(compareMode === 'side'), 'data-mode': 'side', text: 'Side by side' }),
+  $('button', { 'aria-pressed': String(compareMode === 'flip'), 'data-mode': 'flip', text: 'Flip' }))
+modeSeg.addEventListener('click', e => {
+  const m = e.target.dataset.mode
+  if (!m) return
+  compareMode = m
+  try { localStorage.setItem('compare', m) } catch {}
+  modeSeg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)))
+  document.querySelectorAll('.pair').forEach(p => p._render(m))
+})
+const look = section('look', 'Look', 'Each pair is the same page, state and crop on both builds. Flip mode shows one image at a time so small changes jump out. Click an image to flip it.', modeSeg)
+
+D.stops.forEach(stop => {
+  const s = $('div', { class: 'stop', id: stop.id }, $('h3', {}, stop.title, $('span', { class: 'where', text: `${stop.page} · ${stop.viewport}` })))
+  stop.crops.forEach(crop => {
+    const id = `look:${stop.id}/${crop.key}`
+    const pair = $('div', { class: 'pair' })
+    let showing = 'head'
+    const img = (which) => $('img', { src: crop[which], alt: `${crop.title}, ${which === 'base' ? 'before' : 'after'}`, loading: 'lazy' })
+    pair._render = (mode) => {
+      pair.replaceChildren()
+      pair.classList.toggle('flip', mode === 'flip')
+      if (mode === 'side') {
+        pair.append(
+          $('figure', {}, $('figcaption', { class: 'cap-before', text: 'Before' }), $('button', { class: 'shot', type: 'button', 'aria-label': 'Flip this pair', onclick: () => pair._render('flip') }, img('base'))),
+          $('figure', {}, $('figcaption', { class: 'cap-after', text: 'After' }), $('button', { class: 'shot', type: 'button', 'aria-label': 'Flip this pair', onclick: () => pair._render('flip') }, img('head'))))
+      } else {
+        const label = $('span', { class: `flip-label ${showing === 'base' ? 'cap-before' : 'cap-after'}`, text: showing === 'base' ? 'Before' : 'After' })
+        const shot = $('button', { class: 'shot', type: 'button', 'aria-label': 'Show the other build', onclick: () => { showing = showing === 'base' ? 'head' : 'base'; pair._render('flip'); pair.querySelector('.shot').focus() } }, img(showing))
+        pair.append($('div', { class: 'flip-box' }, $('div', { class: 'unit-head' }, label, $('span', { class: 'flip-hint', text: 'Click or press Enter to switch' })), shot))
+      }
+    }
+    pair._render(compareMode)
+    s.append($('article', { class: 'unit', id: `${stop.id}-${crop.key}` },
+      $('div', { class: 'unit-head' }, $('h4', { text: crop.title }), crop.theme ? $('span', { class: 'chip', text: crop.theme }) : null, crop.viewport ? $('span', { class: 'chip', text: crop.viewport }) : null),
+      pair,
+      $('ul', { class: 'items' }, crop.items.map(it => $('li', {}, shaChip(it.sha), it.seen ? $('span', { text: it.look_for }) : $('span', { class: 'gone' }, it.look_for || 'Not visible in this pair.', ...gatesFor(it.sha))))),
+      crop.note ? $('p', { class: 'note', text: crop.note }) : null,
+      signSlot(id)))
+  })
+  look.append(s)
+})
+
+/* ---------- watch ---------- */
+const watch = section('watch', 'Watch', 'Each clip runs the same steps on both builds. The key badge in the corner shows what was pressed. Play both to compare them in step.')
+D.walks.forEach(w => {
+  const vids = $('div', { class: 'vids' })
+  const pairs = w.clips.map(c => [
+    $('figure', {}, $('figcaption', { class: 'cap-before', text: `Before${c.label ? ' · ' + c.label : ''}` }), $('video', { src: c.base, controls: true, muted: true, playsinline: true, preload: 'metadata' })),
+    $('figure', {}, $('figcaption', { class: 'cap-after', text: `After${c.label ? ' · ' + c.label : ''}` }), $('video', { src: c.head, controls: true, muted: true, playsinline: true, preload: 'metadata' }))])
+  pairs.flat().forEach(f => vids.append(f))
+  const playBoth = $('button', { class: 'btn', type: 'button', text: 'Play both', onclick: () => { vids.querySelectorAll('video').forEach(v => { v.currentTime = 0; v.play().catch(() => {}) }) } })
+  watch.append($('article', { class: 'unit', id: w.id },
+    $('div', { class: 'unit-head' }, $('h4', { text: w.title }), $('span', { class: 'chip', text: w.viewport }), playBoth),
+    $('div', { class: 'meta-row' }, $('span', { class: 'mono', text: w.page }), ...w.shas.map(shaChip)),
+    vids,
+    $('ol', { class: 'steps' }, w.steps.map(t => $('li', { text: t }))),
+    $('div', { class: 'expect' }, $('div', {}, $('b', { text: 'After' }), w.expect_head), $('div', {}, $('b', { text: 'Before' }), w.expect_base)),
+    w.note ? $('p', { class: 'note', text: w.note }) : null,
+    signSlot(`watch:${w.id}`)))
+})
+
+/* ---------- gates ---------- */
+const expectText = { flip: 'Fails before, passes after', guard: 'Must pass on both', head: 'Checked on the branch only' }
+let gateFilter = 'all'
+const gateSeg = $('div', { class: 'seg', role: 'group', 'aria-label': 'Show gates' },
+  $('button', { 'aria-pressed': 'true', 'data-f': 'all', text: 'All' }),
+  $('button', { 'aria-pressed': 'false', 'data-f': 'check', text: `Need a look (${counts.gatesCheck})` }))
+const gates = section('gates', 'Gates', 'Changes you can’t judge by eye: ARIA, focus order, server-rendered markup, layout shift, contrast ratios, network requests. Each gate runs on both builds. Review the check itself: does it test the claim?', gateSeg)
+const okCount = D.gates.filter(g => g.verdict === 'ok').length
+gates.append($('div', { class: 'gate-summary' },
+  $('span', { class: 'chip ok', text: `${okCount} as expected` }),
+  counts.gatesCheck ? $('span', { class: 'chip check', text: `${counts.gatesCheck} need a look` }) : null,
+  $('span', { class: 'chip', text: `${D.gates.filter(g => g.expect === 'flip').length} flip · ${D.gates.filter(g => g.expect === 'guard').length} guard` }),
+  $('a', { href: '#rerun', text: 'Run them yourself' })))
+D.gateGroups.forEach(gr => {
+  const box = $('div', { class: 'gate-group' }, $('h3', { text: gr.title }), $('p', { text: gr.blurb }))
+  D.gates.filter(g => g.group === gr.id).forEach(g => {
+    const val = (which) => {
+      const r = g[which]
+      const body = r.error ? `error: ${r.error}` : JSON.stringify(r.value, null, 1)?.replace(/\n\s*/g, ' ') ?? 'null'
+      return $('div', { class: `val ${r.pass ? 'pass' : 'fail'}` }, $('b', { text: which === 'base' ? 'Before' : 'After' }), body)
+    }
+    box.append($('article', { class: 'unit gate', id: `gate-${g.id}`, 'data-verdict': g.verdict },
+      $('div', { class: 'unit-head' }, $('h4', { text: g.title }), $('span', { class: 'chip', text: expectText[g.expect] || g.expect }), $('span', { class: `chip ${g.verdict}`, text: g.verdict === 'ok' ? 'as expected' : 'needs a look' })),
+      $('div', { class: 'meta-row' }, $('span', { class: 'chip', text: g.kind }), ...g.shas.map(shaChip)),
+      $('p', { class: 'checks', text: g.checks }),
+      g.finding ? $('p', { class: 'note', text: g.finding }) : null,
+      $('div', { class: 'vals' }, val('base'), val('head')),
+      g.code ? $('details', {}, $('summary', { text: 'Gate code' }), $('pre', {}, $('code', { text: g.code }))) : null,
+      signSlot(`gate:${g.id}`)))
+  })
+  gates.append(box)
+})
+gateSeg.addEventListener('click', e => {
+  const f = e.target.dataset.f
+  if (!f) return
+  gateFilter = f
+  gateSeg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.f === f)))
+  document.querySelectorAll('.gate').forEach(g => { g.hidden = f === 'check' && g.dataset.verdict === 'ok' })
+})
+
+/* ---------- calls ---------- */
+const calls = section('calls', 'Calls', 'Decisions a person has to accept, and known gaps left for later. Gates and pairs can show what changed, but not whether it’s the right trade.')
+const groups = [...new Set(D.calls.map(c => c.group))]
+groups.forEach(gname => {
+  const box = $('div', { class: 'call-group' }, $('h3', { text: gname }))
+  D.calls.filter(c => c.group === gname).forEach(c => box.append($('article', { class: 'unit call', id: c.id },
+    $('div', { class: 'unit-head' }, $('h4', { text: c.title })),
+    $('p', { text: c.detail }),
+    $('div', { class: 'meta-row' }, ...c.shas.map(shaChip), c.see ? $('a', { href: `#${c.see}`, text: 'See it' }) : null),
+    signSlot(`call:${c.id}`))))
+  calls.append(box)
+})
+
+/* ---------- read ---------- */
+const read = section('read', 'Read', 'Commits with nothing to see or measure, or text edits across many files. Read the diff.')
+D.read.forEach(r => read.append($('article', { class: 'unit', id: `read-${r.sha}` },
+  $('div', { class: 'unit-head' }, shaChip(r.sha), $('h4', { text: r.subject })),
+  $('p', { class: 'note', text: r.summary }),
+  $('div', { class: 'cmd' }, $('pre', {}, $('code', { text: `git show ${r.sha}` }))),
+  signSlot(`read:${r.sha}`))))
+
+/* ---------- fork ---------- */
+const fork = section('fork', 'DocSearch fork', D.forkNote)
+fork.append($('div', { class: 'table-wrap' }, $('table', {},
+  $('thead', {}, $('tr', {}, ['Commit', 'Where', 'Change', 'How to review'].map(h => $('th', { text: h })))),
+  $('tbody', {}, D.fork.map(f => $('tr', {}, $('td', {}, shaChip(f.sha)), $('td', { class: 'mono', text: f.branch }), $('td', { text: f.subject }), $('td', { class: 'plain', text: f.plain })))))))
+
+/* ---------- ledger ---------- */
+const where = e => {
+  const out = []
+  D.stops.forEach(s => s.crops.forEach(c => { if (c.items.some(i => i.sha === e.sha)) out.push([`${s.id}-${c.key}`, `Look ${s.id}`]) }))
+  D.walks.forEach(w => { if (w.shas.includes(e.sha)) out.push([w.id, `Watch ${w.id}`]) })
+  D.gates.forEach(g => { if (g.shas.includes(e.sha)) out.push([`gate-${g.id}`, 'Gate']) })
+  D.read.forEach(r => { if (r.sha === e.sha) out.push([`read-${r.sha}`, 'Read']) })
+  const seen = new Set()
+  return out.filter(([h]) => !seen.has(h) && seen.add(h))
+}
+const ledger = section('ledger', 'Ledger', 'All commits, oldest first, with the pass that covers each one. Use it to confirm nothing was skipped, or to find one commit.')
+const q = $('input', { type: 'search', id: 'ledger-q', placeholder: 'Filter by sha, subject or text', 'aria-label': 'Filter commits' })
+const hsel = $('select', { id: 'ledger-h', 'aria-label': 'Handoff' }, $('option', { value: '', text: 'All handoffs' }), ['01', '02', '03', '04', '05', '06', '07', '08'].map(h => $('option', { value: h, text: `Handoff ${h}` })))
+const msel = $('select', { id: 'ledger-m', 'aria-label': 'Method' }, $('option', { value: '', text: 'Any pass' }), ['LOOK', 'TRY', 'GATE', 'DIFF'].map(m => $('option', { value: m, text: m })))
+ledger.append($('div', { class: 'filters' }, q, hsel, msel))
+const tbody = $('tbody')
+ledger.append($('div', { class: 'table-wrap' }, $('table', {}, $('thead', {}, $('tr', {}, ['Commit', 'Handoff', 'Subject', 'What changes', 'Reviewed in'].map(h => $('th', { text: h })))), tbody)))
+const rows = D.ledger.filter(e => e.handoff !== '07-fork').map(e => {
+  const links = where(e)
+  const tr = $('tr', { class: e.superseded_by ? 'superseded' : null },
+    $('td', {}, shaChip(e.sha)),
+    $('td', { text: e.handoff }),
+    $('td', { text: e.subject }),
+    $('td', { class: 'plain' }, e.plain, e.superseded_by ? $('div', { class: 'note' }, 'Reworked later by ', shaChip(e.superseded_by), '. Review the later one.') : null),
+    $('td', {}, links.length ? links.map(([h, t]) => $('div', {}, $('a', { href: `#${h}`, text: t }))) : $('span', { class: 'note', text: e.superseded_by ? 'via the later commit' : '—' })))
+  tr._text = `${e.sha} ${e.subject} ${e.plain}`.toLowerCase()
+  tr._h = e.handoff
+  tr._m = [e.method, e.secondary]
+  tbody.append(tr)
+  return tr
+})
+const filt = () => {
+  const t = q.value.toLowerCase().trim()
+  rows.forEach(r => { r.hidden = (t && !r._text.includes(t)) || (hsel.value && r._h !== hsel.value) || (msel.value && !r._m.includes(msel.value)) })
+}
+;[q, hsel, msel].forEach(el => el.addEventListener('input', filt))
+
+/* ---------- rerun ---------- */
+const rerun = section('rerun', 'Run it yourself', 'Everything on this page came from two local production builds and headless Chromium. To reproduce it:')
+D.rerun.forEach(step => rerun.append($('div', { class: 'unit' }, $('h4', { text: step.title }), step.text ? $('p', { class: 'note', text: step.text }) : null, $('div', { class: 'cmd' }, $('pre', {}, $('code', { text: step.cmd }))))))
+app.append($('footer', { text: `Built ${D.meta.captured} from ${D.meta.head}. Screenshots and clips are local production builds in headless Chromium, so fonts match the site but scrollbars and GPU effects may differ from a real browser.` }))
+
+/* ---------- sign-off ---------- */
+const passOf = id => ({ look: 'look', watch: 'watch', gate: 'gates', call: 'calls', read: 'read' })[id.split(':')[0]]
+let db = null, user = null, myId = null, canWrite = true, everyone = {}, mine = {}, saving = false, dirty = false
+const save = async () => {
+  if (saving) { dirty = true; return }
+  saving = true
+  try { await db.doc(`signoffs/${myId}`).set({ marks: mine }) } catch (e) { console.warn('save failed', e?.code) }
+  saving = false
+  if (dirty) { dirty = false; save() }
+}
+const mark = (id, v, note) => {
+  if (v == null) delete mine[id]
+  else mine[id] = { v, note: note ?? mine[id]?.note ?? '', at: new Date().toISOString() }
+  paint()
+  save()
+}
+async function paint() {
+  const ids = Object.keys(everyone).filter(u => u !== myId)
+  const people = ids.length ? await user.profiles(ids) : {}
+  signSlots.forEach(box => {
+    if (box.contains(document.activeElement) && document.activeElement.tagName === 'INPUT') return
+    const id = box.dataset.id
+    const m = mine[id]
+    box.hidden = false
+    const note = $('input', { type: 'text', placeholder: 'What’s wrong?', 'aria-label': 'Flag note', value: m?.note || '', disabled: !canWrite })
+    note.addEventListener('change', () => mark(id, 'flag', note.value))
+    const others = ids.map(u => [u, everyone[u]?.marks?.[id]]).filter(([, x]) => x)
+    box.replaceChildren(
+      $('button', { class: 'mark ok', type: 'button', disabled: !canWrite, 'aria-pressed': String(m?.v === 'ok'), onclick: () => mark(id, m?.v === 'ok' ? null : 'ok'), text: '✓ Looks right' }),
+      $('button', { class: 'mark flag', type: 'button', disabled: !canWrite, 'aria-pressed': String(m?.v === 'flag'), onclick: () => mark(id, m?.v === 'flag' ? null : 'flag'), text: '⚑ Flag' }),
+      m?.v === 'flag' ? note : null,
+      $('span', { class: 'others' }, others.map(([u, x]) => $('span', { class: `who ${x.v}`, title: x.note || '' }, $('img', { src: people[u]?.avatarUrl || '', alt: '' }), `${people[u]?.name || 'Someone'} ${x.v === 'ok' ? '✓' : '⚑'}`))),
+      others.some(([, x]) => x.v === 'flag' && x.note) ? $('ul', { class: 'flagnotes' }, others.filter(([, x]) => x.v === 'flag' && x.note).map(([u, x]) => $('li', { text: `${people[u]?.name || 'Someone'}: ${x.note}` }))) : null)
+  })
+  const done = units.filter(id => mine[id]).length
+  document.getElementById('progress').hidden = false
+  document.getElementById('progress-text').textContent = `You: ${done} of ${units.length}`
+  document.getElementById('progress-bar').style.width = `${(done / units.length) * 100}%`
+  document.querySelectorAll('[data-pass]').forEach(el => {
+    const p = el.dataset.pass
+    const all = units.filter(id => passOf(id) === p)
+    el.textContent = `${all.filter(id => mine[id]).length} of ${all.length} signed off by you`
+  })
+}
+;(async () => {
+  if (!window.claude?.use) return
+  ;[db, user] = await Promise.all([claude.use('db'), claude.use('user')])
+  if (!db || !user) return
+  myId = await user.id()
+  if (!myId) return
+  const can = await user.can('data.write')
+  canWrite = can !== false
+  const noteEl = document.getElementById('signoff-note')
+  noteEl.textContent = can === false ? 'You can see everyone’s sign-offs. Ask the owner for Contributor access to add your own.' : 'Mark each unit “Looks right” or “Flag” with a note. Everyone with access sees everyone’s marks live.'
+  const slow = setTimeout(() => { noteEl.textContent = 'Sign-offs can’t be reached yet. Marks you make will save when the connection comes back.' }, 10000)
+  db.collection('signoffs').onSnapshot(snap => {
+    if (!snap.metadata.fromCache) clearTimeout(slow)
+    everyone = Object.fromEntries(snap.docs.map(d => [d.id, d.data()]))
+    if (!saving && !dirty) mine = { ...(everyone[myId]?.marks || {}) }
+    paint()
+  }, err => { clearTimeout(slow); noteEl.textContent = `Sign-offs are unavailable here (${err.code}).` })
+})()
+</script>

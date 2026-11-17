@@ -1,0 +1,71 @@
+[
+  {
+    "id": "every-parameter-has-a-unique-anchor",
+    "title": "Every parameter in a table can be linked to, and no two share an id",
+    "shas": [
+      "2dc5f5f0",
+      "e1d57f93"
+    ],
+    "kind": "anchors",
+    "expect": "flip",
+    "checks": "With JavaScript off, reads every Parameter cell on collections, search and documents (30.2). Each must hold a # link whose target exists on the page and sits in the same table row, and no id on the page may repeat. Passes when no cell lacks a working link, no link points into another row and there are no duplicate ids.",
+    "base": {
+      "pass": false,
+      "value": {
+        "collections.html": {
+          "cells": 22,
+          "withoutWorkingLink": 22,
+          "linkToOtherRow": 0,
+          "duplicateIds": [],
+          "deduped": []
+        },
+        "search.html": {
+          "cells": 77,
+          "withoutWorkingLink": 77,
+          "linkToOtherRow": 0,
+          "duplicateIds": [],
+          "deduped": []
+        },
+        "documents.html": {
+          "cells": 5,
+          "withoutWorkingLink": 5,
+          "linkToOtherRow": 0,
+          "duplicateIds": [],
+          "deduped": []
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "collections.html": {
+          "cells": 22,
+          "withoutWorkingLink": 0,
+          "linkToOtherRow": 0,
+          "duplicateIds": [],
+          "deduped": [
+            "name-2"
+          ]
+        },
+        "search.html": {
+          "cells": 77,
+          "withoutWorkingLink": 0,
+          "linkToOtherRow": 0,
+          "duplicateIds": [],
+          "deduped": []
+        },
+        "documents.html": {
+          "cells": 5,
+          "withoutWorkingLink": 0,
+          "linkToOtherRow": 0,
+          "duplicateIds": [],
+          "deduped": [
+            "include_fields-2",
+            "exclude_fields-2"
+          ]
+        }
+      }
+    },
+    "verdict": "ok"
+  }
+]

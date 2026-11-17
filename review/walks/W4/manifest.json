@@ -1,0 +1,27 @@
+{
+  "id": "W4",
+  "title": "Skip link and landing focus",
+  "shas": [
+    "64ec5980",
+    "08c5cbf5",
+    "d74ea978"
+  ],
+  "page": "/docs/30.2/api/search.html",
+  "viewport": "1440x900",
+  "steps": [
+    "Load /docs/30.2/api/search.html at 1440x900 and press Tab once. \"Skip to content\" appears top left.",
+    "Press Enter, then Tab.",
+    "Move focus to the 'this table' link in the split_join_tokens row of the Typo-Tolerance parameters table (it points at collections.html#schema-parameters) and press Enter.",
+    "When collections.html has landed on 'Schema parameters', press Tab.",
+    "Back on search.html, scroll until the 'scoped API key' link in the Caching parameters table sits just under the pinned bars. Click the text of the 'Filter Results' heading just below that table.",
+    "Press Shift+Tab twice and watch each focus ring."
+  ],
+  "expect_head": "After the skip, Tab lands on the title's # anchor in the article. After the cross-page link, Tab moves to the next control at 'Schema parameters' and the page stays put. The first Shift+Tab scrolls 'scoped API key' out from under the pinned bars and its ring shows.",
+  "expect_base": "After the skip, Tab lands on the v30.2 version picker in the right column. After the cross-page link, Tab focuses 'Skip to content' and the page jumps to the top. The first Shift+Tab puts focus on 'scoped API key' while it sits hidden under the pinned 'Caching parameters' bar, so no ring shows and the page doesn't move.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm"
+  },
+  "seen": true,
+  "note": "Checked frames. After the skip HEAD rings the title # and base rings v30.2 in the aside. After the cross-page landing HEAD rings the Schema parameters # in place and base shows Skip to content at the top. On the first Shift+Tab HEAD scrolls scoped API key into view with its ring, base shows no ring because the link sits under the Caching parameters bar. The video runs about 0.5 to 1s behind the keys badge."
+}

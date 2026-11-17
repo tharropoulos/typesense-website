@@ -1,0 +1,85 @@
+{
+  "id": "L3",
+  "title": "Copy menu",
+  "page": "/docs/30.2/api/analytics-query-suggestions.html",
+  "viewport": "1280x800",
+  "crops": [
+    {
+      "id": "popover",
+      "theme": "light",
+      "title": "Language popover open, mouse moved away",
+      "base": "popover-light-base.png",
+      "head": "popover-light-head.png",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "a8463db1",
+          "look_for": "In the checkbox column, every box has a solid gray border on HEAD. The PHP, Dart, Java and Swift rows gain a half-opacity box where base shows none.",
+          "seen": true
+        },
+        {
+          "sha": "aa3eebef",
+          "look_for": "At the right edge, the four \"Unavailable\" notes are a darker, readable gray (#babacb to #8c8c9d).",
+          "seen": true
+        },
+        {
+          "sha": "2547430e",
+          "look_for": "Nothing to look for here.",
+          "seen": false,
+          "note": "No visible change is claimed (the rows became real checkboxes for screen readers). Nothing in this pair belongs to it. Leave it to a gate or a code read."
+        }
+      ],
+      "note": "The page text behind the menu wraps earlier on HEAD because of the prose cap (84032a0f)."
+    },
+    {
+      "id": "popover",
+      "theme": "dark",
+      "title": "Language popover open, mouse moved away",
+      "base": "popover-dark-base.png",
+      "head": "popover-dark-head.png",
+      "dsf": 1,
+      "items": [
+        {
+          "sha": "a8463db1",
+          "look_for": "In the checkbox column, the boxes gain a clear gray border on HEAD. The unavailable rows gain a faded box where base shows none.",
+          "seen": true
+        },
+        {
+          "sha": "aa3eebef",
+          "look_for": "The \"Unavailable\" notes step from #5e5e75 to #6b6b82.",
+          "seen": false,
+          "note": "Not visible in dark. The text step is small and the menu surface also gets lighter (5bfe7432), so the contrast looks about the same. The popover-rows zoom does not show it either. Leave it to the gate."
+        },
+        {
+          "sha": "2547430e",
+          "look_for": "Nothing to look for here.",
+          "seen": false,
+          "note": "No visible change is claimed (the rows became real checkboxes for screen readers). Nothing in this pair belongs to it. Leave it to a gate or a code read."
+        }
+      ],
+      "note": "The menu surface is lighter on HEAD (#1a1a1f to #23232a), from 5bfe7432. The page text behind it wraps earlier because of the prose cap (84032a0f)."
+    },
+    {
+      "id": "popover-rows",
+      "theme": "dark",
+      "title": "Zoom on the first four language rows",
+      "base": "popover-rows-dark-base.png",
+      "head": "popover-rows-dark-head.png",
+      "dsf": 3,
+      "items": [
+        {
+          "sha": "a8463db1",
+          "look_for": "Left of each language, the box outlines are clearly drawn on HEAD and faint on base. PHP gains a faded box.",
+          "seen": true
+        },
+        {
+          "sha": "aa3eebef",
+          "look_for": "The \"Unavailable\" note beside PHP.",
+          "seen": false,
+          "note": "Even at 3x it looks about as readable on both builds. Leave it to the gate."
+        }
+      ],
+      "note": "Extra framing at deviceScaleFactor 3. The lighter surface comes from 5bfe7432."
+    }
+  ]
+}

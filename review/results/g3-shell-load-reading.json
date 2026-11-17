@@ -1,0 +1,1325 @@
+[
+  {
+    "id": "pinned-bar-one-line",
+    "title": "A long section title in the pinned bar stays on one line",
+    "shas": [
+      "032fc436"
+    ],
+    "kind": "dom",
+    "expect": "flip",
+    "checks": "Scrolls the Django guide into \"Step 8: Implement paginated sync from PostgreSQL to Typesense\" at 390 and 1024 wide and reads the pinned h2 bar. Passes at both widths when the bar is one 49px line with overflow-x hidden, white-space nowrap and text-overflow ellipsis, and its text is wider than the bar, so the ellipsis really shows.",
+    "base": {
+      "pass": false,
+      "value": {
+        "at390": {
+          "text": "Step 8:",
+          "height": 81,
+          "textOverflow": "clip",
+          "overflowX": "visible",
+          "whiteSpace": "normal",
+          "truncated": false
+        },
+        "at1024": {
+          "text": "Step 8:",
+          "height": 81,
+          "textOverflow": "clip",
+          "overflowX": "visible",
+          "whiteSpace": "normal",
+          "truncated": false
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "at390": {
+          "text": "Step 8:",
+          "height": 49,
+          "textOverflow": "ellipsis",
+          "overflowX": "hidden",
+          "whiteSpace": "nowrap",
+          "truncated": true
+        },
+        "at1024": {
+          "text": "Step 8:",
+          "height": 49,
+          "textOverflow": "ellipsis",
+          "overflowX": "hidden",
+          "whiteSpace": "nowrap",
+          "truncated": true
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "sidebar-current-one-line",
+    "title": "The current sidebar item keeps its title on one line",
+    "shas": [
+      "84ecbfdd"
+    ],
+    "kind": "dom",
+    "expect": "flip",
+    "checks": "Loads the LangChain guide at 1440 and reads the active sidebar row's height and font weight. Passes when the row is one 32px line at regular weight instead of a 56px semibold two-liner.",
+    "base": {
+      "pass": false,
+      "value": {
+        "title": "AI Search with LangChain & Chainlit",
+        "rowHeight": 56,
+        "fontWeight": "600"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "title": "AI Search with LangChain & Chainlit",
+        "rowHeight": 32,
+        "fontWeight": "400"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "phone-nav-ignores-drift",
+    "title": "On phones a finger drifting a few pixels down does not hide the nav again",
+    "shas": [
+      "84a244e4"
+    ],
+    "kind": "scroll",
+    "expect": "flip",
+    "checks": "At 390 with touch and reduced motion, marks each scroll as user driven with a wheel event and scrolls to 3000, 2975, 2977, 2980 then 2984, reading the top of .VPNav after each. Passes on hidden, shown, shown, shown, hidden (8px of downward travel hides it).",
+    "base": {
+      "pass": false,
+      "value": [
+        "3000 hidden",
+        "2975 shown",
+        "2977 hidden",
+        "2980 hidden",
+        "2984 hidden"
+      ]
+    },
+    "head": {
+      "pass": true,
+      "value": [
+        "3000 hidden",
+        "2975 shown",
+        "2977 shown",
+        "2980 shown",
+        "2984 hidden"
+      ]
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "phone-nav-holds-with-outline-open",
+    "title": "On phones the nav stays put while the On this page panel is open",
+    "shas": [
+      "6d3748cf"
+    ],
+    "kind": "scroll",
+    "expect": "flip",
+    "checks": "At 390 with touch, scrolls to 3000, opens 'On this page' and scrolls up 30px as the user. Passes when the nav stays hidden and the panel's bottom stays inside the 844px screen, and after closing the panel a further 30px scroll up brings the nav back.",
+    "base": {
+      "pass": false,
+      "value": {
+        "open": {
+          "navTop": 0,
+          "panelBottom": 862,
+          "screen": 844
+        },
+        "afterClose": {
+          "navTop": 0
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "open": {
+          "navTop": -64,
+          "panelBottom": 798,
+          "screen": 844
+        },
+        "afterClose": {
+          "navTop": 0
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "sidebar-native-scrollbar",
+    "title": "The sidebar shows the native scrollbar",
+    "shas": [
+      "7dabec76"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "Loads /docs/guide/ at 1440 and reads the .VPSidebar scrollbar gutter, its offsetWidth minus its clientWidth and borders. Passes when the sidebar overflows and the gutter is wider than 0. Base hides the bar, so its gutter is 0.",
+    "base": {
+      "pass": false,
+      "value": {
+        "gutter": 0,
+        "overflows": true
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "gutter": 15,
+        "overflows": true
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "logo-space-reserved",
+    "title": "The nav keeps the logo's width before the logo file arrives",
+    "shas": [
+      "bd0a8728"
+    ],
+    "kind": "dom",
+    "expect": "flip",
+    "checks": "Aborts both typesense_logo_*.svg files and reads the visible .VPNavBarTitle .logo box at 390 and 1440. Passes when it keeps the 275:56 shape and measures 118x24 and 157x32, within 2px each way.",
+    "base": {
+      "pass": false,
+      "value": {
+        "at390": "88x24",
+        "at1440": "88x32"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "at390": "118x24",
+        "at1440": "157x32"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "nav-bar-server-layout",
+    "title": "On sidebar pages the top nav does not snap wider when the page wakes up",
+    "shas": [
+      "cebd9e1b"
+    ],
+    "kind": "ssr-html",
+    "expect": "flip",
+    "checks": "Reads the raw HTML of search.html for class=\"VPNavBar has-sidebar\", then compares the .VPNavBar .container box with JavaScript off against the hydrated page at 1440. Passes when the server sends has-sidebar and the box is the same in both renders.",
+    "base": {
+      "pass": false,
+      "value": {
+        "serverHasSidebar": false,
+        "serverBox": "x32 w1376",
+        "hydratedBox": "x0 w1440"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "serverHasSidebar": true,
+        "serverBox": "x0 w1440",
+        "hydratedBox": "x0 w1440"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "sidebar-current-marked-on-server",
+    "title": "The current page is highlighted in the sidebar from first paint and with JavaScript off",
+    "shas": [
+      "04f199ee"
+    ],
+    "kind": "ssr-html",
+    "expect": "flip",
+    "checks": "Reads the raw HTML of search.html for a sidebar item with is-active, then loads it with JavaScript off and reads that item's text and background. Passes when the server marks 'Search' and its row has a coloured background.",
+    "base": {
+      "pass": false,
+      "value": {
+        "serverActive": 0,
+        "row": null
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "serverActive": 1,
+        "row": {
+          "text": "Search",
+          "background": "color(srgb 0.939641 1 0.84)"
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "sidebar-pill-snaps-on-collapse",
+    "title": "The sidebar pill moves with its row when a group above it collapses",
+    "shas": [
+      "a253eacf"
+    ],
+    "kind": "dom",
+    "expect": "flip",
+    "checks": "On ranking-and-relevance.html at 1440, logs the top of the pill and of the active row every frame for 400ms after clicking the 'Getting Started' group title. Passes when the pill sits on its row (within 1px) in every frame after the first two.",
+    "base": {
+      "pass": false,
+      "value": {
+        "rowMovedPx": 174,
+        "worstGapPx": 174,
+        "gapsAfterJump": [
+          174,
+          120,
+          81,
+          55,
+          37,
+          25,
+          17,
+          11,
+          8,
+          5
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "rowMovedPx": 174,
+        "worstGapPx": 0,
+        "gapsAfterJump": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "local-nav-on-server",
+    "title": "Below 1280px the 'On this page' bar is in the first paint and nothing jumps when the page wakes up",
+    "shas": [
+      "103b1f77"
+    ],
+    "kind": "ssr-html",
+    "expect": "flip",
+    "checks": "Reads the raw HTML: search.html must send the 'On this page' toggle, a page without headings (what-is-typesense) must still send 'Return to top', and the home's local nav must be sticky, not fixed. Then takes the worst layout-shift total of 3 loads of /docs/ at 390 with 4x CPU and fonts blocked on both builds. Passes on all three markup checks and CLS under 0.01.",
+    "base": {
+      "pass": false,
+      "value": {
+        "search": "Return to top",
+        "noHeadings": "Return to top",
+        "homeLocalNavSticky": false,
+        "homeCls": [
+          0.0526,
+          0.0526,
+          0.0526
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "search": "On this page",
+        "noHeadings": "Return to top",
+        "homeLocalNavSticky": true,
+        "homeCls": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "sidebar-server-matches-hydrated",
+    "title": "The sidebar group holding the current page renders open on the server too",
+    "shas": [
+      "d24ce632"
+    ],
+    "kind": "ssr-html",
+    "expect": "guard",
+    "checks": "For a Walk-Throughs page (LangChain) and a Cookbooks page (Semantic Search) at 1440, lists the collapsed level-0 sidebar groups with JavaScript off and again after hydration, and sums sidebar layout shifts during load. Passes when both lists match and the sidebar does not shift.",
+    "base": {
+      "pass": true,
+      "value": {
+        "langchain": {
+          "server": "none",
+          "client": "none",
+          "sidebarCls": 0
+        },
+        "semantic": {
+          "server": "none",
+          "client": "none",
+          "sidebarCls": 0
+        }
+      }
+    },
+    "head": {
+      "pass": false,
+      "value": {
+        "langchain": {
+          "server": "Cookbooks, Walk-Throughs, Reference Implementations",
+          "client": "Cookbooks, Reference Implementations",
+          "sidebarCls": 0.0401
+        },
+        "semantic": {
+          "server": "Cookbooks, Walk-Throughs, Reference Implementations",
+          "client": "Walk-Throughs, Reference Implementations",
+          "sidebarCls": 0.0275
+        }
+      }
+    },
+    "verdict": "check"
+  },
+  {
+    "id": "no-inter-font",
+    "title": "Pages stop downloading VitePress's unused Inter font",
+    "shas": [
+      "ba0cc97b"
+    ],
+    "kind": "font",
+    "expect": "flip",
+    "checks": "Reads the raw HTML of search.html for an inter-*.woff2 preload and records every request during a 1440 load until the network is idle. Passes when neither has an Inter font.",
+    "base": {
+      "pass": false,
+      "value": {
+        "interPreloadsInHtml": 1,
+        "interRequests": [
+          "inter-roman-latin.Di8DUHzh.woff2"
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "interPreloadsInHtml": 0,
+        "interRequests": []
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "content-images-lazy",
+    "title": "Images far down a page load only when you scroll near them",
+    "shas": [
+      "cfdf8875"
+    ],
+    "kind": "network",
+    "expect": "flip",
+    "checks": "Reads the faceting screenshot <img> in the raw HTML of search.html, then loads the page at 1440 without scrolling and records requests until idle plus 2s. Passes when the tag has loading=\"lazy\" and faceting_usecase_example.png (233KB) is never requested.",
+    "base": {
+      "pass": false,
+      "value": {
+        "lazyAttr": false,
+        "requestedWithoutScrolling": true
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "lazyAttr": true,
+        "requestedWithoutScrolling": false
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "images-hold-their-box",
+    "title": "Charts and screenshots hold their space before they load",
+    "shas": [
+      "63f99faf",
+      "1e5d1ec6"
+    ],
+    "kind": "dom",
+    "expect": "flip",
+    "checks": "Aborts every content image, then reads each listed image box as height divided by width at 1440. Covers the DynamoDB and MongoDB top charts and three images that hash links land next to (search.html faceting, LangChain architecture, Magento configuration). Passes when each box matches the file ratio within 0.01 instead of collapsing to an alt-text line.",
+    "base": {
+      "pass": false,
+      "value": {
+        "typesense-dynamodb.svg": {
+          "box": "688x28",
+          "ratio": 0.0407,
+          "want": 0.5625
+        },
+        "mongodb.svg": {
+          "box": "688x28",
+          "ratio": 0.0407,
+          "want": 0.2613
+        },
+        "faceting_usecase_example.png": {
+          "box": "688x28",
+          "ratio": 0.0407,
+          "want": 0.7639
+        },
+        "ai-search-architecture.svg": {
+          "box": "688x28",
+          "ratio": 0.0407,
+          "want": 0.5625
+        },
+        "configuration.png": {
+          "box": "688x28",
+          "ratio": 0.0407,
+          "want": 0.717
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "typesense-dynamodb.svg": {
+          "box": "688x387",
+          "ratio": 0.5625,
+          "want": 0.5625
+        },
+        "mongodb.svg": {
+          "box": "688x180",
+          "ratio": 0.2616,
+          "want": 0.2613
+        },
+        "faceting_usecase_example.png": {
+          "box": "688x526",
+          "ratio": 0.7645,
+          "want": 0.7639
+        },
+        "ai-search-architecture.svg": {
+          "box": "688x387",
+          "ratio": 0.5625,
+          "want": 0.5625
+        },
+        "configuration.png": {
+          "box": "688x493",
+          "ratio": 0.7166,
+          "want": 0.717
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "font-self-hosted-preloaded",
+    "title": "The body font comes from the site and is preloaded",
+    "shas": [
+      "1796037a"
+    ],
+    "kind": "font",
+    "expect": "flip",
+    "checks": "Reads the raw HTML of install-typesense.html for <link rel=\"preload\" ... source-sans-3-latin.*.woff2 as=\"font\" type=\"font/woff2\" crossorigin> and records every request during a 390 load until idle. Passes when the preload is there, nothing goes to fonts.googleapis.com or fonts.gstatic.com, and the regular woff2 comes from /docs/assets/.",
+    "base": {
+      "pass": false,
+      "value": {
+        "preloadOk": false,
+        "googleRequests": 2,
+        "woff2": [
+          "inter-roman-latin.Di8DUHzh.woff2",
+          "fonts.gstatic.com"
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "preloadOk": true,
+        "googleRequests": 0,
+        "woff2": [
+          "source-sans-3-latin.CN-6p9QN.woff2"
+        ]
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "font-swap-keeps-lines",
+    "title": "Text does not jump when the web font swaps in",
+    "shas": [
+      "1796037a"
+    ],
+    "kind": "cls",
+    "expect": "flip",
+    "checks": "Holds every .woff2 response for 1.5s and aborts the app script so hydration adds nothing, then sums layout shifts for 4s on install-typesense.html. Worst of 3 loads at 390 and at 1440, 4x CPU on both builds. Passes when the worst total is under 0.02 (the handoff measured about 0.137 before).",
+    "base": {
+      "pass": false,
+      "value": {
+        "390": [
+          0.1609,
+          0.1609,
+          0.1609
+        ],
+        "1440": [
+          0.1488,
+          0.1488,
+          0.1488
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "390": [
+          0.0001,
+          0.0001,
+          0.0001
+        ],
+        "1440": [
+          0.0003,
+          0.0003,
+          0.0003
+        ]
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "docsearch-loads-on-first-use",
+    "title": "The search button is there from first paint and the search library downloads only on first use",
+    "shas": [
+      "780722ac"
+    ],
+    "kind": "network",
+    "expect": "flip",
+    "checks": "Reads the raw HTML of search.html for the static 'DocSearch DocSearch-Button', then at 1440 watches which script carries the '/*! typesense-docsearch.js' banner: during load and 2s of idle, then after hovering the button. Also compares the search box width with JavaScript off and hydrated. Passes when the server sends the button, the library arrives only on hover, and the box keeps its width.",
+    "base": {
+      "pass": false,
+      "value": {
+        "serverButton": 0,
+        "library": [
+          "load: theme.Cb1gR06O.js 789KB"
+        ],
+        "searchBoxWidth": {
+          "serverWidth": 455,
+          "hydratedWidth": 170
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "serverButton": 1,
+        "library": [
+          "hover: index.BcwIt9SG.js 526KB"
+        ],
+        "searchBoxWidth": {
+          "serverWidth": 175,
+          "hydratedWidth": 175
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "page-data-drops-markdown",
+    "title": "Pages stop carrying their whole markdown and fetch it on copy",
+    "shas": [
+      "34a2ed2b"
+    ],
+    "kind": "weight",
+    "expect": "flip",
+    "checks": "Finds search.html's page data file (30.2_api_search.md.*.lean.js) in the raw HTML, reads its size and looks for a \"markdown\":\" key, then clicks 'Copy Markdown' at 1280 and records requests. Passes when the key is gone and the copy fetches /docs/30.2/api/search.md with a 200.",
+    "base": {
+      "pass": false,
+      "value": {
+        "leanKB": 414,
+        "embeddedMarkdown": true,
+        "mdFetchOnCopy": []
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "leanKB": 213,
+        "embeddedMarkdown": false,
+        "mdFetchOnCopy": [
+          200
+        ],
+        "baseLeanKB": 414
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "copy-revalidates-markdown",
+    "title": "Every copy checks for a fresh markdown file",
+    "shas": [
+      "370843e7"
+    ],
+    "kind": "network",
+    "expect": "head",
+    "checks": "Clicks 'Copy Markdown' twice on search.html and reads the request headers of each /docs/30.2/api/search.md fetch. Passes when there are two fetches and each carries cache-control max-age=0. No routes in this gate, because Playwright routing turns the HTTP cache off and hides the header. Base has no fetch to check, it embeds the markdown.",
+    "base": {
+      "pass": false,
+      "value": {
+        "cacheControl": [],
+        "copiedChars": 148723
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "cacheControl": [
+          "max-age=0",
+          "max-age=0"
+        ],
+        "copiedChars": 148747
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "copy-markdown-same-text",
+    "title": "Copy Markdown and section copy give the same text as before",
+    "shas": [
+      "34a2ed2b",
+      "370843e7"
+    ],
+    "kind": "text",
+    "expect": "guard",
+    "checks": "On search.html at 1280 with fresh storage, clicks 'Copy Markdown', then the copy icon on the 'Facet Results' heading, then reloads with ?languages=python and copies the page again, reading the clipboard each time. Base stores its three texts. HEAD passes when all three match base byte for byte once the one source edit on this page is undone (1e5d1ec6 added {width=2346 height=1792} after the faceting image, which the copy now carries).",
+    "base": {
+      "pass": true,
+      "value": {
+        "page": {
+          "chars": 148723,
+          "sha256": "6a858699193e"
+        },
+        "section": {
+          "chars": 3648,
+          "sha256": "0b8e5cf10773"
+        },
+        "python": {
+          "chars": 148711,
+          "sha256": "ae5a30d236b5"
+        },
+        "sizeAttrsInCopy": []
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "page": {
+          "chars": 148747,
+          "sha256": "b3369735235c"
+        },
+        "section": {
+          "chars": 3672,
+          "sha256": "05a39f6445f4"
+        },
+        "python": {
+          "chars": 148735,
+          "sha256": "81217d3b2c52"
+        },
+        "sizeAttrsInCopy": [
+          "{width=2346 height=1792}"
+        ],
+        "differsFromBase": []
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "search-site-font",
+    "title": "The search button and modal use the site font",
+    "shas": [
+      "a7a03d39"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "At 1440 after document.fonts.ready, reads the nav search button's font-family, then clicks it and reads .DocSearch-Input's font-family and size. Nothing is typed and the cluster is blocked. Passes when both start with \"Source Sans 3\" and the input stays 18px.",
+    "base": {
+      "pass": false,
+      "value": {
+        "button": "system-ui, -apple-system, blinkmacsystem",
+        "input": {
+          "fontFamily": "system-ui, -apple-system, blinkmacsystem",
+          "fontSize": "18px"
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "button": "\"Source Sans 3\", \"Source Sans 3 Fallback",
+        "input": {
+          "fontFamily": "\"Source Sans 3\", \"Source Sans 3 Fallback",
+          "fontSize": "18px"
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "search-button-site-grays",
+    "title": "The search button uses the site's blue-tinted grays in both themes",
+    "shas": [
+      "de20e790"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "At 1440 in light then dark, reads the nav search button's border, background and text colour and its first key cap's colours, and compares them with the site tokens --gray-4 (--gray-5 in dark), --vp-nav-bg-color, --gray-11 and --gray-3 resolved inside the nav. Also hovers to swap in the library button on HEAD, moves away and reads again. Passes when every colour matches its token and nothing changes after the swap.",
+    "base": {
+      "pass": false,
+      "value": {
+        "light": {
+          "border": "rgb(234, 234, 234)",
+          "background": "rgb(255, 255, 255)",
+          "text": "rgb(77, 77, 77)",
+          "keyBackground": "rgb(241, 241, 241)",
+          "keyText": "rgb(77, 77, 77)",
+          "notToken": [
+            "border",
+            "text",
+            "keyBackground",
+            "keyText"
+          ],
+          "changedAfterSwap": []
+        },
+        "dark": {
+          "border": "rgb(48, 48, 48)",
+          "background": "rgb(16, 16, 18)",
+          "text": "rgb(249, 249, 249)",
+          "keyBackground": "rgb(31, 31, 31)",
+          "keyText": "rgb(179, 179, 179)",
+          "notToken": [
+            "border",
+            "background",
+            "text",
+            "keyBackground",
+            "keyText"
+          ],
+          "changedAfterSwap": []
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "light": {
+          "border": "rgb(231, 231, 239)",
+          "background": "rgb(255, 255, 255)",
+          "text": "rgb(99, 99, 112)",
+          "keyBackground": "rgb(240, 240, 245)",
+          "keyText": "rgb(99, 99, 112)",
+          "notToken": [],
+          "changedAfterSwap": []
+        },
+        "dark": {
+          "border": "rgb(48, 47, 58)",
+          "background": "rgb(18, 18, 22)",
+          "text": "rgb(178, 178, 195)",
+          "keyBackground": "rgb(34, 34, 41)",
+          "keyText": "rgb(178, 178, 195)",
+          "notToken": [],
+          "changedAfterSwap": []
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "search-threshold",
+    "title": "The search box drops semantic matches beyond distance 0.7",
+    "shas": [
+      "092ced0c"
+    ],
+    "kind": "config",
+    "expect": "flip",
+    "checks": "Routes **/multi_search** to record the request body and abort it, so nothing reaches the cluster. Opens search at 1440 and types 'zzqxvj', then reads distance_threshold from searches[0].vector_query. Passes at 0.7. Relevance was settled offline on 1,362 queries, see /Users/fanis/code/typesense/handoff-docs-ui/evidence/g13/report.md.",
+    "base": {
+      "pass": false,
+      "value": {
+        "vectorQuery": "embedding:([], k: 5, distance_threshold: 1.0, alpha: 0.2)",
+        "requestsCaughtAndAborted": 2
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "vectorQuery": "embedding:([], k: 5, distance_threshold: 0.7, alpha: 0.2)",
+        "requestsCaughtAndAborted": 2
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "old-home-cards-rounded",
+    "title": "The section cards on old version homes have rounded corners",
+    "shas": [
+      "eee80b20"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "Reads border-top-left-radius of the first section card on /docs/0.19.0/ at 1280. Passes at 8px.",
+    "base": {
+      "pass": false,
+      "value": {
+        "radius": "0px"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "radius": "8px"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "home-quick-start-and-version-rows",
+    "title": "The docs home points to the Quick Start and wraps the version links into rows that stay a list",
+    "shas": [
+      "4fc72719",
+      "20c1598a"
+    ],
+    "kind": "ssr-html",
+    "expect": "flip",
+    "checks": "Reads the raw HTML of /docs/ for a Quick Start link and the version <ul>, checks /docs/guide/ has id=\"quick-start\", then counts the rows the version links fill at 1280. Passes when the link goes to /docs/guide/#quick-start, the target exists, the <ul> carries role=\"list\" and the links wrap into fewer rows than links.",
+    "base": {
+      "pass": false,
+      "value": {
+        "quickStart": null,
+        "listRoleList": false,
+        "links": 31,
+        "rows": 31
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "quickStart": "/docs/guide/#quick-start",
+        "listRoleList": true,
+        "links": 31,
+        "rows": 4
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "table-block-spacing",
+    "title": "Tables sit 16px from the blocks around them",
+    "shas": [
+      "f78d766d"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "Reads margin-top and margin-bottom of the first .vp-doc table on search.html at 1280. Passes at 16px and 16px.",
+    "base": {
+      "pass": false,
+      "value": "20px 20px"
+    },
+    "head": {
+      "pass": true,
+      "value": "16px 16px"
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "callout-line-height",
+    "title": "Callout text has the same line height as body text",
+    "shas": [
+      "af36c9ea"
+    ],
+    "kind": "css",
+    "expect": "flip",
+    "checks": "On documents.html at 1440, reads line-height of the first callout paragraph, the first callout title and a body paragraph. Passes when the callout lines match the 28px body.",
+    "base": {
+      "pass": false,
+      "value": {
+        "calloutText": "24px",
+        "calloutTitle": "24px",
+        "body": "28px"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "calloutText": "28px",
+        "calloutTitle": "28px",
+        "body": "28px"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "balanced-nav-labels",
+    "title": "Long sidebar and On this page labels do not leave one word alone on the last line",
+    "shas": [
+      "8da4e8c6"
+    ],
+    "kind": "dom",
+    "expect": "flip",
+    "checks": "On install-typesense.html at 1440, finds every visible sidebar and outline label of three or more words that wraps, and counts those whose last line holds a single word (word boxes grouped by line). Also reads text-wrap-style. Passes with balance on both and no lone last words.",
+    "base": {
+      "pass": false,
+      "value": {
+        "sidebarWrap": "auto",
+        "outlineWrap": "auto",
+        "loneLastWords": 7,
+        "examples": [
+          "Migrating from Postgres for Full-Text Search",
+          "Role-Based Access Control for Admin Dashboard (Typesense Cloud)",
+          "Next.js App Router with Server-Side Rendering"
+        ]
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "sidebarWrap": "balance",
+        "outlineWrap": "balance",
+        "loneLastWords": 0,
+        "examples": []
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "callout-titles-sentence-case",
+    "title": "Untitled callouts read Tip, Info, Warning and Danger",
+    "shas": [
+      "6a85ca5a"
+    ],
+    "kind": "text",
+    "expect": "flip",
+    "checks": "Lists the callout titles on documents.html as rendered, through innerText, so a CSS text-transform counts. Passes when no title is the all-caps default TIP, INFO, WARNING or DANGER and at least one reads Tip. Hand-typed NOTE titles belong to e69af439 and are ignored.",
+    "base": {
+      "pass": false,
+      "value": [
+        "NOTE",
+        "TIP",
+        "NOTE",
+        "TIP",
+        "WARNING",
+        "TIP"
+      ]
+    },
+    "head": {
+      "pass": true,
+      "value": [
+        "Note",
+        "Tip",
+        "Note",
+        "Tip",
+        "Warning",
+        "Tip"
+      ]
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "guide-groups-start-collapsed",
+    "title": "Cookbooks, Walk-Throughs and Reference Implementations start collapsed in the Guide sidebar",
+    "shas": [
+      "d24ce632"
+    ],
+    "kind": "dom",
+    "expect": "flip",
+    "checks": "Lists the collapsed level-0 groups and the sidebar's scrollHeight on install-typesense.html at 1440, then on semantic-search.html checks that Cookbooks opens and the active row is 'Semantic Search'. Passes on exactly those three groups and the open Cookbooks.",
+    "base": {
+      "pass": false,
+      "value": {
+        "install": {
+          "collapsed": [],
+          "scrollHeight": 3917
+        },
+        "semantic": {
+          "collapsed": [],
+          "active": "Semantic Search"
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "install": {
+          "collapsed": [
+            "Cookbooks",
+            "Walk-Throughs",
+            "Reference Implementations"
+          ],
+          "scrollHeight": 1587
+        },
+        "semantic": {
+          "collapsed": [
+            "Walk-Throughs",
+            "Reference Implementations"
+          ],
+          "active": "Semantic Search"
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "outline-skips-repeated-labels",
+    "title": "The On this page list stops repeating 'Sample Response' and 'Definition'",
+    "shas": [
+      "bb6a4814"
+    ],
+    "kind": "outline",
+    "expect": "flip",
+    "checks": "On api-keys.html at 1440, counts outline links, those reading exactly 'Sample Response' or 'Definition', and h4 headings with class ignore-header that keep an id. Passes when the outline has none of the repeated labels and the hidden headings still carry ids.",
+    "base": {
+      "pass": false,
+      "value": {
+        "outlineLinks": 42,
+        "repeated": 9,
+        "hiddenHeadingsWithIds": 0
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "outlineLinks": 33,
+        "repeated": 0,
+        "hiddenHeadingsWithIds": 9
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "one-version-picker-per-width",
+    "title": "Tablets and laptops show one version picker, not two",
+    "shas": [
+      "fc63b9ee"
+    ],
+    "kind": "dom",
+    "expect": "guard",
+    "checks": "Counts visible version comboboxes (text starting with v and a digit) on search.html at 768, 900, 959 and 1280. Passes on exactly one at each. The 390 count is shown for context. Base has no breadcrumb version on phones at all (that came with e654bb5b).",
+    "base": {
+      "pass": true,
+      "value": {
+        "390": 0,
+        "768": 1,
+        "900": 1,
+        "959": 1,
+        "1280": 1
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "390": 1,
+        "768": 1,
+        "900": 1,
+        "959": 1,
+        "1280": 1
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "prose-width-same-in-both-fonts",
+    "title": "Prose keeps the same width whether the web font or the fallback renders it",
+    "shas": [
+      "085e9425"
+    ],
+    "kind": "css",
+    "expect": "guard",
+    "checks": "On documents.html at 1440, reads max-width and width of the paragraph starting 'If the document contains' once with the web font loaded and once in a fresh context with every .woff2 aborted. Passes when the width is the same in both. Base has no prose cap at all (84032a0f added it), so it passes trivially.",
+    "base": {
+      "pass": true,
+      "value": {
+        "webfont": {
+          "maxWidth": "none",
+          "width": 688
+        },
+        "fallback": {
+          "maxWidth": "none",
+          "width": 688
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "webfont": {
+          "maxWidth": "480px",
+          "width": 480
+        },
+        "fallback": {
+          "maxWidth": "480px",
+          "width": 480
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "parameter-hash-link",
+    "title": "Each parameter has a # link beside its name and the name stays plain selectable text",
+    "shas": [
+      "e1d57f93"
+    ],
+    "kind": "anchors",
+    "expect": "head",
+    "checks": "On server-configuration.html at 1440, finds the --config row's a.parameter-anchor and checks the name sits outside any link, reads the anchor's opacity at rest and with the row hovered, triple-clicks the name --api-key and reads the selection and URL hash, then focuses the --config anchor and presses Enter. Passes when the # is hidden at rest, shown on hover, the click selects the whole name without navigating, and Enter sets #--config. Base has no # link to test, so only HEAD counts.",
+    "base": {
+      "pass": false,
+      "value": {
+        "anchor": "none",
+        "configCell": {
+          "id": null,
+          "links": 0
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "opacity": "0",
+        "nameInsideLink": false,
+        "label": "Permalink to \"--config\"",
+        "hoveredOpacity": "1",
+        "selection": "--api-key",
+        "hash": "",
+        "hashAfterEnter": "#--config"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "search-opens-every-way",
+    "title": "Search opens on the first click, Cmd+K and /, before and after the library loads",
+    "shas": [
+      "780722ac"
+    ],
+    "kind": "dom",
+    "expect": "guard",
+    "checks": "Three fresh loads at 1440 with the cluster blocked: a click on the nav button, Cmd+K (then Escape and Cmd+K again once the library is in), and /. Each must show .DocSearch-Modal with focus in .DocSearch-Input, and Escape must return focus to the nav search button.",
+    "base": {
+      "pass": true,
+      "value": {
+        "click": true,
+        "clickEscapeReturnsFocus": true,
+        "cmdK": true,
+        "cmdKEscapeReturnsFocus": true,
+        "cmdKAgain": true,
+        "slash": true
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "click": true,
+        "clickEscapeReturnsFocus": true,
+        "cmdK": true,
+        "cmdKEscapeReturnsFocus": true,
+        "cmdKAgain": true,
+        "slash": true
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "dark-reload-no-light-flash",
+    "title": "A hard reload in dark mode paints dark from the first frame",
+    "shas": [
+      "1796037a",
+      "780722ac"
+    ],
+    "kind": "dom",
+    "expect": "guard",
+    "checks": "With dark saved, reloads search.html at 1440 and reads the html class and the body and html backgrounds on the first animation frame that has a body. The painted colour is the body's when it is opaque, or the html's when the body is transparent. Passes when html has the dark class and that colour is opaque with red, green and blue all under 60.",
+    "base": {
+      "pass": true,
+      "value": {
+        "dark": true,
+        "body": "rgb(18, 18, 22)",
+        "html": "rgba(0, 0, 0, 0)",
+        "painted": "rgb(18, 18, 22)"
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "dark": true,
+        "body": "rgb(18, 18, 22)",
+        "html": "rgba(0, 0, 0, 0)",
+        "painted": "rgb(18, 18, 22)"
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "hash-landing-holds",
+    "title": "A hash link next to an image lands under the bars and stays there when the image arrives late",
+    "shas": [
+      "cfdf8875",
+      "1e5d1ec6"
+    ],
+    "kind": "scroll",
+    "expect": "guard",
+    "checks": "Holds every content image for 2.5s, loads three hash links (search.html#facet-results and magento2#configuration at 1440, astro#final-output at 390), reads the target top at 2s and again at 4.5s and sums content layout shifts after the first read. Passes when the target sits between 40 and 130px from the top, does not move, and nothing in the content shifts.",
+    "base": {
+      "pass": true,
+      "value": {
+        "facet-results": {
+          "landed": 64,
+          "later": 64,
+          "contentClsAfterLanding": 0
+        },
+        "configuration": {
+          "landed": 64,
+          "later": 64,
+          "contentClsAfterLanding": 0
+        },
+        "final-output": {
+          "landed": 47,
+          "later": 47,
+          "contentClsAfterLanding": 0
+        }
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "facet-results": {
+          "landed": 64,
+          "later": 64,
+          "contentClsAfterLanding": 0
+        },
+        "configuration": {
+          "landed": 64,
+          "later": 64,
+          "contentClsAfterLanding": 0
+        },
+        "final-output": {
+          "landed": 47,
+          "later": 47,
+          "contentClsAfterLanding": 0
+        }
+      }
+    },
+    "verdict": "ok"
+  },
+  {
+    "id": "search-page-dom-size",
+    "title": "search.html stays a manageable DOM size",
+    "shas": [
+      "e1d57f93",
+      "103b1f77"
+    ],
+    "kind": "dom",
+    "expect": "guard",
+    "checks": "Counts every element on the hydrated search.html at 1440. HEAD measured 5,345 and base 5,065. Passes under 5,600, which is HEAD plus about 5%.",
+    "base": {
+      "pass": true,
+      "value": {
+        "elements": 5065
+      }
+    },
+    "head": {
+      "pass": true,
+      "value": {
+        "elements": 5345
+      }
+    },
+    "verdict": "ok"
+  }
+]

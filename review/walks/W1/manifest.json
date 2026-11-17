@@ -1,0 +1,32 @@
+{
+  "id": "W1",
+  "title": "Code tabs from the keyboard",
+  "shas": [
+    "5ed71446",
+    "ba82008a",
+    "eb4869bf",
+    "9f5824f1",
+    "b38e1318",
+    "9a961159"
+  ],
+  "page": "/docs/30.2/api/documents.html",
+  "viewport": "1280x800 (phone clip 390x844, isMobile, hasTouch)",
+  "steps": [
+    "Scroll to 'Index a single document' and click in the paragraph 'Let's see how we can add a new document to a collection.'",
+    "Press Tab once",
+    "Press ArrowRight twice, then ArrowLeft once",
+    "Click 'Go' in the same strip with the mouse",
+    "Scroll to the first 'Sample Response' and drag from that line down into the JSON code below it",
+    "Phone clip: at 390px scroll the first tab strip sideways so JavaScript sits half under the left edge fade, click the paragraph above it, press Tab, then ArrowLeft"
+  ],
+  "expect_head": "Tab lands on JavaScript with a lime inset ring. Each arrow selects the next tab at once (PHP, Python, then back to PHP after ArrowLeft) and every group on the page switches while the strip stays put. Clicking Go glides the pill. The drag highlights 'Sample Response' and the code but not the 'JSON' label. Phone: Tab scrolls the strip so JavaScript sits fully clear of the fade with its ring, and ArrowLeft wraps to 'Other Languages', fully clear of the right fade.",
+  "expect_base": "Tab skips the strip and rings the hidden code copy button. The arrows change nothing. Go still works with the mouse. The drag highlights the 'JSON' label too. Phone: Tab focuses the whole strip as a scroll box, and ArrowLeft only scrolls it back.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm",
+    "head-phone": "head-phone.webm",
+    "base-phone": "base-phone.webm"
+  },
+  "seen": true,
+  "note": "Checked from frame sheets of all four clips. Not visible on video, so left to gates: ba82008a (lone tabs are not a Tab stop, gate tabs-lone-tab-not-a-stop), eb4869bf (arrows step from the focused tab, gate tabs-arrow-steps-from-focused-tab) and 9f5824f1 (the lone label shows no pointer and a click doesn't save 'JSON', gate tabs-lone-tab-unclickable). Headless video draws no mouse cursor. The drag highlight is small in the clip, pause near the end to see it."
+}

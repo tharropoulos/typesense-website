@@ -1,0 +1,23 @@
+{
+  "id": "W8",
+  "title": "Sidebar pill between pages",
+  "shas": [
+    "a253eacf",
+    "1dc95b1e"
+  ],
+  "page": "/docs/guide/ranking-and-relevance.html",
+  "viewport": "1440x900",
+  "steps": [
+    "Open /docs/guide/ranking-and-relevance.html at 1440x900 and click the 'Getting Started' group title to collapse it. 'Tuning Ranking and Relevance' moves up about 174px.",
+    "Click 'Tips for Filtering Data in Typesense' in the same sidebar.",
+    "Click 'API Reference' in the top nav to switch to the API sidebar."
+  ],
+  "expect_head": "Step 1 the pill moves with its row in the same frame. Step 2 it glides about 300ms to the new row. Step 3 it appears on the new item with no slide.",
+  "expect_base": "Step 1 the pill trails its row for about 150ms and briefly marks the wrong row. Step 2 glides. Step 3 slides in from the old sidebar position.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm"
+  },
+  "seen": true,
+  "note": "Recorded with CSS animations and transitions at quarter speed (CDP Animation.setPlaybackRate 0.25) so the 150ms trail and the 300ms glide are visible at 25fps. At full speed the trail is about 4 frames. Frames checked with animations at quarter speed. Base: after the collapse the pill sits on Running in Production, then Tips for Locale, then Tips for Searching before reaching Tuning Ranking (2.25s to 2.9s). HEAD: the pill is on Tuning Ranking in every frame after the collapse. On the API Reference switch base slides the pill up from JOINs to Introduction (6.3s to 7.3s), HEAD shows it on Introduction straight away (5.8s). Light theme. A badge bottom left shows keys pressed and one bottom right names the step. The search cluster and trackers are blocked."
+}

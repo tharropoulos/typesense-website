@@ -1,0 +1,45 @@
+{
+  "id": "L7",
+  "title": "Docs home and old versions",
+  "page": "/docs/",
+  "viewport": "1280x800",
+  "crops": [
+    {
+      "id": "home",
+      "theme": "light",
+      "title": "Docs home content",
+      "base": "home-light-base.png",
+      "head": "home-light-head.png",
+      "items": [
+        {
+          "sha": "4fc72719",
+          "look_for": "Under the welcome line HEAD adds 'New to Typesense? Start with the Quick Start in the Guide', and at the bottom the 31 version links wrap in four rows instead of a long bulleted column.",
+          "seen": true
+        },
+        {
+          "sha": "085e9425",
+          "look_for": "Paragraphs stop at 480px on HEAD, for example under 'Help us improve the docs', while the table and the Tip callout keep the full width.",
+          "seen": true,
+          "note": "The cap itself arrived with 84032a0f. This commit's own part, a width that holds while the web font loads, only shows in its gate."
+        }
+      ],
+      "note": "No cut. The element is 2187px tall on base and 1459px on HEAD at 1x. Other differences come from commits outside this crop. 'TIP' reads 'Tip' (6a85ca5a), the callout lines are looser (af36c9ea), table headers lose their letter-spacing (39ab66e7), table spacing changes (f78d766d) and link green is a step darker (886ec9e6)."
+    },
+    {
+      "id": "old-cards",
+      "theme": "light",
+      "title": "Old-version home cards",
+      "page": "/docs/0.19.0/",
+      "base": "old-cards-light-base.png",
+      "head": "old-cards-light-head.png",
+      "items": [
+        {
+          "sha": "eee80b20",
+          "look_for": "The corners of the What's New, Guide and API Reference cards are rounded on HEAD and square on base.",
+          "seen": true
+        }
+      ],
+      "note": null
+    }
+  ]
+}

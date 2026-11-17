@@ -1,0 +1,142 @@
+{
+  "id": "L4",
+  "title": "Guide page on a laptop",
+  "page": "/docs/guide/install-typesense.html",
+  "viewport": "1440x900",
+  "crops": [
+    {
+      "id": "top",
+      "theme": "light",
+      "title": "First screen of Install Typesense",
+      "base": "top-light-base.png",
+      "head": "top-light-head.png",
+      "items": [
+        {
+          "sha": "8da4e8c6",
+          "look_for": "In the On this page outline 'Option 2: Local Machine / Self-Hosting' and 'DEB package on Ubuntu/Debian' now break near the middle, and in the sidebar's last row 'Tips for Searching Common Types of Data' no longer leaves 'of Data' alone.",
+          "seen": true
+        },
+        {
+          "sha": "5de0bfd3",
+          "look_for": "Sidebar page links such as 'Installing a Client' are a little thinner and narrower on HEAD, while group titles like 'Getting Started' stay bold.",
+          "seen": true
+        },
+        {
+          "sha": "085e9425",
+          "look_for": "Body paragraphs in the main column wrap at 480px on HEAD while the markdown code block below them keeps the full column width.",
+          "seen": true,
+          "note": "The cap itself arrived with 84032a0f. This commit's own part, a width that holds while the web font loads, only shows in its gate."
+        }
+      ],
+      "note": "Also visible and explained by commits outside this crop. Code token colours change (5e30f0af, e3d83063), the 'markdown' label is darker (35505491), the active 'Install Typesense' is no longer semibold (84ecbfdd), link green is a step darker (886ec9e6) and the top nav links sit 5px further right because the search button is 5px narrower in the site font (a7a03d39, measured 162 to 157px)."
+    },
+    {
+      "id": "collapsed",
+      "theme": "light",
+      "title": "Sidebar guide groups",
+      "base": "collapsed-light-base.png",
+      "head": "collapsed-light-head.png",
+      "items": [
+        {
+          "sha": "d24ce632",
+          "look_for": "Below Best Practices, HEAD shows Cookbooks, Walk-Throughs and Reference Implementations as closed rows with right-pointing chevrons and Teams open between them, while base opens Cookbooks and its links fill the rest of the sidebar.",
+          "seen": true
+        }
+      ],
+      "note": "Framed with Best Practices at the top of the sidebar rather than Cookbooks, because the nav bar covers the first rows and hid the Cookbooks title on base. HEAD's sidebar reaches the end of its scroll and sits 15px lower."
+    },
+    {
+      "id": "warning",
+      "theme": "light",
+      "title": "macOS compatibility warning",
+      "dsf": 2,
+      "base": "warning-light-base.png",
+      "head": "warning-light-head.png",
+      "items": [
+        {
+          "sha": "ff3818a2",
+          "look_for": "The amber title 'Compatibility with macOS' is a shade browner on HEAD, a faint change that is easiest to catch by flicking between the two images.",
+          "seen": true,
+          "note": "Pixel-sampled #ab6400 on base and #a05e00 on HEAD. Hard to see by eye, the contrast gate is the better check."
+        },
+        {
+          "sha": "af36c9ea",
+          "look_for": "The body lines inside the callout sit 28px apart on HEAD instead of 24px, which makes the box 16px taller.",
+          "seen": true
+        }
+      ],
+      "note": "deviceScaleFactor 2. The title keeps its casing on both builds."
+    },
+    {
+      "id": "code-label",
+      "theme": "light",
+      "title": "Code block language label",
+      "dsf": 2,
+      "base": "code-label-light-base.png",
+      "head": "code-label-light-head.png",
+      "items": [
+        {
+          "sha": "35505491",
+          "look_for": "The small 'markdown' label in the top-right corner of the code block is a darker grey on HEAD.",
+          "seen": true,
+          "note": "Pixel-sampled #828291 to #636370."
+        }
+      ],
+      "note": "The code token colours also change, from the site palette commits 5e30f0af and e3d83063, and HEAD no longer colours 'or point to it'. deviceScaleFactor 2, mouse off the block."
+    },
+    {
+      "id": "code-label",
+      "theme": "dark",
+      "title": "Code block language label",
+      "dsf": 2,
+      "base": "code-label-dark-base.png",
+      "head": "code-label-dark-head.png",
+      "items": [
+        {
+          "sha": "35505491",
+          "look_for": "The small 'markdown' label in the top-right corner of the code block is a lighter grey on HEAD.",
+          "seen": true,
+          "note": "Pixel-sampled #79798f to #b2b2c3."
+        }
+      ],
+      "note": "The code token colours and the plain code text also change, from the site palette commits 5e30f0af and e3d83063. deviceScaleFactor 2, mouse off the block."
+    },
+    {
+      "id": "active",
+      "theme": "light",
+      "title": "Sidebar around the current page",
+      "page": "/docs/guide/langchain-ai-search.html",
+      "base": "active-light-base.png",
+      "head": "active-light-head.png",
+      "items": [
+        {
+          "sha": "84ecbfdd",
+          "look_for": "The highlighted 'AI Search with LangChain & Chainlit' row fits on one line in regular weight on HEAD, where base sets it semibold over two lines and pushes the Teams group 24px lower.",
+          "seen": true
+        },
+        {
+          "sha": "5de0bfd3",
+          "look_for": "The other links, like 'Search Bar in Qwik.js', are a little thinner on HEAD.",
+          "seen": true
+        }
+      ],
+      "note": "Both crops are anchored on the active row after a 1s wait. Reference Implementations is collapsed on HEAD (d24ce632) and 'Role-Based Access Control for Admin Dashboard' breaks differently (8da4e8c6)."
+    },
+    {
+      "id": "scrollbar",
+      "theme": "light",
+      "title": "Sidebar scrollbar",
+      "page": "/docs/guide/",
+      "base": "scrollbar-light-base.png",
+      "head": "scrollbar-light-head.png",
+      "items": [
+        {
+          "sha": "7dabec76",
+          "look_for": "Along the right edge of the sidebar HEAD draws a grey scrollbar track and thumb, and base has none.",
+          "seen": true
+        }
+      ],
+      "note": "Captured in a browser launched without Chromium's --hide-scrollbars flag, which draws a classic scrollbar. Overlay-scrollbar systems such as default macOS look the same on both builds."
+    }
+  ]
+}

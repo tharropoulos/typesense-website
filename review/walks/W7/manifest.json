@@ -1,0 +1,26 @@
+{
+  "id": "W7",
+  "title": "Phone nav while scrolling",
+  "shas": [
+    "84a244e4",
+    "6d3748cf"
+  ],
+  "page": "/docs/30.2/api/search.html",
+  "viewport": "390x844",
+  "steps": [
+    "On a phone (390x844), open /docs/30.2/api/search.html and swipe down about 3000px so the top nav hides.",
+    "Swipe back up about 30px so the nav slides in.",
+    "Let the finger drift 4px down, one pixel at a time.",
+    "Swipe down properly, about 100px.",
+    "Tap 'On this page' in the bar under the nav to open the panel.",
+    "With the panel open, swipe up about 30px."
+  ],
+  "expect_head": "The nav stays during the 4px drift and hides on the real swipe. With the panel open, the nav stays hidden and the panel stays where it was, its bottom inside the screen.",
+  "expect_base": "The nav hides again on the first pixel of drift. With the panel open, the nav slides back in and pushes the bar and panel 64px down, so the panel runs past the bottom of the screen.",
+  "files": {
+    "head": "head.webm",
+    "base": "base.webm"
+  },
+  "seen": true,
+  "note": "Frames checked. HEAD keeps the nav after the 4px drift (5.9s) and keeps it hidden with the panel open while scrolling up (8.8s to 10.2s, panel bottom 798 of 844). Base hides the nav on the drift (6.5s) and slides it back in with the panel open, pushing the panel down (9.6s on, panel bottom 862). Light theme. A badge bottom left shows keys pressed and one bottom right names the step. The search cluster and trackers are blocked."
+}

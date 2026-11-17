@@ -1,0 +1,80 @@
+{
+  "id": "L10",
+  "title": "Before JavaScript runs",
+  "page": "/docs/30.2/api/search.html",
+  "viewport": "various, JavaScript off",
+  "crops": [
+    {
+      "id": "phone-tabs",
+      "theme": "light",
+      "title": "Search page first screen on a phone",
+      "viewport": "390x844 phone (isMobile, hasTouch)",
+      "base": "phone-tabs-light-base.png",
+      "head": "phone-tabs-light-head.png",
+      "items": [
+        {
+          "sha": "8c75edf5",
+          "look_for": "Below the intro paragraph HEAD shows the code tab strip and the JavaScript example, where base goes straight to 'Sample Response' with no code at all.",
+          "seen": true
+        },
+        {
+          "sha": "6ea64666",
+          "look_for": "At the right end of the bar under the logo base reads 'Return to top' and HEAD reads 'On this page'.",
+          "seen": true,
+          "note": "Not in the plan for this crop. Added here because phone-home cannot show the label swap."
+        }
+      ],
+      "note": "Whole viewport at scrollY 0, which already holds the first code group. Also in the first paint on HEAD are the v30.2 breadcrumb item (e654bb5b) and the search icon (780722ac)."
+    },
+    {
+      "id": "desktop-shell",
+      "theme": "light",
+      "title": "Search page shell on a laptop",
+      "viewport": "1440x900",
+      "base": "desktop-shell-light-base.png",
+      "head": "desktop-shell-light-head.png",
+      "items": [
+        {
+          "sha": "04f199ee",
+          "look_for": "In the sidebar under API Resources, 'Search' sits on the lime pill on HEAD and nothing marks it on base.",
+          "seen": true
+        },
+        {
+          "sha": "cebd9e1b",
+          "look_for": "No still shows this one. The nav bar's container changes size, but the logo and the right edge of the bar sit in the same place on both builds.",
+          "seen": false,
+          "note": "Doesn't seem to show in any still. Tried 1024 and 1920 as well and nothing painted moves. Covered by its CLS gate."
+        }
+      ],
+      "note": "The nav links sit further left on HEAD because the search button is now in the first paint (780722ac), not because of cebd9e1b. Also visible are the code tabs (8c75edf5), the 480px prose cap and the thinner sidebar links (5de0bfd3)."
+    },
+    {
+      "id": "phone-home",
+      "theme": "light",
+      "title": "Docs home top on a phone",
+      "page": "/docs/",
+      "viewport": "390x844 phone (isMobile, hasTouch)",
+      "base": "phone-home-light-base.png",
+      "head": "phone-home-light-head.png",
+      "items": [
+        {
+          "sha": "103b1f77",
+          "look_for": "Under the top bar HEAD has the 'On this page' bar, and base has no bar, which leaves its content 48px higher.",
+          "seen": true
+        },
+        {
+          "sha": "4d384472",
+          "look_for": "The same bar is what stops the content dropping 48px when the page wakes up, compare where 'Typesense Documentation' starts.",
+          "seen": true
+        },
+        {
+          "sha": "6ea64666",
+          "look_for": "Base has no bar on this page at all, so the 'Return to top' to 'On this page' swap doesn't show here.",
+          "seen": false,
+          "note": "Shown in phone-tabs instead, where base reads Return to top and HEAD reads On this page."
+        }
+      ],
+      "note": "The search icon (780722ac) and the Quick Start line (4fc72719) also differ."
+    }
+  ]
+}
