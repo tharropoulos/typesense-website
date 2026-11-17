@@ -2569,7 +2569,7 @@
       "head_expected": "embedding:([], k: 5, distance_threshold: 0.7, alpha: 0.2). curl prints distance_threshold: 0.7."
     },
     "diff": null,
-    "judgement": "Relevance was settled offline (G13). Don't judge it with live queries. The run covered 1,362 queries at 1.0, 0.8, 0.7 and 0.6, in /Users/fanis/code/typesense/handoff-docs-ui/evidence/g13/report.md. At 0.7 no known-answer query lost its page and 62 ranked it higher. Nonsense queries with any hit fell from 100% to 22%. Off-topic ones only fell to 92.5%, because those are keyword matches the threshold doesn't govern. node analyze.js in that folder re-reads the saved results-*.json offline. The request cache is gone. node run.js would send about 111 live requests.",
+    "judgement": "Relevance was settled offline (G13). Don't judge it with live queries. The run covered 1,362 queries at 1.0, 0.8, 0.7 and 0.6, in evidence/g13/report.md in Fanis's handoff notes. At 0.7 no known-answer query lost its page and 62 ranked it higher. Nonsense queries with any hit fell from 100% to 22%. Off-topic ones only fell to 92.5%, because those are keyword matches the threshold doesn't govern. node analyze.js in that folder re-reads the saved results-*.json offline. The request cache is gone. node run.js would send about 111 live requests.",
     "regression_watch": "The NotFound.vue hunk only deletes a stale comment. The 404's own title search used 0.7 on both builds already. The docs_search dataLayer event and router hit clicks are untouched.",
     "superseded_by": null
   },

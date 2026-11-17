@@ -863,7 +863,7 @@ module.exports = [
     kind: 'config',
     expect: 'flip',
     checks:
-      "Routes **/multi_search** to record the request body and abort it, so nothing reaches the cluster. Opens search at 1440 and types 'zzqxvj', then reads distance_threshold from searches[0].vector_query. Passes at 0.7. Relevance was settled offline on 1,362 queries, see /Users/fanis/code/typesense/handoff-docs-ui/evidence/g13/report.md.",
+      "Routes **/multi_search** to record the request body and abort it, so nothing reaches the cluster. Opens search at 1440 and types 'zzqxvj', then reads distance_threshold from searches[0].vector_query. Passes at 0.7. Relevance was settled offline on 1,362 queries, see the G13 report in Fanis's handoff notes (evidence/g13/report.md).",
     context: { viewport: { width: 1440, height: 900 } },
     run: async ({ page, context, url }) => {
       await isolate(context)

@@ -4,7 +4,7 @@ const path = require('path')
 const { execFileSync } = require('child_process')
 const { createRequire } = require('module')
 
-const REPO = '/Users/fanis/code/typesense/website'
+const REPO = path.resolve(__dirname, '../..')
 // the commits the two previews were built from. Update them when a preview is rebuilt
 const REF = { base: '6e776ca3', head: 'e69af439' }
 // one live 'vector search' response, captured once and replayed so no gate hits the cluster
